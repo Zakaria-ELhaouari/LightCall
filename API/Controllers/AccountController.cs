@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
+    
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
@@ -28,7 +28,7 @@ namespace API.Controllers
             _singnInManager = singnInManager;
             _userManager = userManager;
         }
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
@@ -48,7 +48,7 @@ namespace API.Controllers
 
 
         }
-
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
@@ -93,11 +93,13 @@ namespace API.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("users")]
         public async Task<ActionResult<List<ProfileDto>>> GetUsers() 
         {
             var users = await _userManager.Users.ToListAsync();
+
+           
 
             var userToReturn = _mapper.Map<List<ProfileDto>>(users);
 

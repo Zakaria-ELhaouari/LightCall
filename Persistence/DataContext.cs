@@ -10,6 +10,7 @@ namespace Persistence
         {
         }
 
-     
+        public DbSet<Status> Status { get; set; }
+
     }
 }

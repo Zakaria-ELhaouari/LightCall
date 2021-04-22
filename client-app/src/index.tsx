@@ -1,10 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
-
+import {createBrowserHistory} from 'history';
+export const history = createBrowserHistory();
 ReactDOM.render(
-    <App />
+
+  <Router history={history}>
+      <App />
+  </Router>
+    
   ,
   document.getElementById('root')
 );

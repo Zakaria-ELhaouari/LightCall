@@ -22,7 +22,6 @@ export default class UserStore {
             store.commonStore.setToken(user.token);
             runInAction(() => {
                 this.user = user;
-                store.commonStore.setRoles(user.roles);
             });
             
 
@@ -62,7 +61,6 @@ export default class UserStore {
             const user = await agent.Account.current()
             runInAction(() => {
                 this.user = user;
-                store.commonStore.setRoles(user.roles);
             });
         } catch (error) {
             console.log(error);

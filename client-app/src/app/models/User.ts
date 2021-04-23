@@ -11,12 +11,12 @@ export interface User  {
 
 
 export interface UserFormValues {
-    userName: string;
-	firstName: string;
-	lastName: string;
+    userName?: string;
+	firstName?: string;
+	lastName?: string;
     password: string;
     email: string;
-    skypeId: string;
+    skypeId?: string;
 }
 
 

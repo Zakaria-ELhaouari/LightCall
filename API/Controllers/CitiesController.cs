@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
+using Application.City;
 using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -16,22 +17,19 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CitiesController : ControllerBase
+    public class CitiesController : BaseApiController
     {
-        private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public CitiesController(DataContext context , IMapper mapper)
+        public CitiesController(IMapper mapper )
         {
             _mapper = mapper;
-            _context = context;
         }
 
         [AllowAnonymous]
         [HttpPost("Cities")]
-        public async Task<ActionResult> AddCities(Cities cities)
+        public async Task<IActionResult> AddCities(Cities cities)
         {
-            _context.Cities.Add(cities);
-            await _context.SaveChangesAsync();
+            await Mediator.Send(new Create.Command{Cities = cities});
             return Ok();
         }
 
@@ -39,31 +37,33 @@ namespace API.Controllers
         [HttpGet("AllCities")]
         public async Task<ActionResult<List<Cities>>> GetCities()
         {
-            var AllCities = await _context.Cities.ToListAsync();
+            var AllCities = await Mediator.Send(new List.Query());
             // var AllCitieToReturn = _mapper.Map<List<CitiesDto>>(AllCities);
             return AllCities;
         }
 
         [AllowAnonymous]
-        [HttpPut("EditCities")]
-        public async Task<ActionResult> UpdateCities(Cities cities)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Cities>> FindCity(Guid id)
         {
-            var UpdateInfo = _context.Cities.Update(cities);
-            await _context.SaveChangesAsync();
+            var city = await Mediator.Send(new Details.Query{id = id});
+            return city;
+        }
+
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCities(Guid id ,Cities Cities)
+        {
+            Cities.Id = id;
+            await Mediator.Send(new Edit.Command{cities =Cities});
             return Ok();        
         }
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> UpdateCities(Guid id)
-        {       
-            var City = await _context.Cities.FindAsync(id);
-            if(City == null){
-                return BadRequest();
-            }
-            _context.Cities.Remove(City);
-            await _context.SaveChangesAsync();
-            return Ok(); 
+        public async Task<IActionResult> UpdateCities(Guid id)
+        {   
+            return Ok(await Mediator.Send(new Delete.Command{id = id})); 
         }
     }
 }

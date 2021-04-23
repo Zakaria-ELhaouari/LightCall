@@ -72,10 +72,10 @@ namespace API.Controllers
             _mapper.Map(registerDto, user);
             
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-
+            var userRole = await _userManager.AddToRoleAsync(user, "Member");
             // await _userManager.AddToRoleAsync(user, 'user');
 
-            if (result.Succeeded)
+            if (result.Succeeded && userRole.Succeeded)
             {
                 return await CreateUserObject(user);
             }

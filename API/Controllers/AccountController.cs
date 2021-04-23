@@ -73,7 +73,7 @@ namespace API.Controllers
             
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             var userRole = await _userManager.AddToRoleAsync(user, "Member");
-            // await _userManager.AddToRoleAsync(user, 'user');
+            
 
             if (result.Succeeded && userRole.Succeeded)
             {

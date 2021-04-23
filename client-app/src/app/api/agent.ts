@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { Order } from '../models/Order';
+import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
@@ -51,14 +52,15 @@ const Orders = {
 
 }
 
-// const Account = {
-//     current: () => requests.get<User>('/account'),
-//     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-//     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
-// }
+const Account = {
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+}
 
 const agent = {
-    Orders
+    Orders,
+    Account
 }
 
 export default agent;

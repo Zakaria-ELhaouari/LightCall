@@ -4,7 +4,7 @@ import { makeAutoObservable, reaction } from "mobx";
 export default class CommonStore  {
    token: string | null = window.localStorage.getItem('jwt');
    appLoaded = false;
-   role = false;
+   roles: string[] = [];
 
     constructor(){
         makeAutoObservable(this);
@@ -30,8 +30,8 @@ export default class CommonStore  {
         this.appLoaded = true;
     }
 
-    setRole = () =>  {
-        this.role = true;
+    setRoles = (roles: string[]) =>  {
+        this.roles = roles;
     }
     
 

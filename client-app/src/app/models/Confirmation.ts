@@ -1,5 +1,5 @@
 export interface Confirmation {
-    id: string,
-    description: string,
-    type: string
+    id: string;
+    description: string;
+    type: string;
 }

@@ -2,12 +2,14 @@
 // using Application.Interfaces;
 // using Application.reservations;
 // using Infrastructure.Security;
-// using MediatR;
+using MediatR;
+using Application.City;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Persistence;
+using Application.Core;
 
 namespace API.Extensions
 {
@@ -29,8 +31,8 @@ namespace API.Extensions
                 });
             });
 
-            // services.AddMediatR(typeof(List.Handler).Assembly);
-            // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
             // services.AddScoped<IUserAccessor, UserAccessor>();
             return services;

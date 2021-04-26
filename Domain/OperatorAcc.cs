@@ -3,13 +3,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain
 {
-    public class OperatorAcc 
+    public class OperatorAcc : AppUser
     {
-        public Guid Id { get; set; }
-        
-        
         public bool Status { get; set; }
-        public int OrderStatus { get; set; }
-        public AppUser User { get; set; }
     }
 }

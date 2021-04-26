@@ -107,7 +107,6 @@ namespace API.Controllers
         }
 
 
-
         private async Task<UserDto>  CreateUserObject(AppUser user)
         {
             return new UserDto

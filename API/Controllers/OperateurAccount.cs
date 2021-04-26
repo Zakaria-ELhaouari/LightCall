@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
+using Application.ManagementOperaot;
 using AutoMapper;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +19,13 @@ namespace API.Controllers
     [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
-    public class OperateurAcc : ControllerBase
+    public class OperateurAccount : BaseApiController
     {
         private readonly TokenService _tokenService;
         private readonly UserManager<AppUser> _userManager;
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public OperateurAcc(UserManager<AppUser> userManager, IMapper mapper ,TokenService tokenService, DataContext context)
+        public OperateurAccount(UserManager<AppUser> userManager, IMapper mapper ,TokenService tokenService, DataContext context)
         {
             _tokenService = tokenService;
             _mapper = mapper;
@@ -32,7 +35,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("OperateurAcc")]
-        public async Task<ActionResult<UserDto>> CreatOperator(RegisterDto registerDto)
+        public async Task<ActionResult<ProfileDto>> CreatOperator(RegisterDto registerDto)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
@@ -43,52 +46,55 @@ namespace API.Controllers
                 return BadRequest("Username taken");
             }
 
-            var Operator = new AppUser(){};
-            _mapper.Map(registerDto, Operator);
+            var user = new OperatorAcc(){};
+            _mapper.Map(registerDto, user);
             
-            var result = await _userManager.CreateAsync(Operator, registerDto.Password);
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
             
-            await _userManager.AddToRoleAsync(Operator, "Operator");
+	        await _userManager.AddToRoleAsync(user, "Operator");
 
             if (result.Succeeded)
             {
-                return CreateUserObject(Operator);
+                return await CreateUserObject(user);
             }
 
-            return BadRequest("Problem creat acc Operator");
+            return BadRequest("Problem registering user");
         }
 
         [HttpGet("Operators")]
-        public async Task<ActionResult<List<ProfileDto>>> GeOperator() 
+        public async Task<ActionResult<List<OperatorAcc>>> GeOperator() 
         {
-            var Operators = await _userManager.GetUsersInRoleAsync("Operator");
-            var OperatorsToReturn = _mapper.Map<List<ProfileDto>>(Operators);
-
-            return OperatorsToReturn;
-
+            var AllOperator = await Mediator.Send(new List.Query());
+            return AllOperator;
         }
 
-        
+        [AllowAnonymous]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteOperator(Guid id)
         {
-            var Oper = await _context.Users.FindAsync(id);
-            if(Oper == null || !await _userManager.IsInRoleAsync(Oper , "Operator")){
-                return BadRequest();
-            }
-            _context.Users.Remove(Oper);
-            await _context.SaveChangesAsync();
+            return Ok(await Mediator.Send(new Delete.Command{id = id})); 
+        }
+
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOperator(string id , OperatorAcc Operatoraccount)
+        {
+            Operatoraccount.Id = id;
+            await Mediator.Send(new Edit.Command{OperatorAccount = Operatoraccount});
             return Ok();
         }
 
-        private UserDto CreateUserObject(AppUser user)
+        private async Task<ProfileDto> CreateUserObject(OperatorAcc user)
         {
-            return new UserDto
+            await Task.Delay(5000);
+            return new ProfileDto
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Image = null,
-                Username = user.UserName
+                Email = user.Email,
+                Username = user.UserName,
+                SkypeId = user.SkypeId
             };
         }
     }

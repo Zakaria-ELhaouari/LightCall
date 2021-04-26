@@ -7,6 +7,7 @@ namespace Application.Core
     {
         public MappingProfiles(){
             CreateMap<Cities , Cities>();
+            CreateMap<OperatorAcc , OperatorAcc>();
         }
     }
 }

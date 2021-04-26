@@ -2,13 +2,8 @@
 // using Application.Interfaces;
 // using Application.reservations;
 // using Infrastructure.Security;
-<<<<<<< HEAD
 using MediatR;
 using Application.City;
-=======
-using Application.Status;
-using MediatR;
->>>>>>> origin/status
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

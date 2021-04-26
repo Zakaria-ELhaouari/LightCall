@@ -2,17 +2,27 @@ import { Field, Form, Formik } from 'formik'
 import React, { useState } from 'react'
 import * as Yup from 'yup';
 import MyTextInput from '../../common/form/MyTextInput';
+import { useStore } from '../../stores/Store';
+
 
 const RegisterPage = () => {
 
-  const initialState = {
+  const {userStore} = useStore();
+
+  const initialValues = {
     userName: '',
 	  firstName: '',
 	  lastName: '',
     password: '',
+    passwordConfirmation:'',
     email: '',
-    skypeId: ''
+    skypeId: '',
+    agree: '',
+    error: null
 }
+
+
+const [registerForm] = useState(initialValues)
 
 const registerSchema = Yup.object().shape({
   userName: Yup.string()
@@ -30,11 +40,12 @@ const registerSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().required('Password is required'),
   passwordConfirmation: Yup.string()
-     .oneOf([Yup.ref('password'), null], 'Passwords must match')
+     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  agree: Yup.boolean().required("Ooh shoot You just forgot to check to checkbox")
 
 })
 
-  const [registerForm, setRegisterForm] = useState(initialState)
+
 
     return (
         <section className="section">
@@ -52,10 +63,10 @@ const registerSchema = Yup.object().shape({
                  <Formik 
                     enableReinitialize
                     initialValues={registerForm} 
-                    onSubmit={values => console.log(values)}
+                    onSubmit={(values, {setErrors}) => userStore.register(values).catch(error => setErrors({error}))} 
                     validationSchema={registerSchema}
                      >
-                     {({errors,touched, handleSubmit}) => (
+                     {({errors, touched, handleSubmit, isSubmitting, isValid, dirty}) => (
 
                         <Form onSubmit={handleSubmit}  autoComplete="off">
                             <div className="row">
@@ -63,50 +74,42 @@ const registerSchema = Yup.object().shape({
                                     <MyTextInput placeholder="First Name" name="firstName" label="First Name" />
                                   </div> 
                                   <div className="form-group col-6">
-                                    <label htmlFor="last_name">Last Name</label>
-                                    <Field id="last_name" type="text" className="form-control"  name="lastName"/>
+                                    <MyTextInput placeholder="Last Name" name="lastName" label="First Name" />
                                   </div>
                                 </div>
                                 <div className="row">
                                   <div className="form-group col-6">
-                                    <label htmlFor="UserName">User Name</label>
-                                    <Field id="UserName" type="text" className="form-control" name="userName"   autoFocus />
+                                    <MyTextInput placeholder="User Name" name="userName" label="User Name" />
                                   </div>
                                   <div className="form-group col-6">
-                                    <label htmlFor="SkypeId">Skype Id</label>
-                                    <Field id="SkypeId" type="text" className="form-control" name="skypeId"  />
+                                    <MyTextInput placeholder="Skype id" name="skypeId" label="Skype Id" />
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <label htmlFor="email">Email</label>
-                                  <Field id="email" type="email" className="form-control" name="email"  />
-                                  <div className="invalid-feedback">
-                                  </div>
+                                  <MyTextInput type="email" placeholder="your email" name="email" label="Email" />
                                 </div>
               
                                 <div className="row">
                                   <div className="form-group col-6">
-                                    <label htmlFor="password" className="d-block">Password</label>
-                                    <Field id="password" type="password" className="form-control pwstrength" data-indicator="pwindicator" name="password"  />
+                                    <MyTextInput type="password" className="pwstrength" name="password" label="password" data-indicator="pwindicator" />
                                     <div id="pwindicator" className="pwindicator">
                                       <div className="bar"></div>
                                       <div className="label"></div>
                                     </div>
                                   </div>
                                   <div className="form-group col-6">
-                                    <label htmlFor="password2" className="d-block">Password Confirmation</label>
-                                    <Field id="password2" type="password" className="form-control" name="passwordConfirmation" />
+                                    <MyTextInput type="password" className="pwstrength" name="passwordConfirmation" label="Password Confirmation"/>
                                   </div>
                                 </div>
                                 <div className="form-group">
                                   <div className="custom-control custom-checkbox">
-                                    <Field type="checkbox" name="agree" className="custom-control-input" id="agree"/>
+                                    <Field type="checkbox" name="agree" className={`custom-control-input ${errors.agree && touched.agree && "is-invalid" }`}  id="agree"/>
                                     <label className="custom-control-label" htmlFor="agree">I agree with the terms and conditions</label>
+                                    {errors.agree && touched.agree && (<div className="invalid-feedback">{errors.agree}</div>)}
                                   </div>
                                 </div>
-              
                                 <div className="form-group">
-                                  <button type="submit" className="btn btn-primary btn-lg btn-block">
+                                  <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
                                     Register
                                   </button>
                                 </div>

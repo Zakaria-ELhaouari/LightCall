@@ -2,8 +2,13 @@
 // using Application.Interfaces;
 // using Application.reservations;
 // using Infrastructure.Security;
+<<<<<<< HEAD
 using MediatR;
 using Application.City;
+=======
+using Application.Status;
+using MediatR;
+>>>>>>> origin/status
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +37,8 @@ namespace API.Extensions
             });
 
             services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddAutoMapper(typeof(mappingProfiles).Assembly);
+            // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
             // services.AddScoped<IUserAccessor, UserAccessor>();
             return services;

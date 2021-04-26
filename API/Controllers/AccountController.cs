@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 namespace API.Controllers
 {
@@ -98,9 +100,6 @@ namespace API.Controllers
         public async Task<ActionResult<List<ProfileDto>>> GetUsers() 
         {
             var users = await _userManager.Users.ToListAsync();
-
-           
-
             var userToReturn = _mapper.Map<List<ProfileDto>>(users);
 
             return userToReturn;
@@ -122,5 +121,6 @@ namespace API.Controllers
             };
         }
 
+        
     }
 }

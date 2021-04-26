@@ -2,7 +2,8 @@
 // using Application.Interfaces;
 // using Application.reservations;
 // using Infrastructure.Security;
-// using MediatR;
+using Application.Status;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,7 @@ namespace API.Extensions
                 });
             });
 
-            // services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
             // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
             // services.AddScoped<IUserAccessor, UserAccessor>();

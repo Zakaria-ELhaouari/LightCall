@@ -10,16 +10,16 @@ namespace Application.Status
 {
     public class List
     {
-        public class Query : IRequest<List<Domain.Status>> { }
+        public class Query : IRequest<List<StatusModel>> { }
 
-        public class Handler : IRequestHandler<Query, List<Domain.Status>>
+        public class Handler : IRequestHandler<Query, List<StatusModel>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
             {
                 _context = context;
             }
-            public async Task<List<Domain.Status>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<StatusModel>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var Status = await _context.Status.ToListAsync();
                 return Status;

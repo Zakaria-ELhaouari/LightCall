@@ -10,7 +10,7 @@ namespace Application.Status
     {
         public class Command : IRequest
         {
-            public int id { get; set; }
+            public Guid id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -23,8 +23,8 @@ namespace Application.Status
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var city = await _context.Status.FindAsync(request.id);
-                _context.Status.Remove(city);
+                var satusToDel = await _context.Status.FindAsync(request.id);
+                _context.Status.Remove(satusToDel);
                 await _context.SaveChangesAsync();
                 return Unit.Value;
             }

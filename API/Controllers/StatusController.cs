@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Status;
@@ -23,7 +24,7 @@ namespace API.Controllers
 
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Status>>> GetStatus()
+        public async Task<ActionResult<IEnumerable<StatusModel>>> GetStatus()
         {
 
             
@@ -34,7 +35,7 @@ namespace API.Controllers
 
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Status>> GetStatus(int id)
+        public async Task<ActionResult<StatusModel>> GetStatus(Guid id)
         {
             var status = await Mediator.Send(new Details.Query { id = id });
             return status;
@@ -43,7 +44,7 @@ namespace API.Controllers
         
     
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStatus(int id, Status status)
+        public async Task<IActionResult> PutStatus(Guid id, StatusModel status)
         {
             status.Id = id;
             await Mediator.Send(new Edit.Command { Status = status });
@@ -53,7 +54,7 @@ namespace API.Controllers
         
  
         [HttpPost]
-        public async Task<ActionResult<Status>> PostStatus(Status status)
+        public async Task<ActionResult<StatusModel>> PostStatus(StatusModel status)
         {
             await Mediator.Send(new Create.Command { Status = status });
             return Ok();
@@ -61,7 +62,7 @@ namespace API.Controllers
 
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Status>> DeleteStatus(int id)
+        public async Task<ActionResult<StatusModel>> DeleteStatus(Guid id)
         {
 
             await Mediator.Send(new Delete.Command { id = id });

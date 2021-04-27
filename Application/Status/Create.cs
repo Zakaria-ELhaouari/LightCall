@@ -11,7 +11,7 @@ namespace Application.Status
     {
         public class Command : IRequest
         {
-            public Domain.Status Status { get; set; }
+            public StatusModel Status { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>

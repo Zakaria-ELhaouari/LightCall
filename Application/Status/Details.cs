@@ -9,20 +9,20 @@ namespace Application.Status
 {
     public class Details
     {
-        public class Query : IRequest<Domain.Status>
+        public class Query : IRequest<StatusModel>
         {
-            public int id { get; set; }
+            public Guid id { get; set; }
 
         }
 
-        public class Handler : IRequestHandler<Query, Domain.Status>
+        public class Handler : IRequestHandler<Query, StatusModel>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
             {
                 _context = context;
             }
-            public async Task<Domain.Status> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<StatusModel> Handle(Query request, CancellationToken cancellationToken)
             {
                 var status = await _context.Status.FindAsync(request.id);
 

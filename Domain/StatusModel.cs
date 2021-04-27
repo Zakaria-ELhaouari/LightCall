@@ -1,19 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Status
+    public class StatusModel
     {
-
-        public int Id { get; set; }
+        [ForeignKey("Order")]
+        public Guid Id { get; set; }
         public string StatusType { get; set; }
         public int StatusPiority { get; set; }
         public bool ClosingStatus { get; set; }
-
+        public virtual Order Order { get; set; }
 
     }
 }

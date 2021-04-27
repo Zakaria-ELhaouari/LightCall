@@ -63,7 +63,7 @@ namespace API.Controllers
 
                         }
 
-                        await _context.Order.AddRangeAsync(orderList);
+                        await _context.Orders.AddRangeAsync(orderList);
                         await _context.SaveChangesAsync();
                     }
                 }

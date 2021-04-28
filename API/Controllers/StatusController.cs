@@ -47,7 +47,7 @@ namespace API.Controllers
         public async Task<IActionResult> PutStatus(Guid id, StatusModel status)
         {
             status.Id = id;
-            await Mediator.Send(new Edit.Command { Status = status });
+            await Mediator.Send(new Edit.Command { Status = status  });
             return Ok();
         }
 

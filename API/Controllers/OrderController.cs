@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using Persistence;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Controllers
 {
@@ -21,16 +22,18 @@ namespace API.Controllers
     public class OrderController : Controller
     {
         private readonly DataContext _context;
+        private UserManager<AppUser> _userManager;
 
-        public OrderController(DataContext context)
+        public OrderController(DataContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
 
-       
 
         [HttpPost]
+        [Route("Import")]
         public async Task<JsonResult> ImportFile(IFormFile importFile)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
@@ -84,7 +87,79 @@ namespace API.Controllers
         }
 
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutOrder(Guid id, Order order)
+        {
+            order.Id = id;
 
+            _context.Entry(order).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> PostOrder( Order order)
+        {
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("inAsinOrder")]
+
+        public async Task<Order> InAsinOrder(Guid id)
+        {
+
+            string userid = _userManager.GetUserId(User);
+
+            var Operator = await _context.OperatoreAccount.FindAsync(userid);
+
+            if (!Operator.Status)
+            {
+                var order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+
+                order.Operators.Remove(Operator);
+
+                await _context.SaveChangesAsync();
+
+                return order;
+
+            }
+            return null;
+
+        }
+
+
+        [HttpPost]
+        [Route("AsinOrder")]
+        public async Task<Order> AsinOrder()
+        {
+
+            string id = _userManager.GetUserId(User);
+
+            var Operator = await _context.OperatoreAccount.FindAsync(id);
+
+            if (Operator.Status)
+            {
+                var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
+
+                order.Operators.Add(Operator);
+
+                await _context.SaveChangesAsync();
+
+                return order;
+
+            }
+            return null;
+
+        }
 
 
     }

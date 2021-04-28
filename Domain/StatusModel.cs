@@ -9,12 +9,12 @@ namespace Domain
 {
     public class StatusModel
     {
-        [ForeignKey("Order")]
+        
         public Guid Id { get; set; }
         public string StatusType { get; set; }
         public int StatusPiority { get; set; }
         public bool ClosingStatus { get; set; }
-        public virtual Order Order { get; set; }
+        
 
     }
 }

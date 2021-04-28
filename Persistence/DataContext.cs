@@ -12,5 +12,9 @@ namespace Persistence
         public  DbSet<OperatorAcc> OperatoreAccount { get; set; }
         public  DbSet<Cities> Cities { get; set; }
         public  DbSet<Shipping_Company> Shipping_Company { get; set; }
+        public  DbSet<Products> Product { get; set; }
+        public  DbSet<Orders> Order { get; set; }
+        public  DbSet<Projects> Project { get; set; }
+        public  DbSet<Upsell> Upsell { get; set; }
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210427114439_AddUpselAndProduct")]
+    partial class AddUpselAndProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +129,7 @@ namespace Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Domain.Orders", b =>
+            modelBuilder.Entity("Domain.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +162,7 @@ namespace Persistence.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("Domain.Products", b =>
+            modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,21 +183,16 @@ namespace Persistence.Migrations
                     b.Property<Guid?>("UpsellId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
                     b.HasIndex("UpsellId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("Domain.Projects", b =>
+            modelBuilder.Entity("Domain.Project", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,18 +237,10 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.HasIndex("ProjectId");
 
@@ -390,13 +379,13 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
-                    b.Property<Guid?>("OrdersId")
+                    b.Property<Guid?>("OrderId")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.HasIndex("OrdersId");
+                    b.HasIndex("OrderId");
 
                     b.HasDiscriminator().HasValue("OperatorAcc");
                 });
@@ -416,13 +405,13 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Orders", b =>
+            modelBuilder.Entity("Domain.Order", b =>
                 {
-                    b.HasOne("Domain.Products", "Product")
+                    b.HasOne("Domain.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("Domain.Projects", "Project")
+                    b.HasOne("Domain.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
 
@@ -431,9 +420,9 @@ namespace Persistence.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Domain.Products", b =>
+            modelBuilder.Entity("Domain.Product", b =>
                 {
-                    b.HasOne("Domain.Projects", "Project")
+                    b.HasOne("Domain.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
 
@@ -441,16 +430,10 @@ namespace Persistence.Migrations
                         .WithMany("Products")
                         .HasForeignKey("UpsellId");
 
-                    b.HasOne("Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Project");
-
-                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Projects", b =>
+            modelBuilder.Entity("Domain.Project", b =>
                 {
                     b.HasOne("Domain.AppUser", "AppUser")
                         .WithMany()
@@ -461,15 +444,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Upsell", b =>
                 {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("Domain.Projects", "Project")
+                    b.HasOne("Domain.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("Project");
                 });
@@ -527,12 +504,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.OperatorAcc", b =>
                 {
-                    b.HasOne("Domain.Orders", null)
+                    b.HasOne("Domain.Order", null)
                         .WithMany("Operators")
-                        .HasForeignKey("OrdersId");
+                        .HasForeignKey("OrderId");
                 });
 
-            modelBuilder.Entity("Domain.Orders", b =>
+            modelBuilder.Entity("Domain.Order", b =>
                 {
                     b.Navigation("Operators");
                 });

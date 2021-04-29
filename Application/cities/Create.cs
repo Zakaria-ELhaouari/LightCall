@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Core;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -10,7 +11,7 @@ namespace Application.cities
 {
     public class Create
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public CityDto City { get; set; }
         }
@@ -22,7 +23,7 @@ namespace Application.cities
             }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
 
@@ -30,7 +31,7 @@ namespace Application.cities
             {
                 _context = context;
             }
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 List<Shipping_Company> Shipping_Companies = new List<Shipping_Company>();
 
@@ -46,8 +47,10 @@ namespace Application.cities
                 };
 
                 await _context.Cities.AddAsync(city);
-                await _context.SaveChangesAsync();
-                return Unit.Value;
+                
+                var Result = await _context.SaveChangesAsync() > 0;
+                if(!Result) return Result<Unit>.Failure("Failed to create city");
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

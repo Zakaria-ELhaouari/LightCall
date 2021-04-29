@@ -29,7 +29,8 @@ namespace API.Controllers
         public async Task<IActionResult> AddCities(CityDto City)
         {
             
-            return Ok(await Mediator.Send(new Create.Command{City = City}));
+            return HandleResult(await Mediator.Send(new Create.Command{City = City}));
+   
         }
 
         [AllowAnonymous]

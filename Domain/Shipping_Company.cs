@@ -8,6 +8,6 @@ namespace Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ApiClient { get; set; }
-        public virtual IList<Cities> Cities { get; set; }
+        public virtual IList<City> Cities { get; set; }
     }
 }

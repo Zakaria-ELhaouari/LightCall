@@ -3,13 +3,13 @@
 // using Application.reservations;
 // using Infrastructure.Security;
 using MediatR;
-using Application.City;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Application.Core;
+using Application.cities;
 
 namespace API.Extensions
 {

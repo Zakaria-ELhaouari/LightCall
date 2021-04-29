@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
@@ -23,8 +24,8 @@ namespace Application.UpSell
             public async Task<List<Upsell>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var AllUpSell = await _context.Upsell
-                                .Include(x => x.AppUser)
-                                .Where(Up => Up.AppUser.Id )
+                                .Include(x => x.AppUser).ToListAsync();
+                                
                 return AllUpSell;
             }
         }

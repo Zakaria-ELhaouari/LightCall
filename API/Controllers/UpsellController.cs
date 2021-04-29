@@ -49,6 +49,8 @@ namespace API.Controllers
                             .Where(ups => ups.AppUser.Id == user.Id)
                             .ToListAsync();
 
+            return allUpSell;
+
 
         }
     }

@@ -37,7 +37,9 @@ namespace API
 
             services.AddControllers(opt => {
                
-            });
+            }).AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);

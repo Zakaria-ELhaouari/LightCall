@@ -14,6 +14,7 @@ using OfficeOpenXml;
 using Persistence;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Application.Interfaces;
 
 namespace API.Controllers
 {
@@ -23,11 +24,13 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private UserManager<AppUser> _userManager;
+        private readonly IUserAccessor _userAccessor;
 
-        public OrderController(DataContext context, UserManager<AppUser> userManager)
+        public OrderController(DataContext context, UserManager<AppUser> userManager , IUserAccessor userAccessor)
         {
             _context = context;
             _userManager = userManager;
+            _userAccessor = userAccessor;
         }
 
 
@@ -104,6 +107,7 @@ namespace API.Controllers
         public async Task<IActionResult> PostOrder( Order order)
         {
 
+
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
 
@@ -111,19 +115,19 @@ namespace API.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [Route("inAsinOrder")]
 
         public async Task<Order> InAsinOrder(Guid id)
         {
 
-            string userid = _userManager.GetUserId(User);
+            var userid = _userAccessor.GetUserId();
 
             var Operator = await _context.OperatoreAccount.FindAsync(userid);
 
-            if (!Operator.Status)
+            if (Operator.Status)
             {
-                var order = await _context.Orders.Where(o => o.Id == id).FirstOrDefaultAsync();
+                var order = await _context.Orders.Where(o => o.Id == id).Include(o => o.Operators).FirstOrDefaultAsync();
 
                 order.Operators.Remove(Operator);
 
@@ -137,24 +141,25 @@ namespace API.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [Route("AsinOrder")]
         public async Task<Order> AsinOrder()
         {
 
-            string id = _userManager.GetUserId(User);
 
+            var id = _userAccessor.GetUserId();
             var Operator = await _context.OperatoreAccount.FindAsync(id);
-
+            
             if (Operator.Status)
             {
                 var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
-
+                 
+                order.Operators ??= new List<OperatorAcc>();
                 order.Operators.Add(Operator);
 
                 await _context.SaveChangesAsync();
 
-                return order;
+                return order  ;
 
             }
             return null;

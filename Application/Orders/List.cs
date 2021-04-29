@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MediatR;
 using Domain;
 using System.Threading.Tasks;
@@ -6,23 +6,23 @@ using System.Threading;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.City
+namespace Application.Orders
 {
     public class List
     {
-        public class Query : IRequest<List<Cities>>{}
+        public class Query : IRequest<List<Order>> { }
 
-        public class Handler : IRequestHandler<Query, List<Cities>>
+        public class Handler : IRequestHandler<Query, List<Order>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
             {
                 _context = context;
             }
-            public async Task<List<Cities>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Order>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var AllCities = await _context.Cities.ToListAsync();
-                return AllCities;
+                var orders = await _context.Orders.ToListAsync();
+                return orders;
             }
         }
     }

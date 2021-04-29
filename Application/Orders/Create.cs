@@ -1,16 +1,17 @@
+﻿
 using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.City
+namespace Application.Orders
 {
     public class Create
     {
         public class Command : IRequest
         {
-            public Cities Cities { get; set; }
+            public Order Order { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -23,7 +24,7 @@ namespace Application.City
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                await _context.Cities.AddAsync(request.Cities);
+                await _context.Orders.AddAsync(request.Order);
                 await _context.SaveChangesAsync();
                 return Unit.Value;
             }

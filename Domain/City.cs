@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace Domain
 {
-    public class Cities
+    public class City
     {
         public Guid Id { get; set; }
-        public string City { get; set; }
+        public string CityName { get; set; }
         public string ZipCode { get; set; } 
-        public virtual IList<Shipping_Company> Shipping_Company { get; set; }
+        
+        public virtual IList<Shipping_Company> Shipping_Companies { get; set; }
     }
 }

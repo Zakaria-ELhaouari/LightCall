@@ -2,33 +2,35 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210428144950_CitiesEdit")]
+    partial class CitiesEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.5");
 
-            modelBuilder.Entity("CitiesShipping_Company", b =>
+            modelBuilder.Entity("CityShipping_Company", b =>
                 {
                     b.Property<Guid>("CitiesId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("Shipping_CompanyId")
+                    b.Property<Guid>("Shipping_CompaniesId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CitiesId", "Shipping_CompanyId");
+                    b.HasKey("CitiesId", "Shipping_CompaniesId");
 
-                    b.HasIndex("Shipping_CompanyId");
+                    b.HasIndex("Shipping_CompaniesId");
 
-                    b.ToTable("CitiesShipping_Company");
+                    b.ToTable("CityShipping_Company");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
@@ -110,13 +112,13 @@ namespace Persistence.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
                 });
 
-            modelBuilder.Entity("Domain.Cities", b =>
+            modelBuilder.Entity("Domain.City", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("City")
+                    b.Property<string>("CityName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ZipCode")
@@ -165,61 +167,19 @@ namespace Persistence.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<string>("Product")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("StatusId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ConfirmationId");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Domain.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("UpsellId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UpsellId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Domain.Project", b =>
@@ -228,18 +188,13 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Project_Type")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Question_description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Type")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
@@ -258,13 +213,12 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shipping_Companys");
+                    b.ToTable("Shipping_Companies");
                 });
 
             modelBuilder.Entity("Domain.StatusModel", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("ClosingStatus")
@@ -279,30 +233,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
-                });
-
-            modelBuilder.Entity("Domain.Upsell", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Upsell");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -433,21 +363,6 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("OperatorAccOrder", b =>
-                {
-                    b.Property<string>("OperatorsId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("OrdersId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("OperatorsId", "OrdersId");
-
-                    b.HasIndex("OrdersId");
-
-                    b.ToTable("OperatorAccOrder");
-                });
-
             modelBuilder.Entity("Domain.OperatorAcc", b =>
                 {
                     b.HasBaseType("Domain.AppUser");
@@ -458,9 +373,9 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("OperatorAcc");
                 });
 
-            modelBuilder.Entity("CitiesShipping_Company", b =>
+            modelBuilder.Entity("CityShipping_Company", b =>
                 {
-                    b.HasOne("Domain.Cities", null)
+                    b.HasOne("Domain.City", null)
                         .WithMany()
                         .HasForeignKey("CitiesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -468,7 +383,7 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Shipping_Company", null)
                         .WithMany()
-                        .HasForeignKey("Shipping_CompanyId")
+                        .HasForeignKey("Shipping_CompaniesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -479,68 +394,24 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ConfirmationId");
 
-                    b.HasOne("Domain.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
                     b.HasOne("Domain.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId");
-
-                    b.HasOne("Domain.StatusModel", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
 
                     b.Navigation("Confirmation");
 
-                    b.Navigation("Product");
-
                     b.Navigation("Project");
-
-                    b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Domain.Product", b =>
+            modelBuilder.Entity("Domain.StatusModel", b =>
                 {
-                    b.HasOne("Domain.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId");
+                    b.HasOne("Domain.Order", "Order")
+                        .WithOne("Status")
+                        .HasForeignKey("Domain.StatusModel", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Domain.Upsell", null)
-                        .WithMany("Products")
-                        .HasForeignKey("UpsellId");
-
-                    b.HasOne("Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Project", b =>
-                {
-                    b.HasOne("Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Upsell", b =>
-                {
-                    b.HasOne("Domain.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("User");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -594,24 +465,9 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OperatorAccOrder", b =>
+            modelBuilder.Entity("Domain.Order", b =>
                 {
-                    b.HasOne("Domain.OperatorAcc", null)
-                        .WithMany()
-                        .HasForeignKey("OperatorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Upsell", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("Status");
                 });
 #pragma warning restore 612, 618
         }

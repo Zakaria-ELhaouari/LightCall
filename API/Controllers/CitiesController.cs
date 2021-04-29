@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using API.DTOs;
 using API.Services;
-using Application.City;
+using Application.cities;
 using AutoMapper;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -26,16 +25,17 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Cities")]
-        public async Task<IActionResult> AddCities(Cities cities)
+        [HttpPost]
+        public async Task<IActionResult> AddCities(CityDto City)
         {
-            await Mediator.Send(new Create.Command{Cities = cities});
-            return Ok();
+            
+            return HandleResult(await Mediator.Send(new Create.Command{City = City}));
+   
         }
 
         [AllowAnonymous]
-        [HttpGet("AllCities")]
-        public async Task<ActionResult<List<Cities>>> GetCities()
+        [HttpGet]
+        public async Task<ActionResult<List<City>>> GetCities()
         {
             var AllCities = await Mediator.Send(new List.Query());
             // var AllCitieToReturn = _mapper.Map<List<CitiesDto>>(AllCities);
@@ -44,7 +44,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cities>> FindCity(Guid id)
+        public async Task<ActionResult<City>> FindCity(Guid id)
         {
             var city = await Mediator.Send(new Details.Query{id = id});
             return city;
@@ -52,10 +52,10 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCities(Guid id ,Cities Cities)
+        public async Task<IActionResult> UpdateCity(Guid id ,CityDto City)
         {
-            Cities.Id = id;
-            await Mediator.Send(new Edit.Command{cities =Cities});
+            City.Id = id;
+            await Mediator.Send(new Edit.Command{City = City});
             return Ok();        
         }
 

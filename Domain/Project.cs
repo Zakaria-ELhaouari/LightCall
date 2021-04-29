@@ -2,7 +2,7 @@ using System;
 
 namespace Domain
 {
-    public class Projects
+    public class Project
     {
         public Guid Id { get; set; }
         public string Project_Type { get; set; }

@@ -60,7 +60,7 @@ namespace API.Controllers
                                 Description = excelWorksheet.Cells[row, 2].Value.ToString().Trim(),
                                 Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
-                                Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
+                                // Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
 
                             }); ;
 

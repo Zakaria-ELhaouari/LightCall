@@ -7,8 +7,8 @@ namespace Domain
     {
         public Guid Id { get; set; }
         public bool Status { get; set; }
-        public Projects Project { get; set; }
-        public ICollection<Products> Products { get; set; }
+        public Project Project { get; set; }
+        public ICollection<Product> Products { get; set; }
         public AppUser User { get; set; }
     }
 }

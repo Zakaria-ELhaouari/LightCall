@@ -15,21 +15,23 @@ using Persistence;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Application.Interfaces;
+using Application.Orders;
+using MediatR;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : Controller
+    public class OrderController : BaseApiController
     {
         private readonly DataContext _context;
-        private UserManager<AppUser> _userManager;
+        
         private readonly IUserAccessor _userAccessor;
 
-        public OrderController(DataContext context, UserManager<AppUser> userManager , IUserAccessor userAccessor)
+        public OrderController(DataContext context, IUserAccessor userAccessor)
         {
             _context = context;
-            _userManager = userManager;
+            
             _userAccessor = userAccessor;
         }
 
@@ -85,8 +87,6 @@ namespace API.Controllers
                 return Json(new { Status = 0, Message = ex.Message });
             }
 
-
-          
         }
 
 
@@ -94,11 +94,8 @@ namespace API.Controllers
         public async Task<IActionResult> PutOrder(Guid id, Order order)
         {
             order.Id = id;
-
             _context.Entry(order).State = EntityState.Modified;
-
             await _context.SaveChangesAsync();
-
             return Ok();
         }
 
@@ -107,11 +104,9 @@ namespace API.Controllers
         public async Task<IActionResult> PostOrder( Order order)
         {
 
-
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-
+            await Mediator.Send(new Create.Command { Order = order });
             return Ok();
+
         }
 
 
@@ -149,17 +144,13 @@ namespace API.Controllers
 
             var id = _userAccessor.GetUserId();
             var Operator = await _context.OperatoreAccount.FindAsync(id);
-            
             if (Operator.Status)
             {
                 var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
-                 
                 order.Operators ??= new List<OperatorAcc>();
                 order.Operators.Add(Operator);
-
                 await _context.SaveChangesAsync();
-
-                return order  ;
+                return order;
 
             }
             return null;

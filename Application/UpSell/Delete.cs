@@ -1,38 +1,42 @@
-using MediatR;
-using Domain;
-using System.Threading.Tasks;
+using System;
 using System.Threading;
-using Persistence;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
+using System.Threading.Tasks;
 using Application.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 namespace Application.UpSell
 {
-    public class Create 
+    public class Delete
     {
         public class Command : IRequest
         {
-            public Upsell Upsell { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context , IUserAccessor userAccessor)
+
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
-                _context = context;
                 _userAccessor = userAccessor;
+                _context = context;
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
-            {   
+            {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                request.Upsell.User = user;
-                await _context.Upsell.AddAsync(request.Upsell);
-                await _context.SaveChangesAsync();
-                return Unit.Value;
+                var upSell = await _context.Upsell.FindAsync(request.Id);
+                if(upSell != null && upSell.User == user ){
+                    _context.Upsell.Remove(upSell);
+                    await _context.SaveChangesAsync();
+                    return Unit.Value;
+                }
+                else{
+                    return Unit.Value;
+                }
             }
         }
     }

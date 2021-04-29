@@ -61,7 +61,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> UpdateCities(Guid id)
+        public async Task<IActionResult> DeleteCities(Guid id)
         {   
             return Ok(await Mediator.Send(new Delete.Command{id = id})); 
         }

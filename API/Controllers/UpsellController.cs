@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -22,20 +23,11 @@ namespace API.Controllers
             _context = context;
             _userManager = userManager;
         }
-        // public async Task<IActionResult> AssignUpsell()
-        // {
-        //     var GetUser = await _userManager.GetUserAsync(User);
-
-        //     var AllProduct = await _context.Product
-            
-        // }
 
         [AllowAnonymous]
         [HttpPost("Upsell")]
         public async Task<IActionResult> AddUpsell(Upsell upsell)
         {
-            var CurrentUser = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-            upsell.AppUser.Id = CurrentUser.Id;
             await Mediator.Send(new Create.Command{Upsell = upsell});
             return Ok();
         }
@@ -44,12 +36,31 @@ namespace API.Controllers
         [HttpGet("Upsell")]
         public async Task<List<Upsell>> GetUpsell()
         {
-            var user = await _userManager.GetUserAsync(User);
-            var allUpSell = await _context.Upsell
-                            .Where(ups => ups.AppUser.Id == user.Id)
-                            .ToListAsync();
+            return await Mediator.Send(new List.Query());
+        }
 
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Upsell>> FindUpsell(Guid id)
+        {
+            var Upsell = await Mediator.Send(new Details.Query{id = id});
+            return Upsell;
+        }
 
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCities(Guid id ,Upsell UpSell)
+        {
+            UpSell.Id = id;
+            await Mediator.Send(new Edit.Command{Upsell = UpSell});
+            return Ok();        
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUpsell(Guid id)
+        {   
+            return Ok(await Mediator.Send(new Delete.Command{Id = id})); 
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Domain
         public bool Status { get; set; }
         public Projects Project { get; set; }
         public ICollection<Products> Products { get; set; }
-        public AppUser AppUser { get; set; }
+        public AppUser User { get; set; }
     }
 }

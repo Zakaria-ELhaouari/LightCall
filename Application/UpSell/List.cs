@@ -7,7 +7,6 @@ using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using System.Linq;
 
 namespace Application.UpSell
 {

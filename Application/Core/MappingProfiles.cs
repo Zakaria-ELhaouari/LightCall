@@ -9,6 +9,7 @@ namespace Application.Core
             CreateMap<Cities , Cities>();
             CreateMap<StatusModel , StatusModel>();
             CreateMap<OperatorAcc , OperatorAcc>();
+            CreateMap<Upsell , Upsell>();
         }
     }
 }

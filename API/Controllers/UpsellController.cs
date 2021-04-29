@@ -13,18 +13,9 @@ using Persistence;
 
 namespace API.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class UpsellController : BaseApiController
     {
-        private readonly DataContext _context;
-        private readonly UserManager<AppUser> _userManager;
-
-        public UpsellController(DataContext context , UserManager<AppUser> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
-
-        [AllowAnonymous]
         [HttpPost("Upsell")]
         public async Task<IActionResult> AddUpsell(Upsell upsell)
         {
@@ -32,14 +23,12 @@ namespace API.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
         [HttpGet("Upsell")]
         public async Task<List<Upsell>> GetUpsell()
         {
             return await Mediator.Send(new List.Query());
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Upsell>> FindUpsell(Guid id)
         {
@@ -47,7 +36,6 @@ namespace API.Controllers
             return Upsell;
         }
 
-        [AllowAnonymous]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCities(Guid id ,Upsell UpSell)
         {
@@ -56,7 +44,6 @@ namespace API.Controllers
             return Ok();        
         }
 
-        [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUpsell(Guid id)
         {   

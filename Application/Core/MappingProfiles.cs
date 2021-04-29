@@ -10,6 +10,7 @@ namespace Application.Core
             CreateMap<StatusModel , StatusModel>();
             CreateMap<OperatorAcc , OperatorAcc>();
             CreateMap<Upsell , Upsell>();
+            CreateMap<Project , Project>();
         }
     }
 }

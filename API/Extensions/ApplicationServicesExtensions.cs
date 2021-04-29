@@ -1,7 +1,3 @@
-// using Application.Core;
-// using Application.Interfaces;
-// using Application.reservations;
-// using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using Persistence;
 using Application.Core;
 using Application.cities;
+using Application.Interfaces;
+using Infrastructure.Security;
 
 namespace API.Extensions
 {
@@ -35,7 +33,7 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(mappingProfiles).Assembly);
             // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
-            // services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             return services;
         }
     }

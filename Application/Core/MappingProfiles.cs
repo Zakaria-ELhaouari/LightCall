@@ -11,6 +11,7 @@ namespace Application.Core
             CreateMap<CityDto , City>();
             CreateMap<StatusModel , StatusModel>();
             CreateMap<OperatorAcc , OperatorAcc>();
+            CreateMap<Upsell , Upsell>();
         }
     }
 }

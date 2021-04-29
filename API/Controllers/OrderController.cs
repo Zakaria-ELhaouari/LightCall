@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using Persistence;
 using Domain;
+using Microsoft.AspNetCore.Identity;
+using Application.Interfaces;
 
 namespace API.Controllers
 {
@@ -21,16 +23,20 @@ namespace API.Controllers
     public class OrderController : Controller
     {
         private readonly DataContext _context;
+        private UserManager<AppUser> _userManager;
+        private readonly IUserAccessor _userAccessor;
 
-        public OrderController(DataContext context)
+        public OrderController(DataContext context, UserManager<AppUser> userManager , IUserAccessor userAccessor)
         {
             _context = context;
+            _userManager = userManager;
+            _userAccessor = userAccessor;
         }
 
 
-       
 
         [HttpPost]
+        [Route("Import")]
         public async Task<JsonResult> ImportFile(IFormFile importFile)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
@@ -57,7 +63,7 @@ namespace API.Controllers
                                 Description = excelWorksheet.Cells[row, 2].Value.ToString().Trim(),
                                 Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
-                                Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
+                                // Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
 
                             }); ;
 
@@ -84,7 +90,81 @@ namespace API.Controllers
         }
 
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutOrder(Guid id, Order order)
+        {
+            order.Id = id;
 
+            _context.Entry(order).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> PostOrder( Order order)
+        {
+
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPut]
+        [Route("inAsinOrder")]
+
+        public async Task<Order> InAsinOrder(Guid id)
+        {
+
+            var userid = _userAccessor.GetUserId();
+
+            var Operator = await _context.OperatoreAccount.FindAsync(userid);
+
+            if (Operator.Status)
+            {
+                var order = await _context.Orders.Where(o => o.Id == id).Include(o => o.Operators).FirstOrDefaultAsync();
+
+                order.Operators.Remove(Operator);
+
+                await _context.SaveChangesAsync();
+
+                return order;
+
+            }
+            return null;
+
+        }
+
+
+        [HttpPut]
+        [Route("AsinOrder")]
+        public async Task<Order> AsinOrder()
+        {
+
+
+            var id = _userAccessor.GetUserId();
+            var Operator = await _context.OperatoreAccount.FindAsync(id);
+            
+            if (Operator.Status)
+            {
+                var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
+                 
+                order.Operators ??= new List<OperatorAcc>();
+                order.Operators.Add(Operator);
+
+                await _context.SaveChangesAsync();
+
+                return order  ;
+
+            }
+            return null;
+
+        }
 
 
     }

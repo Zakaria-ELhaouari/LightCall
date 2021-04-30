@@ -12,9 +12,8 @@ using Persistence;
 
 namespace Application.Orders
 {
-    class InAssign
+    public class InAssign
     {
-
 
         public class Command : IRequest<Result<Unit>>
         {

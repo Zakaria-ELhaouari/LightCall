@@ -133,47 +133,21 @@ namespace API.Controllers
         [HttpPut]
         [Route("inAsinOrder")]
 
-        public async Task<Order> InAsinOrder(Guid id)
+        public async Task<IActionResult> InAsinOrder(Guid id)
         {
 
-            var userid = _userAccessor.GetUserId();
-
-            var Operator = await _context.OperatoreAccount.FindAsync(userid);
-
-            if (Operator.Status)
-            {
-                var order = await _context.Orders.Where(o => o.Id == id).Include(o => o.Operators).FirstOrDefaultAsync();
-
-                order.Operators.Remove(Operator);
-
-                await _context.SaveChangesAsync();
-
-                return order;
-
-            }
-            return null;
+            return HandleResult(await Mediator.Send(new InAssign.Command { id = id }));
 
         }
 
 
         [HttpPut]
         [Route("AsinOrder")]
-        public async Task<Order> AsinOrder()
+        public async Task<IActionResult> AsinOrder()
         {
 
+            return HandleResult(await Mediator.Send(new Assign.Query()));
 
-            var id = _userAccessor.GetUserId();
-            var Operator = await _context.OperatoreAccount.FindAsync(id);
-            if (Operator.Status)
-            {
-                var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
-                order.Operators ??= new List<OperatorAcc>();
-                order.Operators.Add(Operator);
-                await _context.SaveChangesAsync();
-                return order;
-
-            }
-            return null;
 
         }
 

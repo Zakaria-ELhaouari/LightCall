@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Core;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -16,7 +17,7 @@ namespace Application.Status
             public StatusModel Status { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command , Result<Unit> >
+        public class Handler : IRequestHandler<Command , Result<Unit>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -26,6 +27,14 @@ namespace Application.Status
                 _mapper = mapper;
                 _context = context;
 
+            }
+
+            public class CommandValidator : AbstractValidator<Command>
+            {
+                public CommandValidator()
+                {
+                    RuleFor(x => x.Status).SetValidator(new StatusValidator());
+                }
             }
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {

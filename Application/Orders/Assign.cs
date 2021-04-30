@@ -13,7 +13,7 @@ using Persistence;
 
 namespace Application.Orders
 {
-    class Assign
+    public class Assign
     {
 
         public class Query : IRequest<Result<Order>>

@@ -7,16 +7,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Status
+namespace Application.Orders
 {
     public class Edit
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public StatusModel Status { get; set; }
+            public Order Order { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command , Result<Unit> >
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -30,13 +30,13 @@ namespace Application.Status
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var status = await _context.Status.FindAsync(request.Status.Id);
-                _mapper.Map(request.Status, status);
+                var order = await _context.Orders.FindAsync(request.Order.Id);
+                _mapper.Map(request.Order, order);
 
 
-               var Result =  await _context.SaveChangesAsync() > 0;
+                var Result = await _context.SaveChangesAsync() > 0;
 
-                if (!Result) return Result<Unit>.Failure("Failed to create Status");
+                if (!Result) return Result<Unit>.Failure("Failed to Update Order");
                 return Result<Unit>.Success(Unit.Value);
             }
         }

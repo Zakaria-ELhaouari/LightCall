@@ -89,14 +89,26 @@ namespace API.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        {
+            return HandleResult(await Mediator.Send(new List.Query()));
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new Details.Query { id = id }));
+
+        }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(Guid id, Order order)
         {
             order.Id = id;
-            _context.Entry(order).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return Ok();
+            return HandleResult(await Mediator.Send(new Edit.Command { Order = order }));
         }
 
 
@@ -104,8 +116,16 @@ namespace API.Controllers
         public async Task<IActionResult> PostOrder( Order order)
         {
 
-            await Mediator.Send(new Create.Command { Order = order });
-            return Ok();
+          return HandleResult(  await Mediator.Send(new Create.Command { Order = order }));
+           
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Order>> DeleteOrder(Guid id)
+        {
+
+            return HandleResult(await Mediator.Send(new Delete.Command { id = id }));
 
         }
 

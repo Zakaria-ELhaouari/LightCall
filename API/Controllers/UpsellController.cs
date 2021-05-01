@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCities(Guid id ,Upsell UpSell)
+        public async Task<IActionResult> UpdateUpsell(Guid id ,Upsell UpSell)
         {
             UpSell.Id = id;
             await Mediator.Send(new Edit.Command{Upsell = UpSell});
@@ -48,6 +48,13 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteUpsell(Guid id)
         {   
             return Ok(await Mediator.Send(new Delete.Command{Id = id})); 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ChnageStatusUpsell(Guid id )
+        {
+            await Mediator.Send(new EditStatus.Command{Id = id});
+            return Ok();        
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Application.UpSell
                 }else{
                     return Unit.Value;
                 }
-                 
+                 return Unit.Value;
             }
         }
     }    

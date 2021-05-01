@@ -19,8 +19,7 @@ namespace API.Controllers
         [HttpPost("Upsell")]
         public async Task<IActionResult> AddUpsell(Upsell upsell)
         {
-            await Mediator.Send(new Create.Command{Upsell = upsell});
-            return Ok();
+            return HandleResult( await Mediator.Send(new Create.Command{Upsell = upsell}));
         }
 
         [HttpGet("Upsell")]

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
@@ -44,7 +45,17 @@ namespace Application.UpSell
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 var upSell =  await _context.Upsell.FindAsync(request.Upsell.Id);
                 if(upSell != null && user == upSell.User){
-                    _mapper.Map(request.Upsell , upSell);
+                    var project = await _context.Projects.FindAsync(request.Upsell.Project_id);
+                    List<Product> Products = new List<Product>();
+                    foreach (var product in request.Upsell.Products_ids)
+                        {
+                            Products.Add(await _context.Products.FindAsync(product));
+                        }
+                    upSell.Project = project;
+                    upSell.Products = Products;
+                    upSell.Status = request.Upsell.Status;
+                    _context.Upsell.Update(upSell);
+                    // _mapper.Map(request.Upsell , upSell);
                 }else{
                     return Result<Unit>.Failure("the Upsell you want to edit doesn't exist");
                 }

@@ -8,6 +8,7 @@ using Application.Core;
 using Application.cities;
 using Application.Interfaces;
 using Infrastructure.Security;
+using System.Linq;
 
 namespace API.Extensions
 {
@@ -18,6 +19,7 @@ namespace API.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
             services.AddDbContext<DataContext>(opt => {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));

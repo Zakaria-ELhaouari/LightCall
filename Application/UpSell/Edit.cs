@@ -50,7 +50,7 @@ namespace Application.UpSell
                 }
 
                 var Result = await _context.SaveChangesAsync() > 0;
-                if(!Result) return Result<Unit>.Failure("Failed to create city");
+                if(!Result) return Result<Unit>.Failure("Failed to edit Upsell");
                 return Result<Unit>.Success(Unit.Value);
                  
             }

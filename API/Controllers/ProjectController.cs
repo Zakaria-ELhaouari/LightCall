@@ -11,9 +11,8 @@ namespace API.Controllers
     {
         [HttpPost("Project")]
         public async Task<IActionResult> CreatProject(Project project)
-        {
-            await Mediator.Send(new Create.Command{Project = project});
-            return Ok();
+        { 
+            return HandleResult( await Mediator.Send(new Create.Command{Project = project}));
         }
 
         [HttpGet("Project")]
@@ -32,9 +31,8 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditsProject(Guid id ,Project project)
         {
-            project.Id = id;
-            await Mediator.Send(new Edit.Command{Project = project});
-            return Ok();        
+            project.Id = id;   
+            return HandleResult(  await Mediator.Send(new Edit.Command{Project = project}));
         }
 
         [HttpDelete("{id}")]

@@ -15,21 +15,23 @@ using Persistence;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Application.Interfaces;
+using Application.Orders;
+using MediatR;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : Controller
+    public class OrderController : BaseApiController
     {
         private readonly DataContext _context;
-        private UserManager<AppUser> _userManager;
+        
         private readonly IUserAccessor _userAccessor;
 
-        public OrderController(DataContext context, UserManager<AppUser> userManager , IUserAccessor userAccessor)
+        public OrderController(DataContext context, IUserAccessor userAccessor)
         {
             _context = context;
-            _userManager = userManager;
+            
             _userAccessor = userAccessor;
         }
 
@@ -85,8 +87,20 @@ namespace API.Controllers
                 return Json(new { Status = 0, Message = ex.Message });
             }
 
+        }
 
-          
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        {
+            return HandleResult(await Mediator.Send(new List.Query()));
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        {
+            return HandleResult(await Mediator.Send(new Details.Query { id = id }));
+
         }
 
 
@@ -94,12 +108,7 @@ namespace API.Controllers
         public async Task<IActionResult> PutOrder(Guid id, Order order)
         {
             order.Id = id;
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return HandleResult(await Mediator.Send(new Edit.Command { Order = order }));
         }
 
 
@@ -107,62 +116,38 @@ namespace API.Controllers
         public async Task<IActionResult> PostOrder( Order order)
         {
 
+          return HandleResult(  await Mediator.Send(new Create.Command { Order = order }));
+           
 
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
+        }
 
-            return Ok();
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Order>> DeleteOrder(Guid id)
+        {
+
+            return HandleResult(await Mediator.Send(new Delete.Command { id = id }));
+
         }
 
 
         [HttpPut]
         [Route("inAsinOrder")]
 
-        public async Task<Order> InAsinOrder(Guid id)
+        public async Task<IActionResult> InAsinOrder(Guid id)
         {
 
-            var userid = _userAccessor.GetUserId();
-
-            var Operator = await _context.OperatoreAccount.FindAsync(userid);
-
-            if (Operator.Status)
-            {
-                var order = await _context.Orders.Where(o => o.Id == id).Include(o => o.Operators).FirstOrDefaultAsync();
-
-                order.Operators.Remove(Operator);
-
-                await _context.SaveChangesAsync();
-
-                return order;
-
-            }
-            return null;
+            return HandleResult(await Mediator.Send(new InAssign.Command { id = id }));
 
         }
 
 
         [HttpPut]
         [Route("AsinOrder")]
-        public async Task<Order> AsinOrder()
+        public async Task<IActionResult> AsinOrder()
         {
 
+            return HandleResult(await Mediator.Send(new Assign.Query()));
 
-            var id = _userAccessor.GetUserId();
-            var Operator = await _context.OperatoreAccount.FindAsync(id);
-            
-            if (Operator.Status)
-            {
-                var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
-                 
-                order.Operators ??= new List<OperatorAcc>();
-                order.Operators.Add(Operator);
-
-                await _context.SaveChangesAsync();
-
-                return order  ;
-
-            }
-            return null;
 
         }
 

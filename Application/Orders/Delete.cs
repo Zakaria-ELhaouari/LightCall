@@ -5,7 +5,7 @@ using Application.Core;
 using MediatR;
 using Persistence;
 
-namespace Application.Status
+namespace Application.Orders
 {
     public class Delete
     {
@@ -14,7 +14,7 @@ namespace Application.Status
             public Guid id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command , Result<Unit>>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
             public Handler(DataContext context)
@@ -24,10 +24,10 @@ namespace Application.Status
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var satusToDel = await _context.Status.FindAsync(request.id);
-                _context.Status.Remove(satusToDel);
-                var Result =  await _context.SaveChangesAsync() > 0;
-                if (!Result) return Result<Unit>.Failure("Failed to Delete Status");
+                var orderToDel = await _context.Orders.FindAsync(request.id);
+                _context.Orders.Remove(orderToDel);
+                var Result = await _context.SaveChangesAsync() > 0;
+                if (!Result) return Result<Unit>.Failure("Failed to Delete Order");
                 return Result<Unit>.Success(Unit.Value);
             }
         }

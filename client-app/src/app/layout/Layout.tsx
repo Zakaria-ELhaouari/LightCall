@@ -14,6 +14,7 @@ const Layout = () => {
                 <SideBar/>
                     <Switch>
                         <Route exact path="/dashboard" component={Main} />
+                        
                     </Switch>
                 <Footer/>
             </div>

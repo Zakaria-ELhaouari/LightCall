@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStore } from './../../stores/Store';
+import { observer } from "mobx-react-lite";
 
 const HomePage = () => {
     const {commonStore: {TokenRoles, isRoles}, userStore: {login}} = useStore();
@@ -27,4 +28,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default observer(HomePage)

@@ -17,8 +17,6 @@ namespace API.Controllers
 {
     // [Authorize(Roles = "Admin")]
     [AllowAnonymous]
-    [ApiController]
-    [Route("api/[controller]")]
     public class OperateurAccount : BaseApiController
     {
         private readonly TokenService _tokenService;

@@ -33,7 +33,7 @@ export default class CommonStore  {
     //Check if one of these roles is in the token
     isRoles = (RoleList: string[]) => {
         var roles = this.TokenRoles();
-        // return true if on of incoming roles exists in token roles & false otherwise
+        // return true if one of incoming roles exists in token roles & false otherwise
         return RoleList.some(r => roles?.includes(r)); 
     }
 

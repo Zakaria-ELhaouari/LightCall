@@ -20,8 +20,7 @@ using MediatR;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class OrderController : BaseApiController
     {
         private readonly DataContext _context;
@@ -37,8 +36,7 @@ namespace API.Controllers
 
 
 
-        [HttpPost]
-        [Route("Import")]
+        [HttpPost("Import")]
         public async Task<JsonResult> ImportFile(IFormFile importFile)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
@@ -130,8 +128,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut]
-        [Route("inAsinOrder")]
+        [HttpPut("inAsinOrder")]
 
         public async Task<IActionResult> InAsinOrder(Guid id)
         {
@@ -141,8 +138,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut]
-        [Route("AsinOrder")]
+        [HttpPut("AsinOrder")]
         public async Task<IActionResult> AsinOrder()
         {
 

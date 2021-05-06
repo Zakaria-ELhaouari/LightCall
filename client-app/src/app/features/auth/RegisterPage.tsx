@@ -1,6 +1,8 @@
 import { Field, Form, Formik } from 'formik'
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react'
 import * as Yup from 'yup';
+import CurrentYear from '../../common/date/CurrentYear';
 import MyTextInput from '../../common/form/MyTextInput';
 import { useStore } from '../../stores/Store';
 
@@ -109,7 +111,7 @@ const registerSchema = Yup.object().shape({
                                   </div>
                                 </div>
                                 <div className="form-group">
-                                  <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
+                                  <button type="submit" className={`btn btn-primary btn-lg btn-block ${!isValid || !dirty || isSubmitting ? "disabled" : ""}`} >
                                     Register
                                   </button>
                                 </div>
@@ -120,7 +122,7 @@ const registerSchema = Yup.object().shape({
                 </div>
               </div>
               <div className="simple-footer">
-                Copyright &copy; LightCall {new Date().getFullYear()}
+                Copyright &copy; LightCall <CurrentYear/>
               </div>
             </div>
           </div>
@@ -129,4 +131,4 @@ const registerSchema = Yup.object().shape({
     )
 }
 
-export default RegisterPage
+export default observer(RegisterPage) 

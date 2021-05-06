@@ -4,11 +4,13 @@ import React from 'react'
 
 interface Props {
     placeholder?: string,
+    id?: string,
     name: string,
     className?: string,
     type?:string,
     label?: string,
-    dataIndicator?: string
+    dataIndicator?: string,
+    tabIndex?: number
 }
 
 const MyTextInput = (props: Props) => {
@@ -17,7 +19,7 @@ const MyTextInput = (props: Props) => {
       <>
         <label htmlFor={props.name} className="d-block">{props.label}</label>
         <Field 
-        id={props.name} 
+        id={props.id}
         {...field} 
         {...props} 
         className={`form-control ${props.className} ${meta.error && meta.touched && "is-invalid"} ${!meta.error && meta.touched && "is-valid"}`}  

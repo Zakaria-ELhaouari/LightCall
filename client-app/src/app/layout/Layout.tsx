@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Switch } from 'react-router'
+import { Switch } from 'react-router'
+import PrivateAdminRoute from '../security/PrivateAdminRoute'
 import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
@@ -13,7 +14,7 @@ const Layout = () => {
                 <Header/>
                 <SideBar/>
                     <Switch>
-                        <Route exact path="/dashboard" component={Main} />
+                        <PrivateAdminRoute exact path="/dashboard" component={Main} />
                         
                     </Switch>
                 <Footer/>

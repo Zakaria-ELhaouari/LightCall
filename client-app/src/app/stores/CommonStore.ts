@@ -37,12 +37,16 @@ export default class CommonStore  {
         return RoleList.some(r => roles?.includes(r)); 
     }
 
-    //Decode the Token And return an Array of tokens
+    //Decode the Token And return an Array of Roles
 
     TokenRoles = () => {
         let Roles: string | string[] | undefined
-        var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
-        Roles = Decoded.role;
+        if(this.token == null){
+            Roles = "none"
+        }else {
+            var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
+            Roles = Decoded.role;
+        }
         return Roles
     }
 

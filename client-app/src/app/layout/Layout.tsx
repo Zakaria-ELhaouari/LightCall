@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Switch } from 'react-router'
 import PrivateAdminRoute from '../security/PrivateAdminRoute'
@@ -23,4 +24,4 @@ const Layout = () => {
     )
 }
 
-export default Layout
+export default Layout;

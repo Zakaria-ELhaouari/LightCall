@@ -34,6 +34,8 @@ export default class CommonStore  {
     isRoles = (RoleList: string[]) => {
         var roles = this.TokenRoles();
         // return true if one of incoming roles exists in token roles & false otherwise
+        console.log(RoleList.some(r => roles?.includes(r)));
+        
         return RoleList.some(r => roles?.includes(r)); 
     }
 
@@ -46,6 +48,8 @@ export default class CommonStore  {
         }else {
             var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
             Roles = Decoded.role;
+            console.log(Roles);
+            
         }
         return Roles
     }

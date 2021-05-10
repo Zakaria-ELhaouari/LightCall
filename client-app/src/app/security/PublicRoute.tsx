@@ -6,14 +6,14 @@ interface Props extends RouteProps {
     component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
 }
 
-const PrivateOperatorRoute = ({component: Component, ...rest}: Props) => {
+const PublicRoute = ({component: Component, ...rest}: Props) => {
     const {commonStore: {isRoles}, userStore: {isLoggedIn}} = useStore();
     return (
         <Route 
         {...rest}
-        render={(props) => isRoles(["Operator"]) && isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
+        render={(props) => isRoles(["Member"]) && isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
     />
     )
 }
 
-export default PrivateOperatorRoute
+export default PublicRoute

@@ -13,9 +13,9 @@ const PrivateAdminRoute = ({component: Component, ...rest}: Props) => {
     return (
         <Route 
             {...rest}
-            render={(props) => isRoles(["Operator"]) && isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
+            render={(props) =>  isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
         />
     )
 }
 
-export default PrivateAdminRoute
+export default PrivateAdminRoute;

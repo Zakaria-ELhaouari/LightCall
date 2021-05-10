@@ -10,6 +10,6 @@ export interface Order {
     product: string;
     Confirmation: Confirmation;
     project: Project;
-    staus: Status;
+    status: Status;
     price: number;
 }

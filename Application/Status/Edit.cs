@@ -17,6 +17,14 @@ namespace Application.Status
             public StatusModel Status { get; set; }
         }
 
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.Status).SetValidator(new StatusValidator());
+            }
+        }
+
         public class Handler : IRequestHandler<Command , Result<Unit>>
         {
             private readonly DataContext _context;
@@ -29,23 +37,16 @@ namespace Application.Status
 
             }
 
-            public class CommandValidator : AbstractValidator<Command>
-            {
-                public CommandValidator()
-                {
-                    RuleFor(x => x.Status).SetValidator(new StatusValidator());
-                }
-            }
+       
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var status = await _context.Status.FindAsync(request.Status.Id);
-                _mapper.Map(request.Status, status);
+                //var status = await _context.Status.FindAsync(request.Status.Id);
+                _context.Entry(request.Status).State = EntityState.Modified;
 
+                var Result =  await _context.SaveChangesAsync() > 0;
 
-               var Result =  await _context.SaveChangesAsync() > 0;
-
-                if (!Result) return Result<Unit>.Failure("Failed to create Status");
+                if (!Result) return Result<Unit>.Failure("Failed to update Status");
                 return Result<Unit>.Success(Unit.Value);
             }
         }

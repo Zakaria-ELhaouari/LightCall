@@ -1,6 +1,6 @@
 export interface Status {
-    id: string;
+    id: string ;
     statusType: string;
-    statusPriority: string;
+    statusPiority: string;
     closingStatus: boolean;
 }

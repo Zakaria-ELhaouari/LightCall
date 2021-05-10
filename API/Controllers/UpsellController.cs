@@ -13,33 +13,21 @@ using Persistence;
 
 namespace API.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class UpsellController : BaseApiController
     {
-        private readonly DataContext _context;
-        private readonly UserManager<AppUser> _userManager;
-
-        public UpsellController(DataContext context , UserManager<AppUser> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
-
-        [AllowAnonymous]
         [HttpPost("Upsell")]
-        public async Task<IActionResult> AddUpsell(Upsell upsell)
+        public async Task<IActionResult> AddUpsell(UpsellDto upsell)
         {
-            await Mediator.Send(new Create.Command{Upsell = upsell});
-            return Ok();
+            return HandleResult( await Mediator.Send(new Create.Command{Upsell = upsell}));
         }
 
-        [AllowAnonymous]
         [HttpGet("Upsell")]
         public async Task<List<Upsell>> GetUpsell()
         {
             return await Mediator.Send(new List.Query());
         }
 
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Upsell>> FindUpsell(Guid id)
         {
@@ -47,20 +35,26 @@ namespace API.Controllers
             return Upsell;
         }
 
-        [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCities(Guid id ,Upsell UpSell)
+        public async Task<IActionResult> UpdateUpsell(Guid id ,UpsellDto UpSell)
         {
             UpSell.Id = id;
-            await Mediator.Send(new Edit.Command{Upsell = UpSell});
-            return Ok();        
+            // await Mediator.Send(new Edit.Command{Upsell = UpSell});
+            return HandleResult( await Mediator.Send(new Edit.Command{Upsell = UpSell}));
+            // return Ok();        
         }
 
-        [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUpsell(Guid id)
         {   
             return Ok(await Mediator.Send(new Delete.Command{Id = id})); 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ChnageStatusUpsell(Guid id )
+        {
+            await Mediator.Send(new EditStatus.Command{Id = id});
+            return Ok();        
         }
     }
 }

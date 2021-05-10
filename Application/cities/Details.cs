@@ -25,9 +25,7 @@ namespace Application.cities
             public async Task<City> Handle(Query request, CancellationToken cancellationToken)
             {
                 var city = await _context.Cities.FindAsync(request.id);
-                // if(city == null){
-                //     return BadRequest();
-                // }
+                
                 return city;
             }
         }

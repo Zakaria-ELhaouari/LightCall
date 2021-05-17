@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("OperateurAcc")]
+        [HttpPost]
         public async Task<ActionResult<ProfileDto>> CreatOperator(RegisterDto registerDto)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
@@ -61,7 +61,7 @@ namespace API.Controllers
             return BadRequest("Problem registering user");
         }
 
-        [HttpGet("Operators")]
+        [HttpGet]
         public async Task<ActionResult<List<OperatorAcc>>> GeOperator() 
         {
             var AllOperator = await Mediator.Send(new List.Query());

@@ -35,7 +35,7 @@ namespace Application.Status
             }
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                await _context.Status.AddAsync(request.Status)
+                await _context.Status.AddAsync(request.Status);
                 var Result = await _context.SaveChangesAsync()> 0;
                 if (!Result) return Result<Unit>.Failure("Failed to create Status");
                 return Result<Unit>.Success(Unit.Value);

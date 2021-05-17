@@ -4,8 +4,10 @@ import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
 import Status from './Status'
+import Operateur from './Operateur'
 import Orders from './Orders'
 import SideBar from './SideBar'
+import OperateurList from '../features/operateur/OperateurList'
 
 const Layout = () => {
     return (
@@ -16,7 +18,9 @@ const Layout = () => {
                     <Switch>
                         <Route exact path="/dashboard" component={Main} />
                         <Route exact path="/orders" component={Orders} />
-                        <Route  component={Status} />
+                        {/* <Route component={Status} /> */}
+                        <Route component={Operateur}/>
+                        
                         
                     </Switch>
                 <Footer/>

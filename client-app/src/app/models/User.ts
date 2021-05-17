@@ -1,11 +1,11 @@
 export interface User  {
-    userName: string;
+    userName?: string;
 	firstName: string;
 	lastName: string;
     email: string;
     token: string;
-    roles: string[];
-    skypeId: string;
+    roles?: string[];
+    skypeId?: string;
     image?: string;
 }
 

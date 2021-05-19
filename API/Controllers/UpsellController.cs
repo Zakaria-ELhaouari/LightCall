@@ -17,10 +17,9 @@ namespace API.Controllers
     public class UpsellController : BaseApiController
     {
         [HttpPost("Upsell")]
-        public async Task<IActionResult> AddUpsell(Upsell upsell)
+        public async Task<IActionResult> AddUpsell(UpsellDto upsell)
         {
-            await Mediator.Send(new Create.Command{Upsell = upsell});
-            return Ok();
+            return HandleResult( await Mediator.Send(new Create.Command{Upsell = upsell}));
         }
 
         [HttpGet("Upsell")]
@@ -37,11 +36,12 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUpsell(Guid id ,Upsell UpSell)
+        public async Task<IActionResult> UpdateUpsell(Guid id ,UpsellDto UpSell)
         {
             UpSell.Id = id;
-            await Mediator.Send(new Edit.Command{Upsell = UpSell});
-            return Ok();        
+            // await Mediator.Send(new Edit.Command{Upsell = UpSell});
+            return HandleResult( await Mediator.Send(new Edit.Command{Upsell = UpSell}));
+            // return Ok();        
         }
 
         [HttpDelete("{id}")]

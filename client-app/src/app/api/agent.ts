@@ -43,12 +43,21 @@ const requests = {
 }
 
 const Orders = {
-    list: () => requests.get<Order[]>('/Orders'),
-    details: (id: string) => requests.get<Order>(`/Orders/${id}`),
-    create: (order: Order) => requests.post<void>('/Orders', order),
-    update: (order: Order) => requests.put<void>(`/Orders/${order.id}`, order),
-    updateStatus: (status: Status) => requests.put<void>(`/Orders/status/${status.id}`, status),
-    delete: (id: string) => requests.del<void>(`/Orders/${id}`)
+    list: () => requests.get<Order[]>('/Order'),
+    details: (id: string) => requests.get<Order>(`/Order/${id}`),
+    create: (order: Order) => requests.post<void>('/Order', order),
+    update: (order: Order) => requests.put<void>(`/Order/${order.id}`, order),
+    updateStatus: (status: Status) => requests.put<void>(`/Order/status/${status.id}`, status),
+    delete: (id: string) => requests.del<void>(`/Order/${id}`)
+
+}
+
+const Staties = {
+    list: () => requests.get<Status[]>('/Status'),
+    details: (id: string) => requests.get<Order>(`/Status/${id}`),
+    create: (status: Status) => requests.post<void>('/Status', status),
+    update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
+    delete: (id: string) => requests.del<void>(`/Status/${id}`)
 
 }
 
@@ -60,7 +69,9 @@ const Account = {
 
 const agent = {
     Orders,
-    Account
+    Account,
+    Staties
+
 }
 
 export default agent;

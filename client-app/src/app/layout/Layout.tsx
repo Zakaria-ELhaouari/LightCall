@@ -18,10 +18,8 @@ const Layout = () => {
                     <Switch>
                         <Route exact path="/dashboard" component={Main} />
                         <Route exact path="/orders" component={Orders} />
-                        {/* <Route component={Status} /> */}
-                        <Route component={Operateur}/>
-                        
-                        
+                        <Route path="/status" component={Status} /> 
+                        <Route path="/operateur" component={Operateur}/>
                     </Switch>
                 <Footer/>
             </div>

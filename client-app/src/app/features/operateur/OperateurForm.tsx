@@ -8,7 +8,7 @@ import MyTextInput from '../../common/form/MyTextInput';
 export default function OperateurForm(){
     const {operateurStore} = useStore();
     const {selectedOperateur , creatOperateur , updateOperateur} = operateurStore;
-    let initialValues : Operateur =  {
+    let initialValues  = selectedOperateur ?? {
         id : '',
         userName:'',
         firstName: '',
@@ -17,10 +17,7 @@ export default function OperateurForm(){
         email: '',
         Status: false,
       }
-      if(selectedOperateur){
-        initialValues = selectedOperateur ;
-        }
-
+      const [operateur , setOperateur] = useState(initialValues);
       const AddOperateurSchema = Yup.object().shape({
             userName: Yup.string()
                 .min(3, 'Too Short!')
@@ -39,17 +36,22 @@ export default function OperateurForm(){
                 .email(),
             Status: Yup.boolean()
                 .required('Required'),
+            password: Yup.string()
+                .required('No password provided.') 
+                .min(8, 'Password is too short - should be 8 chars minimum.')
+                .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')    
         })
 
-        const [addOperateurForm] = useState(initialValues)
+        // const [addOperateurForm] = useState(initialValues)
         function handleSubmit(values : Operateur  , {setErrors } : any) {
+            console.log(selectedOperateur?.password);
             selectedOperateur ? updateOperateur(values) : creatOperateur(values) ;
           }
     return(
         <div className="card card-primary">
             <div className="card-header"><h4>{selectedOperateur ? "Edit Operateur" : "Add Operateur"}</h4></div>
             <div className="card-body">
-                <Formik initialValues={addOperateurForm} 
+                <Formik initialValues={operateur} 
                       validationSchema={AddOperateurSchema}
                       onSubmit={(values, {setErrors}) =>
                       {handleSubmit(values, {setErrors})}}
@@ -73,7 +75,7 @@ export default function OperateurForm(){
                         </div>
 
                         <div className="form-group">
-                          <MyTextInput type="password" placeholder="password" name="password" label="password" />
+                          <MyTextInput type="password" placeholder={operateur.password} name="password" label="password" />
                         </div>
                             
                         <div className=" form-group custom-control custom-checkbox">
@@ -81,8 +83,8 @@ export default function OperateurForm(){
                             <label className="custom-control-label" htmlFor="customCheck1"> Is Active</label>
                         </div> 
                         <div className="form-group">
-                          <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
-                            Creat Operateur
+                          <button type="submit" className="btn btn-primary btn-lg btn-block">
+                            {selectedOperateur ? "Edit Operateur" : "Add Operateur"}
                           </button>
                         </div>
                 </Form>

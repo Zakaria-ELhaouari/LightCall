@@ -21,6 +21,9 @@ export default class OperateurStore {
         return Array.from(this.operateurRegisetry.values());
     }
 
+    selecteOperateur = async(id: string) =>{
+        this.selectedOperateur = this.operateurRegisetry.get(id);
+    }
     loadOperateurs = async () =>{
         try{
             var operateurs = await agent.OperateurAcc.list();
@@ -55,20 +58,6 @@ export default class OperateurStore {
         }
     } 
 
-    // creatOperateur = async (creds: UserFormValues) => {
-    //     try {
-    //         const user = await agent.OperateurAcc.create(creds)
-    //         store.commonStore.setToken(user.);
-    //         runInAction(() => this.user = user);
-            
-    //         history.push('/dashboard');
-            
-            
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
     updateOperateur = async(operateur: Operateur) => {
         this.loading = true ;
         try {
@@ -82,6 +71,21 @@ export default class OperateurStore {
                 this.loading = false ; 
             })
         }
+    }
 
+    deleteOperateur = async (id: string) =>{
+        this.loading = true;
+        try{
+            await agent.OperateurAcc.delete(id);
+            runInAction(() => {
+                this.operateurRegisetry.delete(id);
+                this.loading = false;
+            })
+        }catch(error){
+            console.log(error);
+            runInAction(() => {
+                this.loading = false
+            })
+        }
     }
 }

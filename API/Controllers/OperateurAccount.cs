@@ -70,7 +70,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOperator(Guid id)
+        public async Task<IActionResult> DeleteOperator(string id)
         {
             return Ok(await Mediator.Send(new Delete.Command{id = id})); 
         }

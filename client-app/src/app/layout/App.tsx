@@ -13,6 +13,7 @@ import LoadingComponent from './LoadingComponent';
 import Main from './Main';
 import SideBar from './SideBar';
 import './Styles.css';
+// import '../js/index.js';
 
 
 function App() {
@@ -62,3 +63,4 @@ function App() {
 }
 
 export default observer(App);
+

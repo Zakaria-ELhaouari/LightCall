@@ -14,10 +14,10 @@ const Layout = () => {
                 <div className="navbar-bg"></div>
                 <Header/>
                 <SideBar/>
-                    <Switch>
-                        <PrivateAdminRoute exact path="/dashboard" component={Main} />
-                        
-                    </Switch>
+                <Switch>
+                    <PrivateAdminRoute exact path="/dashboard" component={Main} />
+                    
+                </Switch>
                 <Footer/>
             </div>
         

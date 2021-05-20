@@ -13,7 +13,8 @@ using Persistence;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Member")]
+    // [Authorize(Roles = "Member")]
+    [AllowAnonymous]
     public class UpsellController : BaseApiController
     {
         [HttpPost("Upsell")]

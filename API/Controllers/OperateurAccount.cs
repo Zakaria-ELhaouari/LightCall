@@ -32,7 +32,7 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("OperateurAcc")]
+        [HttpPost]
         public async Task<ActionResult<ProfileDto>> CreatOperator(RegisterDto registerDto)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
@@ -59,7 +59,7 @@ namespace API.Controllers
             return BadRequest("Problem registering user");
         }
 
-        [HttpGet("Operators")]
+        [HttpGet]
         public async Task<ActionResult<List<OperatorAcc>>> GeOperator() 
         {
             var AllOperator = await Mediator.Send(new List.Query());
@@ -68,7 +68,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOperator(Guid id)
+        public async Task<IActionResult> DeleteOperator(string id)
         {
             return Ok(await Mediator.Send(new Delete.Command{id = id})); 
         }

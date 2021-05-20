@@ -7,6 +7,7 @@ import Status from './Status'
 import Operateur from './Operateur'
 import Orders from './Orders'
 import SideBar from './SideBar'
+import City from './Cities'
 import OperateurList from '../features/operateur/OperateurList'
 
 const Layout = () => {
@@ -20,6 +21,7 @@ const Layout = () => {
                         <Route exact path="/orders" component={Orders} />
                         <Route path="/status" component={Status} /> 
                         <Route path="/operateur" component={Operateur}/>
+                        <Route path="/cities" component={City}/>
                     </Switch>
                 <Footer/>
             </div>

@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react'
 import { useStore } from '../../stores/Store'
-import OperateurRow from './OperateurRow';
+import CityRow from './CityRow';
 
-export default observer(function OperateurList(){
-    const {operateurStore} = useStore();
-    const {operateurs} = operateurStore
+export default observer(function CityList(){
+    const {cityStore} = useStore();
+    const {laodCities} = cityStore
     useEffect(()=>{
-      operateurStore.loadOperateurs()
-  } , [operateurStore])
+      laodCities()
+  } , [cityStore])
     return(
         
         <div>
@@ -17,15 +17,12 @@ export default observer(function OperateurList(){
                     <table className="table">
                       <thead>
                         <tr>
-                            <th scope="col">lastName</th>
-                            <th scope="col">firstName</th>
-                            <th scope="col">email</th>
-                            <th scope="col">status</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">city</th>
+                            <th scope="col">Shiping Compnay</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <OperateurRow/>
+                        <CityRow/>
                       </tbody>
                     </table>
                   </div>

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { City } from '../models/city';
 import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
 import { User, UserFormValues } from '../models/User';
@@ -62,6 +63,15 @@ const Staties = {
 
 }
 
+const Cities = {
+    list: () => requests.get<City[]>('/City'),
+    details: (id: string) => requests.get<City>(`/City/${id}`),
+    create: (city: City) => requests.post<void>('/City', city),
+    update: (city: City) => requests.put<void>(`/City/${city.id}`, city),
+    delete: (id: string) => requests.del<void>(`/City/${id}`)
+
+}
+
 const OperateurAcc = {
     list: () => requests.get<Operateur[]>('/OperateurAccount'),
     details: (id: string) => requests.get<Operateur>(`/OperateurAccount/${id}`),
@@ -81,7 +91,8 @@ const agent = {
     Orders,
     Account,
     Staties,
-    OperateurAcc
+    OperateurAcc,
+    Cities
 
 }
 

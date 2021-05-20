@@ -4,6 +4,8 @@ import UserStore from './UserStore';
 import StatusStore from './StatusStore';
 import OrderStore from './OrderStore';
 import OperateurStore from "./OperateurStore";
+import CityStore from "./CityStore";
+
 
 interface Store {
     commonStore: CommonStore
@@ -11,6 +13,7 @@ interface Store {
     statusStore : StatusStore
     orderStore : OrderStore
     operateurStore : OperateurStore
+    cityStore : CityStore
 }
 
 export const store : Store = {
@@ -18,8 +21,8 @@ export const store : Store = {
     userStore: new UserStore(),
     statusStore : new StatusStore(),
     orderStore : new OrderStore(),
-    operateurStore : new OperateurStore()
-
+    operateurStore : new OperateurStore(),
+    cityStore : new CityStore(),
 }
 
 export const StoreContext = createContext(store);

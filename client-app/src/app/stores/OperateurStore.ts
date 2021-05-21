@@ -2,8 +2,7 @@ import { makeAutoObservable, runInAction  } from 'mobx';
 import agent from '../api/agent';
 import { Operateur } from '../models/Operateur';
 import {v4 as uuid} from 'uuid';
-import { UserFormValues } from '../models/User';
-import { store } from './Store';
+
 
 export default class OperateurStore {
 

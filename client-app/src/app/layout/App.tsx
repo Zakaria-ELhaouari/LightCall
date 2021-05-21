@@ -5,15 +5,10 @@ import LoginPage from '../features/auth/LoginPage';
 import RegisterPage from '../features/auth/RegisterPage';
 import HomePage from '../features/home/HomePage';
 import Page403 from '../security/Page403';
-import PrivateAdminRoute from '../security/PrivateAdminRoute';
 import { useStore } from '../stores/Store';
-import Footer from './Footer';
-import Header from './Header';
 import LoadingComponent from './LoadingComponent';
-import Main from './Main';
-import SideBar from './SideBar';
 import './Styles.css';
-// import '../js/index.js';
+import Layout from './Layout';
 
 
 function App() {
@@ -32,22 +27,7 @@ function App() {
 
   if(!commonStore.appLoaded) return <LoadingComponent content='loading app ...' />
 
-  const DefaultLayout = () => {
-    return (
-        
-      <div className="main-wrapper">
-          <div className="navbar-bg"></div>
-          <Header/>
-          <SideBar/>
-              <Switch>
-                  <PrivateAdminRoute exact path="/dashboard" component={Main} />
-                  
-              </Switch>
-          <Footer/>
-      </div>
-  
-)
-  }
+
 
   return (
     <div id="app">
@@ -56,7 +36,7 @@ function App() {
           <Route exact path='/register' component={RegisterPage}  />
           <Route exact path='/login' component={LoginPage} />
           <Route exact path='/RestrictedAccess' component={Page403} />
-          <Route component={DefaultLayout} />
+          <Route component={Layout} />
         </Switch>
     </div>
   );

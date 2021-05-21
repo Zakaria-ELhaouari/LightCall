@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router'
 import StatusList from '../features/Status/StatusList'
 import StatusForm from '../features/Status/StatusForm'
 
-const Main = () => {
+const Status = () => {
     return (
         <div className="main-content">
         <section className="section">
@@ -21,4 +21,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Status

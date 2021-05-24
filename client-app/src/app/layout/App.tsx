@@ -15,6 +15,12 @@ function App() {
   const {userStore, commonStore} = useStore();
 
   useEffect(() => {
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "assets/js/stisla.js";
+    document.body.appendChild(script);
+
    if(commonStore.token){
      console.log(userStore.user + "before");
      userStore.getUser().finally(() => commonStore.setApploaded());
@@ -27,6 +33,7 @@ function App() {
 
   if(!commonStore.appLoaded) return <LoadingComponent content='loading app ...' />
 
+  
 
 
   return (

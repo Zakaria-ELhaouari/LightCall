@@ -1,5 +1,3 @@
-
-import React from 'react'
 import { Route, Switch } from 'react-router'
 import PrivateAdminRoute from '../security/PrivateAdminRoute'
 import Footer from './Footer'

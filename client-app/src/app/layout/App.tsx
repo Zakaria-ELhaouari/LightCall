@@ -9,21 +9,6 @@ import Layout from './Layout';
 
 function App() {
 
-  // const DefaultRoutes = () => {
-  //   return(
-    
-  //       <div className="main-wrapper">
-  //           <div className="navbar-bg"></div>
-  //           <Header/>
-  //           <SideBar/>
-  //             <Switch>
-  //                 <Route exact path="/dashboard" component={Main} />
-  //             </Switch>
-  //           <Footer/>
-  //       </div>
-     
-  //   )
-  // }
 
   return (
     <div id="app">
@@ -37,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default App ;

@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Order } from '../models/Order';
+import { Project } from '../models/Project';
+import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
@@ -42,23 +44,44 @@ const requests = {
 }
 
 const Orders = {
-    list: () => requests.get<Order[]>('/Orders'),
-    details: (id: string) => requests.get<Order>(`/Orders/${id}`),
-    create: (order: Order) => requests.post<void>('/Orders', order),
-    update: (order: Order) => requests.put<void>(`/Orders/${order.id}`, order),
-    updateStatus: (status: Status) => requests.put<void>(`/Orders/status/${status.id}`, status),
-    delete: (id: string) => requests.del<void>(`/Orders/${id}`)
+    list: () => requests.get<Order[]>('/Order'),
+    details: (id: string) => requests.get<Order>(`/Order/${id}`),
+    create: (order: Order) => requests.post<void>('/Order', order),
+    update: (order: Order) => requests.put<void>(`/Order/${order.id}`, order),
+    updateStatus: (status: Status) => requests.put<void>(`/Order/status/${status.id}`, status),
+    delete: (id: string) => requests.del<void>(`/Order/${id}`)
 
 }
 
-// const Account = {
-//     current: () => requests.get<User>('/account'),
-//     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
-//     register: (user: UserFormValues) => requests.post<User>('/account/register', user)
-// }
+const Staties = {
+    list: () => requests.get<Status[]>('/Status'),
+    details: (id: string) => requests.get<Status>(`/Status/${id}`),
+    create: (status: Status) => requests.post<void>('/Status', status),
+    update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
+    delete: (id: string) => requests.del<void>(`/Status/${id}`)
+
+}
+const Projects = {
+    list: () => requests.get<Project[]>('/Project'),
+    details: (id: string) => requests.get<Project>(`/Project/${id}`),
+    create: (project: Project) => requests.post<void>('/Project', project),
+    update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
+    delete: (id: string) => requests.del<void>(`/Project/${id}`)
+
+}
+
+const Account = {
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
+}
 
 const agent = {
-    Orders
+    Orders,
+    Account,
+    Staties,
+    Projects
+
 }
 
 export default agent;

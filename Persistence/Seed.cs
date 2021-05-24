@@ -42,8 +42,28 @@ namespace Persistence
             // }
             // await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
             
+            if(context.Cities.Any()) return;
+             
+             var Citiess = new List<City>
+             {
+                 new City
+                 {
+                     CityName = "London",
+                     ZipCode = "8378",
+                     Shipping_Companies = new List<Shipping_Company>{
+                         new Shipping_Company {
+                             Name = "Ozzon",
+                             ApiClient = "dhj78hj"
+                         },
+                        new Shipping_Company {
+                             Name = "Ozzon",
+                             ApiClient = "dhj78hj"
+                         }
+                     }
+                 }
+             };
 
-
+            await context.Cities.AddRangeAsync(Citiess);
             await context.SaveChangesAsync();
         }
     }

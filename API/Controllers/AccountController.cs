@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 namespace API.Controllers
 {
@@ -72,10 +74,10 @@ namespace API.Controllers
             _mapper.Map(registerDto, user);
             
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var userRole = await _userManager.AddToRoleAsync(user, "Member");
+            
 
-            // await _userManager.AddToRoleAsync(user, 'user');
-
-            if (result.Succeeded)
+            if (result.Succeeded && userRole.Succeeded)
             {
                 return await CreateUserObject(user);
             }
@@ -98,15 +100,11 @@ namespace API.Controllers
         public async Task<ActionResult<List<ProfileDto>>> GetUsers() 
         {
             var users = await _userManager.Users.ToListAsync();
-
-           
-
             var userToReturn = _mapper.Map<List<ProfileDto>>(users);
 
             return userToReturn;
 
         }
-
 
 
         private async Task<UserDto>  CreateUserObject(AppUser user)
@@ -117,9 +115,11 @@ namespace API.Controllers
                 LastName = user.LastName,
                 Image = null,
                 Token = await _tokenService.CreateToken(user),
-                Username = user.UserName
+                Username = user.UserName,
+                Role = await _userManager.GetRolesAsync(user)
             };
         }
 
+        
     }
 }

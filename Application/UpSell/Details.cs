@@ -1,0 +1,43 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Interfaces;
+using Domain;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
+
+namespace Application.UpSell
+{
+    public class Details
+    {
+        public class Query : IRequest<Upsell>
+        {
+            public Guid id { get; set; }
+        }
+        public class Handler : IRequestHandler<Query , Upsell>
+        {
+            private readonly DataContext _context;
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext context, IUserAccessor userAccessor)
+            {
+                _userAccessor = userAccessor;
+                _context = context;
+            }
+
+            public async Task<Upsell> Handle(Query request, CancellationToken cancellationToken)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+                var InfoUpsell = await _context.Upsell.FindAsync(request.id);
+                // if(InfoUpsell != null && InfoUpsell.User == user ){
+                //     return InfoUpsell;
+                // }
+                // else{
+                //     return BadRequest();
+                // }
+                return InfoUpsell;
+            }
+        }
+    }
+}

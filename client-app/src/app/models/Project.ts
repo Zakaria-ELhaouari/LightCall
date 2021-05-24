@@ -1,5 +1,7 @@
 export interface Project {
-    id: string,
-    description: string,
-    type: string
+    id: string;
+    
+    project_Type: string;
+    isShopify : boolean;
+    WebHookSecret : string
 }

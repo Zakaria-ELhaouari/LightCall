@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Extensions;
+using Application.cities;
 using Domain;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,13 +37,16 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(opt => {
-                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                opt.Filters.Add(new AuthorizeFilter(policy));
-            });
+            services.AddControllers().AddFluentValidation(config => {
+                config.RegisterValidatorsFromAssemblyContaining<Create>();
+            }).AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            
 
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +66,8 @@ namespace API
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+            
             app.UseAuthentication();
 
             app.UseAuthorization();

@@ -1,13 +1,14 @@
-// using Application.Core;
-// using Application.Interfaces;
-// using Application.reservations;
-// using Infrastructure.Security;
-// using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Persistence;
+using Application.Core;
+using Application.cities;
+using Application.Interfaces;
+using Infrastructure.Security;
+using System.Linq;
 
 namespace API.Extensions
 {
@@ -18,6 +19,7 @@ namespace API.Extensions
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
             services.AddDbContext<DataContext>(opt => {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
@@ -29,10 +31,11 @@ namespace API.Extensions
                 });
             });
 
-            // services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddAutoMapper(typeof(mappingProfiles).Assembly);
             // services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(typeof(mappingRegister));
-            // services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             return services;
         }
     }

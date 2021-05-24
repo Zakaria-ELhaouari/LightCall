@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { Order } from '../models/Order';
+import { Project } from '../models/Project';
 import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
@@ -54,10 +55,18 @@ const Orders = {
 
 const Staties = {
     list: () => requests.get<Status[]>('/Status'),
-    details: (id: string) => requests.get<Order>(`/Status/${id}`),
+    details: (id: string) => requests.get<Status>(`/Status/${id}`),
     create: (status: Status) => requests.post<void>('/Status', status),
     update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Status/${id}`)
+
+}
+const Projects = {
+    list: () => requests.get<Project[]>('/Project'),
+    details: (id: string) => requests.get<Project>(`/Project/${id}`),
+    create: (project: Project) => requests.post<void>('/Project', project),
+    update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
+    delete: (id: string) => requests.del<void>(`/Project/${id}`)
 
 }
 
@@ -70,7 +79,8 @@ const Account = {
 const agent = {
     Orders,
     Account,
-    Staties
+    Staties,
+    Projects
 
 }
 

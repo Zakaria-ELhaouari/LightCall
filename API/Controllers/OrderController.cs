@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Application.Interfaces;
 using Application.Orders;
 using MediatR;
+using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
@@ -61,7 +62,7 @@ namespace API.Controllers
 
                             orderList.Add(new Order
                             {
-                                OrderId = Convert.ToInt32(excelWorksheet.Cells[row, 1].Value.ToString().Trim()),
+                                OrderId = excelWorksheet.Cells[row, 1].Value.ToString().Trim(),
                                 Description = excelWorksheet.Cells[row, 2].Value.ToString().Trim(),
                                 Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
@@ -118,6 +119,29 @@ namespace API.Controllers
 
           return HandleResult(  await Mediator.Send(new Create.Command { Order = order }));
            
+
+        }
+
+
+        [HttpPost]
+        [Route("Shopify/{id}")]
+        public async Task<IActionResult> ShopifyOrder(Guid id  , JObject body )
+        {
+
+
+            Project project = _context.Projects.FindAsync(id).Result ;
+            var shopifyOrder = body.Properties().ToList();
+            var orderId = shopifyOrder[0];
+            var price = shopifyOrder[10];
+            
+            Order order = new Order {
+                OrderId = orderId.Value.ToString(),
+                Price = Decimal.Parse( price.Value.ToString()),
+                Project = project };
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync() ;
+
+            return Ok();
 
         }
 

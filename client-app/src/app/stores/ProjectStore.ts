@@ -1,12 +1,15 @@
 import { makeAutoObservable, runInAction  } from 'mobx';
 import agent from '../api/agent';
-import {Status } from '../models/Status';
+
 import {v4 as uuid} from 'uuid';
 
-export default class StatusStore {
- 
-    statusRegistry = new Map<string, Status>();
-    selectedStatus : Status | undefined = undefined ;
+import { Project } from '../models/Project';
+
+export default class ProjectStore {
+
+
+    projectsRegistry = new Map<string,Project >();
+    selectedProject : Project | undefined = undefined ;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -15,21 +18,26 @@ export default class StatusStore {
         makeAutoObservable(this)
     }
 
-    get status() {
+    get projects() {
 
-        return Array.from(this.statusRegistry.values());
+        return Array.from(this.projectsRegistry.values());
 
     }
 
-    loadStatus = async () => {
+    loadOrders = async () => {
      
         this.setLoadingInitial(true)
     try{
-        var status = await agent.Staties.list() ;
+        var projects = await agent.Projects.list() ;
+       
+        console.log(projects);
         
-        status.forEach(statu =>{
-            this.statusRegistry.set(statu.id, statu);
+        projects.forEach(project =>{
+            this.projectsRegistry.set(project.id, project);
         })
+
+       
+        
         this.setLoadingInitial(false)
         
     }catch(error){
@@ -44,24 +52,24 @@ export default class StatusStore {
         this.loadingInitial = state;
     }
 
-    selectStatus = (id : string) => {
-        this.selectedStatus = this.statusRegistry.get(id);
+    selectProject = (id : string) => {
+        this.selectedProject = this.projectsRegistry.get(id);
       
    }
    canselSelectedStatus = () => {
-        this.selectedStatus = undefined ;
+    this.selectedProject = undefined ;
       
    }
 
 
-   createStatus = async (status : Status ) => {
+   createProject = async (project : Project ) => {
 
     this.loading = true ;
-    status.id = uuid();
+    // project.id = uuid();
     try {
-        await agent.Staties.create(status);
+        await agent.Projects.create(project);
         runInAction(()=>{
-            this.statusRegistry.set(status.id, status);
+            this.projectsRegistry.set(project.id, project);
             this.loading = false ; 
         })
     } catch (error) {
@@ -72,14 +80,14 @@ export default class StatusStore {
     }
    }
 
-   updateStatus = async (status : Status ) => {
+   updateProject = async (project : Project ) => {
 
     this.loading = true ;
     
     try {
-        await agent.Staties.update(status);
+        await agent.Projects.update(project);
         runInAction(()=>{
-            this.statusRegistry.set(status.id, status);
+            this.projectsRegistry.set(project.id, project);
             this.loading = false ; 
         })
     } catch (error) {
@@ -90,12 +98,12 @@ export default class StatusStore {
     }
    }
 
-   deleteStatus = async (id: string) => {
+   deleteProject = async (id: string) => {
     this.loading = true;
     try {
-        await agent.Staties.delete(id);
+        await agent.Projects.delete(id);
         runInAction(() => {
-            this.statusRegistry.delete(id);
+            this.projectsRegistry.delete(id);
             this.loading = false;
         })
 
@@ -106,5 +114,8 @@ export default class StatusStore {
         })
     }
 }
+
+
+
 
 }

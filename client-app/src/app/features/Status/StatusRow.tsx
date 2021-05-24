@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Status } from '../../models/Status';
@@ -34,4 +35,4 @@ function StatusRow() {
     );
 }
 
-export default StatusRow;
+export default observer(StatusRow);

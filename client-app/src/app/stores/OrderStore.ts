@@ -4,7 +4,7 @@ import agent from '../api/agent';
 import {v4 as uuid} from 'uuid';
 import { Order } from '../models/Order';
 
-export default class StatusStore {
+export default class OrderStore {
 
     ordersRegistry = new Map<string, Order>();
     selectedOrder : Order | undefined = undefined ;
@@ -50,7 +50,7 @@ export default class StatusStore {
         this.loadingInitial = state;
     }
 
-    selectStatus = (id : string) => {
+    selectOrder = (id : string) => {
         this.selectedOrder = this.ordersRegistry.get(id);
       
    }

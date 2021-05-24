@@ -3,6 +3,8 @@ import { observer } from "mobx-react-lite";
 import { Link } from 'react-router-dom'
 import {  useStore } from '../../stores/Store'
 import StatusRow from './StatusRow';
+import Lottie from 'lottie-react';
+import loaderAnimation from "../../assets/loader.json";
 
 
 function StatusList() {
@@ -14,7 +16,8 @@ useEffect(()=>{
 } , [statusStore])
 
 
-if(statusStore.loadingInitial) return(<div>Loading...</div>)
+
+if(statusStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie  animationData={loaderAnimation} /> </div>)
 
     return (
         <div>

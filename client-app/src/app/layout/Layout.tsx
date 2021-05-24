@@ -5,7 +5,10 @@ import Header from './Header'
 import Main from './Main'
 import Status from './Status'
 import Orders from './Orders'
+import Projects from './Projects'
 import SideBar from './SideBar'
+
+
 
 const Layout = () => {
     return (
@@ -16,6 +19,7 @@ const Layout = () => {
                     <Switch>
                         <Route exact path="/dashboard" component={Main} />
                         <Route exact path="/orders" component={Orders} />
+                        <Route  path="/projects" component={Projects} />
                         <Route  component={Status} />
                         
                     </Switch>

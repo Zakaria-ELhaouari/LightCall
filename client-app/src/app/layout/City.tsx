@@ -1,11 +1,9 @@
-import React from 'react'
 import { Route, Switch } from 'react-router'
-import StatusList from '../features/Status/StatusList'
-import StatusForm from '../features/Status/StatusForm'
 import { useLocation } from 'react-router-dom'
 import CityList from '../features/city/CityList'
+import CityForm from '../features/city/CityForm'
 
-const Main = () => {
+const City = () => {
     const location = useLocation();
     return (
         <div className="main-content">
@@ -15,7 +13,7 @@ const Main = () => {
           </div> 
           <Switch>
            <Route exact path="/cities" component={CityList} />
-           <Route key={location.key} path={['/creatCity' , '/city/:id']} component={StatusForm} />
+           <Route key={location.key} path={['/cities/creatCity' , '/cities/:id']} component={CityForm} />
          </Switch>
         </section>
       </div>
@@ -23,4 +21,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default City

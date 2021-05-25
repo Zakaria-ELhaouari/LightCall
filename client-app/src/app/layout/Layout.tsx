@@ -7,8 +7,7 @@ import Status from './Status'
 import Operateur from './Operateur'
 import Orders from './Orders'
 import SideBar from './SideBar'
-import City from './Cities'
-import OperateurList from '../features/operateur/OperateurList'
+import City from './City'
 
 const Layout = () => {
     return (

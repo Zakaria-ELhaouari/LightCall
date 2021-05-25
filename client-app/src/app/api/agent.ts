@@ -64,11 +64,11 @@ const Staties = {
 }
 
 const Cities = {
-    list: () => requests.get<City[]>('/City'),
-    details: (id: string) => requests.get<City>(`/City/${id}`),
-    create: (city: City) => requests.post<void>('/City', city),
-    update: (city: City) => requests.put<void>(`/City/${city.id}`, city),
-    delete: (id: string) => requests.del<void>(`/City/${id}`)
+    list: () => requests.get<City[]>('/Cities'),
+    details: (id: string) => requests.get<City>(`/Cities/${id}`),
+    create: (city: City) => requests.post<void>('/Cities', city),
+    update: (city: City) => requests.put<void>(`/Cities/${city.id}`, city),
+    delete: (id: string) => requests.del<void>(`/Cities/${id}`)
 
 }
 

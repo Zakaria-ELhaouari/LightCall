@@ -17,7 +17,7 @@ export default function OperateurForm(){
         email: '',
         Status: false,
       }
-      const [operateur , setOperateur] = useState(initialValues);
+      const [operateur ] = useState(initialValues);
       const AddOperateurSchema = Yup.object().shape({
             userName: Yup.string()
                 .min(3, 'Too Short!')

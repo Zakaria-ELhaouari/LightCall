@@ -1,90 +1,55 @@
 import React, { useState } from 'react'
-import { Operateur } from '../../models/Operateur';
 import { useStore } from '../../stores/Store'
 import * as Yup from 'yup';
-import { Field, Form, Formik } from 'formik';
+import {  Form, Formik } from 'formik';
 import MyTextInput from '../../common/form/MyTextInput';
+import { City } from '../../models/city';
 
-export default function OperateurForm(){
+export default function CityForm(){
     const {cityStore} = useStore();
-    const {selectedOperateur , creatOperateur , updateOperateur} = cityStore;
-    let initialValues  = selectedOperateur ?? {
+    const {creatCity , updateCity , citySelected} = cityStore;
+    let initialValues  = citySelected ?? {
         id : '',
-        userName:'',
-        firstName: '',
-        password:'',
-        lastName:'',
-        email: '',
-        Status: false,
+        cityName : '',
+        zipCode : '',
       }
-      const [operateur , setOperateur] = useState(initialValues);
-      const AddOperateurSchema = Yup.object().shape({
-            userName: Yup.string()
+      const [city ] = useState(initialValues);
+      const AddCitySchema = Yup.object().shape({
+            CityName: Yup.string()
                 .min(3, 'Too Short!')
                 .max(50, 'Too Long!')
                 .required('Required'),    
-            firstName: Yup.string()
+            ZipCode: Yup.string()
                 .min(3, 'Too Short!')
                 .max(50, 'Too Long!')
                 .required('Required'),
-            lastName: Yup.string()
-                .min(3, 'Too Short!')
-                .max(50, 'Too Long!')
-                .required('Required'),
-            email: Yup
-                .string()
-                .email(),
-            Status: Yup.boolean()
-                .required('Required'),
-            password: Yup.string()
-                .required('No password provided.') 
-                .min(8, 'Password is too short - should be 8 chars minimum.')
-                .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')    
         })
 
         // const [addOperateurForm] = useState(initialValues)
-        function handleSubmit(values : Operateur  , {setErrors } : any) {
-            console.log(selectedOperateur?.password);
-            selectedOperateur ? updateOperateur(values) : creatOperateur(values) ;
+        function handleSubmit(values : City  , {setErrors } : any) {
+            citySelected ? updateCity(values) : creatCity(values) ;
           }
-    return(
+        return(
         <div className="card card-primary">
-            <div className="card-header"><h4>{selectedOperateur ? "Edit Operateur" : "Add Operateur"}</h4></div>
+            <div className="card-header"><h4>{citySelected ? "Edit City" : "Add City"}</h4></div>
             <div className="card-body">
-                <Formik initialValues={operateur} 
-                      validationSchema={AddOperateurSchema}
+                <Formik initialValues={city} 
+                      validationSchema={AddCitySchema}
                       onSubmit={(values, {setErrors}) =>
                       {handleSubmit(values, {setErrors})}}
                 >
              {({errors, touched, handleSubmit, isSubmitting, isValid, dirty}) => (
                 <Form onSubmit={handleSubmit}  autoComplete="off">
                         <div className="form-group">
-                          <MyTextInput type="Name" placeholder="First name" name="firstName" label="firstName" />
+                          <MyTextInput type="Name" placeholder="City Name" name="cityName" label="City Name" />
                         </div>
 
                         <div className="form-group">
-                          <MyTextInput type="text" placeholder="last Name" name="lastName" label="lastName" />
+                          <MyTextInput type="text" placeholder="Zip Code" name="zipCode" label="Zip Code" />
                         </div>
-
-                        <div className="form-group">
-                          <MyTextInput type="text" placeholder="userName" name="userName" label="userName" />
-                        </div>
-
-                        <div className="form-group">
-                          <MyTextInput type="email" placeholder="email" name="email" label="email" />
-                        </div>
-
-                        <div className="form-group">
-                          <MyTextInput type="password" placeholder={operateur.password} name="password" label="password" />
-                        </div>
-                            
-                        <div className=" form-group custom-control custom-checkbox">
-                            <Field type="checkbox" className="custom-control-input" name="Status" id="customCheck1"  />
-                            <label className="custom-control-label" htmlFor="customCheck1"> Is Active</label>
-                        </div> 
                         <div className="form-group">
                           <button type="submit" className="btn btn-primary btn-lg btn-block">
-                            {selectedOperateur ? "Edit Operateur" : "Add Operateur"}
+                            {citySelected ? "Edit City" : "Add City"}
                           </button>
                         </div>
                 </Form>

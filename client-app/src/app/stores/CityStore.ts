@@ -6,12 +6,17 @@ import {v4 as uuid} from 'uuid';
 export default class city{
     cityRegistery = new Map<string , City>();
     citySelected : City | undefined = undefined;
-    loadingInitial = true;
+    loadingInitial = false;
     loading = false;
+    allCities= [];
+
     constructor(){
         makeAutoObservable(this);
     }
+
     get cities() {
+        console.log(this.cityRegistery.values())
+        console.log(Array.from(this.cityRegistery.values()))
         return Array.from(this.cityRegistery.values());
     }
     
@@ -20,16 +25,24 @@ export default class city{
     }
     
     laodCities= async () =>{
+        this.setLoadingInitial(true);
         try{
             var cities = await agent.Cities.list();
+            console.log(cities)
             cities.forEach(city =>{
                 this.cityRegistery.set(city.id, city);
+                console.log(this.cityRegistery.values());
+                console.log(this.cityRegistery.get(city.id));
             })
             this.setLoadingInitial(false);
         }catch(error){
             console.log(error)
             this.setLoadingInitial(false)
         }
+    }
+    
+    setLoadingInitial = (state: boolean) => {
+        this.loadingInitial = state;
     }
 
     loadCity = async (id:string) =>{
@@ -90,7 +103,4 @@ export default class city{
         }
     }
 
-    setLoadingInitial = (state: boolean) => {
-        this.loadingInitial = state;
-    }
 }

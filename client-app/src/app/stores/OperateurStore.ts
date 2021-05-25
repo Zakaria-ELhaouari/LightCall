@@ -2,8 +2,6 @@ import { makeAutoObservable, runInAction  } from 'mobx';
 import agent from '../api/agent';
 import { Operateur } from '../models/Operateur';
 import {v4 as uuid} from 'uuid';
-import { UserFormValues } from '../models/User';
-import { store } from './Store';
 
 export default class OperateurStore {
 
@@ -18,6 +16,7 @@ export default class OperateurStore {
     }
 
     get operateurs() {
+        console.log(this.operateurRegisetry.values())
         return Array.from(this.operateurRegisetry.values());
     }
 
@@ -30,6 +29,7 @@ export default class OperateurStore {
             console.log(operateurs);
             operateurs.forEach(operateur =>{
                 this.operateurRegisetry.set(operateur.id, operateur);
+                console.log(this.operateurRegisetry.values());
             })
             this.setLoadingInitial(false)
             

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Switch } from 'react-router'
 import Footer from './Footer'
 import Header from './Header'
@@ -7,10 +6,12 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import SideBar from './SideBar'
-
+// import PrivateAdminRoute from '../security/PrivateAdminRoute'
 
 
 const Layout = () => {
+ 
+
     return (
             <div className="main-wrapper">
                 <div className="navbar-bg"></div>

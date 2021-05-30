@@ -2,11 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+
+    const sidebarBtn = () => {
+        document.body.classList.toggle('sidebar-mini');
+    }
 return (
 <nav className="navbar navbar-expand-lg main-navbar">
     <form className="form-inline mr-auto">
         <ul className="navbar-nav mr-3">
-            <li><Link to="#" data-toggle="sidebar" className="nav-link nav-link-lg"><i className="fas fa-bars"></i></Link>
+            <li><Link to="#" data-toggle="sidebar" onClick={sidebarBtn} className="nav-link nav-link-lg"><i className="fas fa-bars"></i></Link>
             </li>
             <li><Link to="#" data-toggle="search" className="nav-link nav-link-lg d-sm-none"><i
                         className="fas fa-search"></i></Link></li>

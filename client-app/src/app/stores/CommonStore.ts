@@ -41,8 +41,14 @@ export default class CommonStore  {
 
     TokenRoles = () => {
         let Roles: string | string[] | undefined
-        var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
-        Roles = Decoded.sub;
+        if(this.token == null){
+            Roles = "none"
+        }else {
+            var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
+            Roles = Decoded.role;
+            console.log(Roles);
+            
+        }
         return Roles
     }
 

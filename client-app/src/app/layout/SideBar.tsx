@@ -11,12 +11,15 @@ useEffect(() => {
   if(navLink){
       for(var i = 0; i < navLink.length ; i++){
       if(navLink[i].id === location.pathname.replace('/', '') ){
-          navLink[i].parentElement?.classList.add('active')
+          navLink[i].parentElement?.classList.add('active');
+          navLink[i].parentElement?.parentElement?.classList.add('d-block');
+          navLink[i].parentElement?.parentElement?.parentElement?.classList.add('active');
+          console.log(navLink[i].parentElement?.parentElement)
       }
       }
   }
 
-}, [])
+}, [location.pathname])
 
 
 const toggleDropDownActive: MouseEventHandler<HTMLLIElement> = (event: MouseEvent<HTMLElement>) => {
@@ -45,7 +48,7 @@ const toggleDropDownActive: MouseEventHandler<HTMLLIElement> = (event: MouseEven
           </div>
           <ul className="sidebar-menu">
               <li className="menu-header">Dashboard</li>
-              <li className="nav-item dropdown active"  onClick={toggleDropDownActive}>
+              <li className="nav-item dropdown"  onClick={toggleDropDownActive}>
                 {/* <a href="#" className="nav-link has-dropdown"></a> */}
                 <Link to="/dashboard" className="nav-link has-dropdown"><i className="fas fa-fire"></i><span>Dashboard</span></Link>
                 <ul className="dropdown-menu">

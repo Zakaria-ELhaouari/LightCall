@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { observer } from "mobx-react-lite";
 import LoginPage from '../auth/LoginPage';
+import { useStore } from '../../stores/Store';
+import { history } from './../../../index';
 
 const HomePage = () => {
-    // const {commonStore: {TokenRoles, isRoles}, userStore: {login}} = useStore();
+    const {userStore: {isLoggedIn}} = useStore();
 
     // const loginVals = {
     //     email: 'Oskar.Dobler@test.com',
@@ -18,8 +20,15 @@ const HomePage = () => {
     //     }
     // }
 
+    useEffect(() => {
+        isLoggedIn && history.push('/dashboard');
+    })
+
     return (
+        
         <LoginPage/>
+      
+        
     )
 }
 

@@ -5,6 +5,7 @@ import StatusStore from './StatusStore';
 import OrderStore from './OrderStore';
 import OperateurStore from "./OperateurStore";
 import CityStore from "./CityStore";
+import shippingCompanystore from "./ShippingCompanyStore";
 
 
 interface Store {
@@ -14,6 +15,7 @@ interface Store {
     orderStore : OrderStore
     operateurStore : OperateurStore
     cityStore : CityStore
+    shippingCompanyStore : shippingCompanystore
 }
 
 export const store : Store = {
@@ -23,6 +25,7 @@ export const store : Store = {
     orderStore : new OrderStore(),
     operateurStore : new OperateurStore(),
     cityStore : new CityStore(),
+    shippingCompanyStore : new shippingCompanystore()
 }
 
 export const StoreContext = createContext(store);

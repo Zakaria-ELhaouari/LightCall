@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { City } from '../models/city';
 import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
+import { shippingCompany } from '../models/shippingCompany';
 import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
@@ -78,7 +79,14 @@ const OperateurAcc = {
     create: (operateur: Operateur) => requests.post<void>('/OperateurAccount', operateur),
     update: (operateur: Operateur) => requests.put<void>(`/OperateurAccount/${operateur.id}`, operateur),
     delete: (id: string) => requests.del<void>(`/OperateurAccount/${id}`)
+}
 
+const ShippingCompany = {
+    list: () => requests.get<shippingCompany[]>('/ShippingCompany'),
+    details: (id: string) => requests.get<shippingCompany>(`/ShippingCompany/${id}`),
+    create: (shippingCompany: shippingCompany) => requests.post<void>('/ShippingCompany', shippingCompany),
+    update: (shippingCompany: shippingCompany) => requests.put<void>(`/ShippingCompany/${shippingCompany.id}`, shippingCompany),
+    delete: (id: string) => requests.del<void>(`/ShippingCompany/${id}`)
 }
 
 const Account = {
@@ -92,8 +100,8 @@ const agent = {
     Account,
     Staties,
     OperateurAcc,
-    Cities
-
+    Cities,
+    ShippingCompany
 }
 
 export default agent;

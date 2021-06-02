@@ -14,9 +14,9 @@ namespace Persistence
         {
             if(!userManager.Users.Any()){
                 var users = new List<AppUser> {
-                    new AppUser{FirstName = "Med", LastName = "Med", UserName = "Mouiguina", Email = "med@gmail.com", SkypeId = "9746j984938" },
-                    new AppUser{FirstName = "Ned", LastName = "Ned", UserName = "Neeed", Email = "Ned@gmail.com", SkypeId = "97456984938" },
-                    new AppUser{FirstName = "John", LastName = "Snow", UserName = "Mddded", Email = "JohnSnow@gmail.com", SkypeId = "974b6454938" },
+                    new AppUser{FirstName = "Med", LastName = "Mouiguina", UserName = "Mouiguina", Email = "med@gmail.com", SkypeId = "9746j984938" },
+                    new AppUser{FirstName = "Ned", LastName = "Nelson", UserName = "Nelson", Email = "ned@gmail.com", SkypeId = "56456984938" },
+                    new AppUser{FirstName = "John", LastName = "Doe", UserName = "JDoe", Email = "john@gmail.com", SkypeId = "734b6454938" },
 
 
                 };
@@ -25,6 +25,17 @@ namespace Persistence
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                     await userManager.AddToRoleAsync(user, "Member");
+                }
+
+                var Operators = new List<AppUser> {
+                    new AppUser{FirstName = "Austen", LastName = "Renner", UserName = "Renner", Email = "renner@gmail.com", SkypeId = "3446j984938" },
+                    new AppUser{FirstName = "Daren", LastName = "Boyle", UserName = "Boyle", Email = "Boyle@gmail.com", SkypeId = "12456984938" },
+                };
+
+                foreach (var op in  Operators)
+                {
+                    await userManager.CreateAsync(op, "Pa$$w0rd");
+                    await userManager.AddToRoleAsync(op, "Operator");
                 }
             }
 

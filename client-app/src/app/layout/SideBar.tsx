@@ -1,8 +1,11 @@
-import React, {  MouseEvent, MouseEventHandler, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useStore } from '../stores/Store';
+import SideBarAdmin from './Menus/SideBarAdmin';
 
 
 const SideBar = () => {
+  const {layoutStore: {toggleNavLinkActive}} = useStore();
 
 const location = useLocation();
 useEffect(() => {
@@ -10,31 +13,19 @@ useEffect(() => {
   var navLink = document.getElementsByClassName("nav-link");
   if(navLink){
       for(var i = 0; i < navLink.length ; i++){
-      if(navLink[i].id === location.pathname.replace('/', '') ){
-          navLink[i].parentElement?.classList.add('active');
-          navLink[i].parentElement?.parentElement?.classList.add('d-block');
-          navLink[i].parentElement?.parentElement?.parentElement?.classList.add('active');
-          console.log(navLink[i].parentElement?.parentElement)
+        if(navLink[i].id === location.pathname.replace('/', '') ){
+            navLink[i].parentElement?.classList.add('active');
+            navLink[i].parentElement?.parentElement?.classList.add('d-block');
+            navLink[i].parentElement?.parentElement?.parentElement?.classList.add('active');
+        }
+
+        navLink[i].addEventListener('click', toggleNavLinkActive);
       }
-      }
   }
 
-}, [location.pathname])
+})
 
 
-const toggleDropDownActive: MouseEventHandler<HTMLLIElement> = (event: MouseEvent<HTMLElement>) => {
-  var navItems = document.getElementsByClassName("nav-item");
-  if(navItems){
-    for(var i = 0; i < navItems.length ; i++){
-      event.currentTarget !== navItems[i] &&  navItems[i].classList.remove('active');
-      event.currentTarget !== navItems[i] && navItems[i].getElementsByClassName('dropdown-menu')[0].classList.remove('d-block');
-  }
-  }
-  event.currentTarget.classList.toggle('active');
-  var dropDown = event.currentTarget.getElementsByClassName('dropdown-menu');
-  dropDown[0].classList.toggle('d-block');
-
-}
 
 
     return (
@@ -46,35 +37,8 @@ const toggleDropDownActive: MouseEventHandler<HTMLLIElement> = (event: MouseEven
           <div className="sidebar-brand sidebar-brand-sm">
             <a href="index.html">LC</a>
           </div>
-          <ul className="sidebar-menu">
-              <li className="menu-header">Dashboard</li>
-              <li className="nav-item dropdown"  onClick={toggleDropDownActive}>
-                {/* <a href="#" className="nav-link has-dropdown"></a> */}
-                <Link to="/dashboard" className="nav-link has-dropdown"><i className="fas fa-fire"></i><span>Dashboard</span></Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    {/* <a className="nav-link" href="index-0.html">General Dashboard</a> */}
-                    <Link to="/login" className="nav-link" id="dashboard" >Dashboard</Link>
-                  </li>
-                  <li className=""><a className="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                </ul>
-              </li>
 
-
-              <li className="menu-header">Test Starter</li>
-              <li className="nav-item dropdown " onClick={toggleDropDownActive}>
-                {/* <a href="#" className="nav-link has-dropdown"></a> */}
-                <Link to="/dashboard" className="nav-link has-dropdown"><i className="fas fa-fire"></i><span>Dashboard</span></Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    {/* <a className="nav-link" href="index-0.html">General Dashboard</a> */}
-                    <Link to="/login" className="nav-link" >Login</Link>
-                  </li>
-                  <li className=""><a className="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                </ul>
-              </li>
-            </ul>
-
+          <SideBarAdmin />
 
         </aside>
       </div>

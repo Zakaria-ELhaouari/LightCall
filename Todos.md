@@ -23,7 +23,7 @@ Menu
             Order Confirmed
             .....
      - Subsriptions Statistics
-System
+System Management
   *Manage Operators
   *Manage IVR system
   *Manage Users
@@ -58,3 +58,14 @@ System
    Operator Dashboard
    Support
    Account Settings
+
+
+-[] Operator
+    - renner@gmail.com
+    - Pa$$w0rd
+-[] Admin
+    - admin@gmail.com
+    - _AStrong12P@ssword!
+-[] Member
+    - med@gmail.com
+    - Pa$$w0rd

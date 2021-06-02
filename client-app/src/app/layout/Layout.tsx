@@ -6,6 +6,7 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import SideBar from './SideBar'
+import PrivateAdminRoute from '../security/PrivateAdminRoute'
 // import PrivateAdminRoute from '../security/PrivateAdminRoute'
 
 
@@ -18,7 +19,7 @@ const Layout = () => {
                 <Header/>
                 <SideBar/>
                     <Switch>
-                        <Route exact path="/dashboard" component={Main} />
+                        <PrivateAdminRoute exact path="/dashboard" component={Main} />
                         <Route exact path="/orders" component={Orders} />
                         <Route  path="/projects" component={Projects} />
                         <Route  component={Status} />

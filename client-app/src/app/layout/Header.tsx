@@ -1,10 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useStore } from './../stores/Store';
 
 const Header = () => {
 
+    const {userStore: {user, logout}} = useStore();
+
     const sidebarBtn = () => {
         document.body.classList.toggle('sidebar-mini');
+
+        var dropDownMenu = document.getElementsByClassName("dropdown-menu");
+        if(dropDownMenu){
+            for(var i = 0; i < dropDownMenu.length ; i++){
+                
+                dropDownMenu[i].classList.remove('d-block');
+                
+            }
+        }
+        
     }
 return (
 <nav className="navbar navbar-expand-lg main-navbar">
@@ -215,7 +228,7 @@ return (
         <li className="dropdown"><Link to="#" data-toggle="dropdown"
                 className="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="avatar us1" src="../assets/img/avatar/avatar-1.png" className="rounded-circle mr-1"/>
-                <div className="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                <div className="d-sm-none d-lg-inline-block">{`${user?.firstName} ${user?.lastName}`}</div>
             </Link>
             <div className="dropdown-menu dropdown-menu-right">
                 <div className="dropdown-title">Logged in 5 min ago</div>
@@ -229,7 +242,7 @@ return (
                     <i className="fas fa-cog"></i> Settings
                 </Link>
                 <div className="dropdown-divider"></div>
-                <Link to="#" className="dropdown-item has-icon text-danger">
+                <Link to="#" onClick={logout} className="dropdown-item has-icon text-danger">
                     <i className="fas fa-sign-out-alt"></i> Logout
                 </Link>
             </div>

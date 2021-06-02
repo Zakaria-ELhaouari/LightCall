@@ -4,6 +4,7 @@ import UserStore from './UserStore';
 import StatusStore from './StatusStore';
 import OrderStore from './OrderStore';
 import ProjectStore from './ProjectStore';
+import LayoutStore from './LayoutStore';
 
 interface Store {
     commonStore: CommonStore
@@ -11,6 +12,7 @@ interface Store {
     statusStore : StatusStore
     orderStore : OrderStore
     projectStore : ProjectStore
+    layoutStore: LayoutStore
 }
 
 export const store : Store = {
@@ -18,7 +20,8 @@ export const store : Store = {
     userStore: new UserStore(),
     statusStore : new StatusStore(),
     orderStore : new OrderStore(),
-    projectStore : new ProjectStore()
+    projectStore : new ProjectStore(),
+    layoutStore: new LayoutStore()
 
 }
 

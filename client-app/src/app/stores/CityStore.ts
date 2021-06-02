@@ -15,8 +15,8 @@ export default class city{
     }
 
     get cities() {
-        console.log(this.cityRegistery.values())
-        console.log(Array.from(this.cityRegistery.values()))
+        // console.log(this.cityRegistery.values())
+        // console.log(Array.from(this.cityRegistery.values()))
         return Array.from(this.cityRegistery.values());
     }
     
@@ -28,11 +28,11 @@ export default class city{
         this.setLoadingInitial(true);
         try{
             var cities = await agent.Cities.list();
-            console.log(cities)
+            // console.log(cities)
             cities.forEach(city =>{
                 this.cityRegistery.set(city.id, city);
-                console.log(this.cityRegistery.values());
-                console.log(this.cityRegistery.get(city.id));
+                // console.log(this.cityRegistery.values());
+                // console.log(this.cityRegistery.get(city.id));
             })
             this.setLoadingInitial(false);
         }catch(error){

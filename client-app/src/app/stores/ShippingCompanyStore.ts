@@ -7,7 +7,7 @@ export default class shippingCompanystore{
 
     shippingCompanyRegistery = new Map<string , shippingCompany>();
     shippingCompanySelected : shippingCompany | undefined = undefined;
-    loadingInitial = true;
+    loadingInitial = false;
     loading = false;
 
     constructor(){
@@ -15,6 +15,7 @@ export default class shippingCompanystore{
     }
 
     laodShippingCompanys = async () =>{
+        this.setLoadingInitial(true);
         try{
             var shippingCompanys = await agent.ShippingCompany.list();
 
@@ -39,7 +40,7 @@ export default class shippingCompanystore{
         }
     }
 
-    creatShippingCopany = async (shippingCompany: shippingCompany) =>{
+    creatShippingCompany = async (shippingCompany: shippingCompany) =>{
         this.loading = true;
         shippingCompany.id = uuid();
         try{

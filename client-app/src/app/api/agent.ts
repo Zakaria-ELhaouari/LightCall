@@ -61,7 +61,6 @@ const Staties = {
     create: (status: Status) => requests.post<void>('/Status', status),
     update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Status/${id}`)
-
 }
 
 const Cities = {

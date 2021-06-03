@@ -14,10 +14,11 @@ export default observer(function ShippingCompanyForm(){
     // const [Allcities , setCities] = useState([]);
     let initialValues  = shippingCompanySelected ?? {
       id : '',
-      Name : '',
-      ApiClient : '',
-      citiesIds : [] ,
+      name : '',
+      apiClient : '',
+      cities : [] ,
     }
+    const allCities :string[] = [];
     const [company ] = useState(initialValues);
     var CountryName=[{}]
     
@@ -31,25 +32,21 @@ export default observer(function ShippingCompanyForm(){
     useEffect(()=>{
       cityStore.laodCities()
     } , [cityStore])
+
     const onchange  = (e : any)=>{
       e.forEach((el : any )  => {
-        // initialValues.citiesIds = el.value;
-
-        initialValues.citiesIds.push(el.value)
-        console.log(initialValues.citiesIds);
+        allCities.push(el.value)
+        // console.log(initialValues.citiesIds);
       });
     } 
 
     function handleSubmit(values : shippingCompany  , {setErrors } : any) {
       // console.log(values)
       console.log(initialValues);
-      values.citiesIds = initialValues.citiesIds;
+      values.cities = allCities;
       shippingCompanySelected ? updateShippingCompany(values) : creatShippingCompany(values);
     }
-    // function handleChangeInpute(e: React.ChangeEvent<HTMLInputElement>){
-    //   // initialValues.city = (Array.isArray(e)?e.map(x=>x.value):[]);
-    //   setValue(e.map(x=>x.value));
-    // }
+
     if(cityStore.loadingInitial) return(<div>Loading...</div>)
     return(
         <div className="card card-primary">
@@ -61,13 +58,13 @@ export default observer(function ShippingCompanyForm(){
               {({errors, touched, handleSubmit, isSubmitting, isValid, dirty , values}) => (
                 <Form onSubmit={handleSubmit}  autoComplete="off">
                         <div className="form-group">
-                          <MyTextInput type="Name" placeholder="Name" name="Name" label="Name" />
+                          <MyTextInput type="Name" placeholder="Name" name="name" label="Name" />
                         </div>
                         <div className="form-group">
-                          <MyTextInput type="Name" placeholder="Name" name="ApiClient" label="Api Client" />
+                          <MyTextInput type="Name" placeholder="Name" name="apiClient" label="Api Client" />
                         </div>
                         <div className="form-group">
-                          <Select isMulti options={CountryName} name='citiesIds' onChange={onchange} />
+                          <Select isMulti options={CountryName} name='cities' onChange={onchange} />
                         </div>
                         <div className="form-group">
                           <button type="submit" className="btn btn-primary btn-lg btn-block">

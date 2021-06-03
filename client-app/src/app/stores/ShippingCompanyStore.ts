@@ -3,7 +3,7 @@ import agent from "../api/agent";
 import { shippingCompany } from "../models/shippingCompany";
 import {v4 as uuid} from 'uuid';
 
-export default class shippingCompanystore{
+export default class ShippingCompanystore{
 
     shippingCompanyRegistery = new Map<string , shippingCompany>();
     shippingCompanySelected : shippingCompany | undefined = undefined;
@@ -12,6 +12,10 @@ export default class shippingCompanystore{
 
     constructor(){
         makeAutoObservable(this);
+    }
+
+    get shippingCompanys() {
+        return Array.from(this.shippingCompanyRegistery.values());
     }
 
     laodShippingCompanys = async () =>{
@@ -84,6 +88,10 @@ export default class shippingCompanystore{
                 this.loading = false ; 
             })
         }
+    }
+
+    selectShippingCompany = (id: string) =>{
+        this.shippingCompanySelected = this.shippingCompanyRegistery.get(id);
     }
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;

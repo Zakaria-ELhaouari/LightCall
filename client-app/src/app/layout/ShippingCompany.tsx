@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router'
 import { useLocation } from 'react-router-dom'
 import ShippingCompanyForm from '../features/shippingCompany/ShippingCompantForm';
+import ShippingCompanyList from '../features/shippingCompany/ShippingCompanyList';
 
 const City = () => {
     const location = useLocation();
@@ -11,8 +12,8 @@ const City = () => {
             <h1>shipping Company</h1>
           </div> 
           <Switch>
-           {/* <Route exact path="/shippingCompany" component={CityList} /> */}
-           <Route key={location.key} path={['/shippingCompany/creat_shipping_Company' , '/shippingCompany/:id']} component={ShippingCompanyForm} />
+          <Route exact path="/shippingCompany" component={ShippingCompanyList} />
+          <Route key={location.key} path={['/shippingCompany/creat_shipping_Company' , '/shippingCompany/:id']} component={ShippingCompanyForm} />
          </Switch>
         </section>
       </div>

@@ -12,7 +12,7 @@ export default observer(function CityList(){
     if(cityStore.loadingInitial) return(<div>Loading...</div>)
     return(
         <div>
-           <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add Status  </Link>
+           <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link>
          <div className="card mt-4">
                   <div className="card-body">
                     <table className="table">

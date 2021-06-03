@@ -13,6 +13,12 @@ import PivateLayout from '../security/PivateLayout';
 import OperatorDashoard from '../features/Operator/OperatorDashoard';
 import Main from '../features/Admin/Main';
 import ManageOperator from './../features/Admin/ManageOperator';
+import Status from './Status'
+import Orders from './Orders'
+import Projects from './Projects'
+import City from './City'
+import ShippingCompany from './ShippingCompany'
+import Operator from './Operator'
 
 function App() {
   const {userStore, commonStore: {setApploaded, token, appLoaded}} = useStore();
@@ -38,7 +44,13 @@ function App() {
           {/* <Route  exact component={Layout} /> */}
           <PivateLayout exact path="/manageOperators" component={ManageOperator} />
           <PivateLayout exact path="/Admindashboard" component={Main} />
-         
+          <PivateLayout exact path="/orders" component={Orders} />
+          <PivateLayout path="/status" component={Status} /> 
+          {/* <PivateLayout path="/operateur" component={Operateur}/> */}
+          <PivateLayout path="/shippingCompany" component={ShippingCompany}/>
+          <PivateLayout path="/cities" component={City}/>
+          <PivateLayout  path="/projects" component={Projects} />
+          <PivateLayout path="/operateur" component={Operator}/>
 
 
         </Switch>

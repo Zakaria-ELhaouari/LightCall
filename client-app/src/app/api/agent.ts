@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
 import { Project } from '../models/Project';
 import { User, UserFormValues } from '../models/User';
@@ -72,6 +73,15 @@ const Projects = {
 
 }
 
+const OperateurAcc = {
+    list: () => requests.get<Operateur[]>('/OperateurAccount'),
+    details: (id: string) => requests.get<Operateur>(`/OperateurAccount/${id}`),
+    create: (operateur: Operateur) => requests.post<void>('/OperateurAccount', operateur),
+    update: (operateur: Operateur) => requests.put<void>(`/OperateurAccount/${operateur.id}`, operateur),
+    delete: (id: string) => requests.del<void>(`/OperateurAccount/${id}`)
+
+}
+
 const Account = {
     current: () => requests.get<User>('/account'),
     login: (user: UserFormValues) => requests.post<User>('/account/login', user),
@@ -82,7 +92,9 @@ const agent = {
     Orders,
     Account,
     Staties,
-    Projects
+    Projects,
+    OperateurAcc
+
 
 }
 

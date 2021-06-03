@@ -1,6 +1,9 @@
-"use strict";
+import { Chart } from 'chart.js';
+
 
 var ctx = document.getElementById("myChart").getContext('2d');
+
+
 var myChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -8,7 +11,6 @@ var myChart = new Chart(ctx, {
     datasets: [{
       label: 'Sales',
       data: [3200, 1800, 4305, 3022, 6310, 5120, 5880, 6154],
-      borderWidth: 2,
       backgroundColor: 'rgba(63,82,227,.8)',
       borderWidth: 0,
       borderColor: 'transparent',
@@ -20,7 +22,6 @@ var myChart = new Chart(ctx, {
     {
       label: 'Budget',
       data: [2207, 3403, 2200, 5025, 2302, 4208, 3880, 4880],
-      borderWidth: 2,
       backgroundColor: 'rgba(254,86,83,.7)',
       borderWidth: 0,
       borderColor: 'transparent',
@@ -129,7 +130,6 @@ var myChart = new Chart(sales_chart, {
     datasets: [{
       label: 'Sales',
       data: [70, 62, 44, 40, 21, 63, 82, 52, 50, 31, 70, 50, 91, 63, 51, 60],
-      borderWidth: 2,
       backgroundColor: balance_chart_bg_color,
       borderWidth: 3,
       borderColor: 'rgba(63,82,227,1)',
@@ -174,22 +174,21 @@ var myChart = new Chart(sales_chart, {
   }
 });
 
-
-$("#products-carousel").owlCarousel({
-  items: 3,
-  margin: 10,
-  autoplay: true,
-  autoplayTimeout: 5000,
-  loop: true,
-  responsive: {
-    0: {
-      items: 2
-    },
-    768: {
-      items: 2
-    },
-    1200: {
-      items: 3
-    }
-  }
-});
+// $("#products-carousel").owlCarousel({
+//   items: 3,
+//   margin: 10,
+//   autoplay: true,
+//   autoplayTimeout: 5000,
+//   loop: true,
+//   responsive: {
+//     0: {
+//       items: 2
+//     },
+//     768: {
+//       items: 2
+//     },
+//     1200: {
+//       items: 3
+//     }
+//   }
+// });

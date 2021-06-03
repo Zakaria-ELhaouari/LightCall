@@ -1,5 +1,7 @@
+
 import React from 'react'
 import { Route, Switch } from 'react-router'
+import PrivateAdminRoute from '../security/PrivateAdminRoute'
 import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
@@ -7,6 +9,8 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import SideBar from './SideBar'
+import Operator from './Operator'
+
 
 
 
@@ -21,6 +25,7 @@ const Layout = () => {
                         <Route exact path="/orders" component={Orders} />
                         <Route  path="/projects" component={Projects} />
                         <Route  component={Status} />
+                        <Route path="/operateur" component={Operator}/>
                         
                     </Switch>
                 <Footer/>
@@ -28,4 +33,4 @@ const Layout = () => {
     )
 }
 
-export default Layout
+export default Layout;

@@ -9,6 +9,8 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import SideBar from './SideBar'
+import City from './City'
+import ShippingCompany from './ShippingCompany'
 import Operator from './Operator'
 
 
@@ -23,8 +25,11 @@ const Layout = () => {
                     <Switch>
                         <Route exact path="/dashboard" component={Main} />
                         <Route exact path="/orders" component={Orders} />
+                        <Route path="/status" component={Status} /> 
+                        {/* <Route path="/operateur" component={Operateur}/> */}
+                        <Route path="/shippingCompany" component={ShippingCompany}/>
+                        <Route path="/cities" component={City}/>
                         <Route  path="/projects" component={Projects} />
-                        <Route  component={Status} />
                         <Route path="/operateur" component={Operator}/>
                         
                     </Switch>

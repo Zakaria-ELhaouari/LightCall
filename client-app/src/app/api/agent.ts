@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
+import { City } from '../models/city';
 import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
+import { shippingCompany } from '../models/shippingCompany';
 import { Project } from '../models/Project';
 import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
@@ -62,6 +64,14 @@ const Staties = {
     create: (status: Status) => requests.post<void>('/Status', status),
     update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Status/${id}`)
+}
+
+const Cities = {
+    list: () => requests.get<City[]>('/Cities'),
+    details: (id: string) => requests.get<City>(`/Cities/${id}`),
+    create: (city: City) => requests.post<void>('/Cities', city),
+    update: (city: City) => requests.put<void>(`/Cities/${city.id}`, city),
+    delete: (id: string) => requests.del<void>(`/Cities/${id}`)
 
 }
 const Projects = {
@@ -79,7 +89,14 @@ const OperateurAcc = {
     create: (operateur: Operateur) => requests.post<void>('/OperateurAccount', operateur),
     update: (operateur: Operateur) => requests.put<void>(`/OperateurAccount/${operateur.id}`, operateur),
     delete: (id: string) => requests.del<void>(`/OperateurAccount/${id}`)
+}
 
+const ShippingCompany = {
+    list: () => requests.get<shippingCompany[]>('/ShippingCompany'),
+    details: (id: string) => requests.get<shippingCompany>(`/ShippingCompany/${id}`),
+    create: (shippingCompany: shippingCompany) => requests.post<void>('/ShippingCompany', shippingCompany),
+    update: (shippingCompany: shippingCompany) => requests.put<void>(`/ShippingCompany/${shippingCompany.id}`, shippingCompany),
+    delete: (id: string) => requests.del<void>(`/ShippingCompany/${id}`)
 }
 
 const Account = {
@@ -92,8 +109,10 @@ const agent = {
     Orders,
     Account,
     Staties,
-    Projects,
-    OperateurAcc
+    OperateurAcc,
+    Cities,
+    ShippingCompany,
+    Projects
 
 
 }

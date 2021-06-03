@@ -16,6 +16,7 @@ function StatusRow() {
     return ( 
         <>
         {status.map((statu)=> {
+          console.log(statu.statusPiority)
          return ( 
         <tr key={statu.id}>
         <td>{statu.statusType}</td>

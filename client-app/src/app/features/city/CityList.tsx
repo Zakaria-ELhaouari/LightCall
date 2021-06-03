@@ -1,30 +1,29 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { useStore } from '../../stores/Store'
-import OperateurRow from './OperateurRow';
+import CityRow from './CityRow';
 
-export default observer(function OperateurList(){
-    const {operateurStore} = useStore();
+export default observer(function CityList(){
+    const {cityStore} = useStore();
     useEffect(()=>{
-      operateurStore.loadOperateurs()
-    } , [operateurStore])
-  if(operateurStore.loadingInitial) return(<div>Loading...</div>)
+      cityStore.laodCities()
+    } , [cityStore])
+    if(cityStore.loadingInitial) return(<div>Loading...</div>)
     return(
         <div>
+           <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link>
          <div className="card mt-4">
                   <div className="card-body">
                     <table className="table">
                       <thead>
                         <tr>
-                            <th scope="col">lastName</th>
-                            <th scope="col">firstName</th>
-                            <th scope="col">email</th>
-                            <th scope="col">status</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">city</th>
+                            <th scope="col">zip code</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <OperateurRow/>
+                        <CityRow/>
                       </tbody>
                     </table>
                   </div>

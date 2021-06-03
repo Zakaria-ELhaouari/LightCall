@@ -9,7 +9,7 @@ const SideBarAdmin = () => {
         <ul className="sidebar-menu">
             <li className="menu-header">Dashboard</li>
             <li className="">
-                <Link to="/dashboard" className="nav-link" id="dashboard" ><i className="fas fa-user-secret"></i> <span>General Dashboard</span></Link>
+                <Link to="/Admindashboard" className="nav-link" id="dashboard" ><i className="fas fa-user-secret"></i> <span>General Dashboard</span></Link>
             </li>
             <li className="">
                 <Link to="/subscriptionDash" className="nav-link" id="subscriptionDash" ><i className="fas fa-user-secret"></i> <span>Subsriptions Statistics</span></Link>

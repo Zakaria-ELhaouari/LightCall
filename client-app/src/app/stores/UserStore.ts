@@ -25,7 +25,7 @@ export default class UserStore {
             });
             
 
-            history.push('/dashboard'); //redirect user to dashboard after succefull login
+            history.push('/'); //redirect user to dashboard after succefull login
             
         } catch (error) {
             throw error;

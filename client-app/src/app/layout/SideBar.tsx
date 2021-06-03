@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useStore } from '../stores/Store';
 import SideBarAdmin from './Menus/SideBarAdmin';
+import SideBarMember from './Menus/SideBarMember';
 
 
 const SideBar = () => {
-  const {layoutStore: {toggleNavLinkActive}} = useStore();
+  const {layoutStore: {toggleNavLinkActive}, commonStore: {isRoles}} = useStore();
 
 const location = useLocation();
 useEffect(() => {
@@ -26,8 +27,6 @@ useEffect(() => {
 })
 
 
-
-
     return (
         <div className="main-sidebar">
         <aside id="sidebar-wrapper">
@@ -38,7 +37,8 @@ useEffect(() => {
             <a href="index.html">LC</a>
           </div>
 
-          <SideBarAdmin />
+        {isRoles(["Admin"]) && <SideBarAdmin />}  
+        {isRoles(["Member"]) && <SideBarMember />}  
 
         </aside>
       </div>

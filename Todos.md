@@ -23,6 +23,7 @@ Menu
             Order Confirmed
             .....
      - Subsriptions Statistics
+     - Subsriptions Statistics
 System Management
   *Manage Operators
   *Manage IVR system

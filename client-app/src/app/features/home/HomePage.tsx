@@ -5,7 +5,7 @@ import { useStore } from '../../stores/Store';
 import { history } from './../../../index';
 
 const HomePage = () => {
-    const {userStore: {isLoggedIn}} = useStore();
+    const {userStore: {isLoggedIn}, commonStore: {isRoles}} = useStore();
 
     // const loginVals = {
     //     email: 'Oskar.Dobler@test.com',
@@ -21,7 +21,9 @@ const HomePage = () => {
     // }
 
     useEffect(() => {
-        isLoggedIn && history.push('/dashboard');
+        isLoggedIn && isRoles(["Admin"]) && history.push('/Admindashboard');
+        isLoggedIn && isRoles(["Member"]) && history.push('/dashboard');
+        isLoggedIn && isRoles(["Operator"]) && history.push('/OperatorDashboard');
     })
 
     return (

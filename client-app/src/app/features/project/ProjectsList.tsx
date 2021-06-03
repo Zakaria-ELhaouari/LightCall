@@ -46,6 +46,12 @@ function handleSubmit(values : any  , {setErrors } : any) {
                     <label>File</label>
                     <Field name="file" type="file" className="form-control"/>
             </div>
+
+            <div className="form-group">
+                          <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
+                            Import
+                          </button>
+                        </div>
             </Form>
              )}
             </Formik>

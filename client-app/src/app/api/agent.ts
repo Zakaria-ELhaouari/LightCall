@@ -8,7 +8,7 @@ import { Status } from './../models/Status';
 
 
 const sleep = (delay: number) => {
-    return new Promise((resolve) =>  {
+    return new Promise((resolve) => {
         setTimeout(resolve, delay)
     })
 }
@@ -18,7 +18,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
-    if(token) config.headers.Authorization = `Bearer ${token}`
+    if (token) config.headers.Authorization = `Bearer ${token}`
     return config
 })
 
@@ -34,13 +34,13 @@ axios.interceptors.response.use(async response => {
 
 
 
-const responseBody = <T> (response : AxiosResponse<T>) => response.data;
+const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
-    get: <T> (url: string) => axios.get<T>(url).then(responseBody),
-    post: <T>  (url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
-    put:  <T> (url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
-    del: <T>  (url: string) => axios.delete<T>(url).then(responseBody)
+    get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+    post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
+    put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+    del: <T>(url: string) => axios.delete<T>(url).then(responseBody)
 }
 
 const Orders = {
@@ -49,7 +49,9 @@ const Orders = {
     create: (order: Order) => requests.post<void>('/Order', order),
     update: (order: Order) => requests.put<void>(`/Order/${order.id}`, order),
     updateStatus: (status: Status) => requests.put<void>(`/Order/status/${status.id}`, status),
-    delete: (id: string) => requests.del<void>(`/Order/${id}`)
+    delete: (id: string) => requests.del<void>(`/Order/${id}`),
+    assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
+    inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder${id}`, {}),
 
 }
 

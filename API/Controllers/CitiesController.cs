@@ -14,8 +14,7 @@ using Persistence;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+  
     public class CitiesController : BaseApiController
     {
         private readonly IMapper _mapper;

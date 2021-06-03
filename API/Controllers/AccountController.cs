@@ -115,8 +115,7 @@ namespace API.Controllers
                 LastName = user.LastName,
                 Image = null,
                 Token = await _tokenService.CreateToken(user),
-                Username = user.UserName,
-                Role = await _userManager.GetRolesAsync(user)
+                Username = user.UserName
             };
         }
 

@@ -51,7 +51,7 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new Delete.Command{Id = id})); 
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("status/{id}")]
         public async Task<IActionResult> ChnageStatusUpsell(Guid id )
         {
             await Mediator.Send(new EditStatus.Command{Id = id});

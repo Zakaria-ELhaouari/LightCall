@@ -2,8 +2,9 @@ import React from 'react'
 import { Route, Switch } from 'react-router'
 import OperateurList from '../features/operateur/OperateurList'
 import OperateurForm from '../features/operateur/OperateurForm'
+import { Operateur } from '../models/Operateur';
 
-const Main = () => {
+const Operator = () => {
     return (
         <div className="main-content">
         <section className="section">
@@ -20,4 +21,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Operator

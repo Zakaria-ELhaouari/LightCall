@@ -9,7 +9,7 @@ namespace Domain
     public class Order
     {
         public Guid Id { get; set; }
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public string Description { get; set; }
         public List<OperatorAcc> Operators { get; set; }
         public string Customer { get; set; }

@@ -3,7 +3,7 @@ import React from 'react'
 import OrderList from '../features/order/OrdersList'
 
 
-const Main = () => {
+const Orders = () => {
     return (
         <div className="main-content">
         <section className="section">
@@ -18,4 +18,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Orders

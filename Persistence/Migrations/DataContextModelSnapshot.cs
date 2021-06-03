@@ -159,8 +159,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
@@ -228,6 +228,9 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsShopify")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Project_Type")
                         .HasColumnType("TEXT");
 
@@ -235,6 +238,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WebHookSecret")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

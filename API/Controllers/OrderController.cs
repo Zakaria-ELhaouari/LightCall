@@ -17,11 +17,11 @@ using Microsoft.AspNetCore.Identity;
 using Application.Interfaces;
 using Application.Orders;
 using MediatR;
+using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class OrderController : BaseApiController
     {
         private readonly DataContext _context;
@@ -37,8 +37,7 @@ namespace API.Controllers
 
 
 
-        [HttpPost]
-        [Route("Import")]
+        [HttpPost("Import")]
         public async Task<JsonResult> ImportFile(IFormFile importFile)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
@@ -61,7 +60,7 @@ namespace API.Controllers
 
                             orderList.Add(new Order
                             {
-                                OrderId = Convert.ToInt32(excelWorksheet.Cells[row, 1].Value.ToString().Trim()),
+                                OrderId = excelWorksheet.Cells[row, 1].Value.ToString().Trim(),
                                 Description = excelWorksheet.Cells[row, 2].Value.ToString().Trim(),
                                 Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
@@ -121,6 +120,29 @@ namespace API.Controllers
 
         }
 
+
+        [HttpPost]
+        [Route("Shopify/{id}")]
+        public async Task<IActionResult> ShopifyOrder(Guid id  , JObject body )
+        {
+
+
+            Project project = _context.Projects.FindAsync(id).Result ;
+            var shopifyOrder = body.Properties().ToList();
+            var orderId = shopifyOrder[0];
+            var price = shopifyOrder[10];
+            
+            Order order = new Order {
+                OrderId = orderId.Value.ToString(),
+                Price = Decimal.Parse( price.Value.ToString()),
+                Project = project };
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync() ;
+
+            return Ok();
+
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {
@@ -130,8 +152,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut]
-        [Route("inAsinOrder")]
+        [HttpPut("inAsinOrder")]
 
         public async Task<IActionResult> InAsinOrder(Guid id)
         {
@@ -141,8 +162,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut]
-        [Route("AsinOrder")]
+        [HttpPut("AsinOrder")]
         public async Task<IActionResult> AsinOrder()
         {
 

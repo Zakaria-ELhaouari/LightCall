@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router';
 import { useStore } from '../stores/Store';
@@ -13,9 +14,9 @@ const PrivateAdminRoute = ({component: Component, ...rest}: Props) => {
     return (
         <Route 
             {...rest}
-            render={(props) =>  isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
+            render={(props) =>  isRoles(["Admin"]) && isLoggedIn ? <Component {...props} /> : <Redirect to='/RestrictedAccess' />}
         />
     )
 }
 
-export default PrivateAdminRoute;
+export default observer(PrivateAdminRoute) ;

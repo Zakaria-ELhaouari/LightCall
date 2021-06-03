@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import { observer } from "mobx-react-lite";
 import LoginPage from '../auth/LoginPage';
-
+import { useStore } from '../../stores/Store';
+import { history } from './../../../index';
 
 const HomePage = () => {
-    // const {commonStore: {TokenRoles, isRoles}, userStore: {login}} = useStore();
+    const {userStore: {isLoggedIn}, commonStore: {isRoles}} = useStore();
 
     // const loginVals = {
     //     email: 'Oskar.Dobler@test.com',
@@ -19,8 +20,17 @@ const HomePage = () => {
     //     }
     // }
 
+    useEffect(() => {
+        isLoggedIn && isRoles(["Admin"]) && history.push('/Admindashboard');
+        isLoggedIn && isRoles(["Member"]) && history.push('/dashboard');
+        isLoggedIn && isRoles(["Operator"]) && history.push('/OperatorDashboard');
+    })
+
     return (
+        
         <LoginPage/>
+      
+        
     )
 }
 

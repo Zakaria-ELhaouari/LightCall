@@ -1,8 +1,8 @@
+import { useStore } from '../stores/Store'
 import { Route, Switch } from 'react-router'
-import PrivateAdminRoute from '../security/PrivateAdminRoute'
 import Footer from './Footer'
 import Header from './Header'
-import Main from './Main'
+import Main from '../features/Admin/Main'
 import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
@@ -10,11 +10,11 @@ import SideBar from './SideBar'
 import City from './City'
 import ShippingCompany from './ShippingCompany'
 import Operator from './Operator'
-
-
-
+import PrivateAdminRoute from '../security/PrivateAdminRoute'
+import PublicRoute from '../security/PublicRoute'
 
 const Layout = () => {
+
     return (
             <div className="main-wrapper">
                 <div className="navbar-bg"></div>

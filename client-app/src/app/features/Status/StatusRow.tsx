@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Status } from '../../models/Status';
@@ -15,6 +16,7 @@ function StatusRow() {
     return ( 
         <>
         {status.map((statu)=> {
+          console.log(statu.statusPiority)
          return ( 
         <tr key={statu.id}>
         <td>{statu.statusType}</td>
@@ -34,4 +36,4 @@ function StatusRow() {
     );
 }
 
-export default StatusRow;
+export default observer(StatusRow);

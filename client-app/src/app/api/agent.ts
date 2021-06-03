@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
+import { City } from '../models/city';
 import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
+import { shippingCompany } from '../models/shippingCompany';
+import { Project } from '../models/Project';
 import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
@@ -8,7 +11,7 @@ import { Status } from './../models/Status';
 
 
 const sleep = (delay: number) => {
-    return new Promise((resolve) =>  {
+    return new Promise((resolve) => {
         setTimeout(resolve, delay)
     })
 }
@@ -18,7 +21,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
-    if(token) config.headers.Authorization = `Bearer ${token}`
+    if (token) config.headers.Authorization = `Bearer ${token}`
     return config
 })
 
@@ -34,13 +37,13 @@ axios.interceptors.response.use(async response => {
 
 
 
-const responseBody = <T> (response : AxiosResponse<T>) => response.data;
+const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
-    get: <T> (url: string) => axios.get<T>(url).then(responseBody),
-    post: <T>  (url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
-    put:  <T> (url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
-    del: <T>  (url: string) => axios.delete<T>(url).then(responseBody)
+    get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+    post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
+    put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+    del: <T>(url: string) => axios.delete<T>(url).then(responseBody)
 }
 
 const Orders = {
@@ -49,16 +52,34 @@ const Orders = {
     create: (order: Order) => requests.post<void>('/Order', order),
     update: (order: Order) => requests.put<void>(`/Order/${order.id}`, order),
     updateStatus: (status: Status) => requests.put<void>(`/Order/status/${status.id}`, status),
-    delete: (id: string) => requests.del<void>(`/Order/${id}`)
+    delete: (id: string) => requests.del<void>(`/Order/${id}`),
+    assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
+    inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder${id}`, {}),
 
 }
 
 const Staties = {
     list: () => requests.get<Status[]>('/Status'),
-    details: (id: string) => requests.get<Order>(`/Status/${id}`),
+    details: (id: string) => requests.get<Status>(`/Status/${id}`),
     create: (status: Status) => requests.post<void>('/Status', status),
     update: (status: Status) => requests.put<void>(`/Status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Status/${id}`)
+}
+
+const Cities = {
+    list: () => requests.get<City[]>('/Cities'),
+    details: (id: string) => requests.get<City>(`/Cities/${id}`),
+    create: (city: City) => requests.post<void>('/Cities', city),
+    update: (city: City) => requests.put<void>(`/Cities/${city.id}`, city),
+    delete: (id: string) => requests.del<void>(`/Cities/${id}`)
+
+}
+const Projects = {
+    list: () => requests.get<Project[]>('/Project'),
+    details: (id: string) => requests.get<Project>(`/Project/${id}`),
+    create: (project: Project) => requests.post<void>('/Project', project),
+    update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
+    delete: (id: string) => requests.del<void>(`/Project/${id}`)
 
 }
 
@@ -68,7 +89,14 @@ const OperateurAcc = {
     create: (operateur: Operateur) => requests.post<void>('/OperateurAccount', operateur),
     update: (operateur: Operateur) => requests.put<void>(`/OperateurAccount/${operateur.id}`, operateur),
     delete: (id: string) => requests.del<void>(`/OperateurAccount/${id}`)
+}
 
+const ShippingCompany = {
+    list: () => requests.get<shippingCompany[]>('/ShippingCompany'),
+    details: (id: string) => requests.get<shippingCompany>(`/ShippingCompany/${id}`),
+    create: (shippingCompany: shippingCompany) => requests.post<void>('/ShippingCompany', shippingCompany),
+    update: (shippingCompany: shippingCompany) => requests.put<void>(`/ShippingCompany/${shippingCompany.id}`, shippingCompany),
+    delete: (id: string) => requests.del<void>(`/ShippingCompany/${id}`)
 }
 
 const Account = {
@@ -81,7 +109,11 @@ const agent = {
     Orders,
     Account,
     Staties,
-    OperateurAcc
+    OperateurAcc,
+    Cities,
+    ShippingCompany,
+    Projects
+
 
 }
 

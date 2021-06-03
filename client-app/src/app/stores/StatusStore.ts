@@ -16,9 +16,8 @@ export default class StatusStore {
     }
 
     get status() {
-
+        console.log(this.statusRegistry.values())
         return Array.from(this.statusRegistry.values());
-
     }
 
     loadStatus = async () => {
@@ -106,8 +105,5 @@ export default class StatusStore {
         })
     }
 }
-
-
-
 
 }

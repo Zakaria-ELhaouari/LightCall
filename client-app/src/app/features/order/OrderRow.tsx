@@ -1,14 +1,21 @@
- import React from 'react';
-
+ import { observer } from 'mobx-react-lite';
+import React , {useState , SyntheticEvent} from 'react';
+import { Button } from "semantic-ui-react"
 import { useStore } from '../../stores/Store';
 
 
 
 function OrderRow() {
 
+  const [target, setTarget] = useState('');
    const {orderStore} = useStore();
+   
+   const {orders , deleteOrder , loading} = orderStore
 
-   const {orders , deleteOrder} = orderStore
+   const handleReservationDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
+    setTarget(id);
+    deleteOrder(id)
+}
 
 
 
@@ -26,7 +33,7 @@ function OrderRow() {
         <td>
           <div>
            
-            <button className="btn btn-danger" onClick={()=> deleteOrder(order.id) } >Delete</button>
+            <Button  loading={loading && target === order.id} className="btn btn-danger" color='red' onClick={(e)=> handleReservationDelete( e ,order.id) } content="Delete" />
           </div>
           </td>
       </tr>)}
@@ -38,4 +45,4 @@ function OrderRow() {
     );
 }
 
- export default OrderRow;
+ export default observer(OrderRow);

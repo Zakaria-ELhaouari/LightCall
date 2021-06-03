@@ -9,13 +9,13 @@ namespace API.Controllers
 {
     public class ProjectController : BaseApiController
     {
-        [HttpPost("Project")]
+        [HttpPost]
         public async Task<IActionResult> CreatProject(Project project)
         { 
             return HandleResult( await Mediator.Send(new Create.Command{Project = project}));
         }
 
-        [HttpGet("Project")]
+        [HttpGet]
         public async Task<List<Project>> ListProjects()
         {
             return await Mediator.Send(new List.Query());

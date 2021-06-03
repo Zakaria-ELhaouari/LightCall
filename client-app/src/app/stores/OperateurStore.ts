@@ -3,7 +3,6 @@ import agent from '../api/agent';
 import { Operateur } from '../models/Operateur';
 import {v4 as uuid} from 'uuid';
 
-
 export default class OperateurStore {
 
     operateurRegisetry = new Map<string, Operateur>();
@@ -17,6 +16,7 @@ export default class OperateurStore {
     }
 
     get operateurs() {
+        console.log(this.operateurRegisetry.values())
         return Array.from(this.operateurRegisetry.values());
     }
 
@@ -29,6 +29,7 @@ export default class OperateurStore {
             console.log(operateurs);
             operateurs.forEach(operateur =>{
                 this.operateurRegisetry.set(operateur.id, operateur);
+                console.log(this.operateurRegisetry.values());
             })
             this.setLoadingInitial(false)
             

@@ -5,12 +5,11 @@ import OperateurRow from './OperateurRow';
 
 export default observer(function OperateurList(){
     const {operateurStore} = useStore();
-    const {operateurs} = operateurStore
     useEffect(()=>{
       operateurStore.loadOperateurs()
-  } , [operateurStore])
+    } , [operateurStore])
+  if(operateurStore.loadingInitial) return(<div>Loading...</div>)
     return(
-        
         <div>
          <div className="card mt-4">
                   <div className="card-body">
@@ -25,13 +24,6 @@ export default observer(function OperateurList(){
                         </tr>
                       </thead>
                       <tbody>
-                        {/* {operateurs.map((operateur)=>{
-                            <tr key={operateur.id}>
-                                <td>{operateur.lastName}</td>
-                                <td>{operateur.firstName}</td>
-                                <td>{operateur.email}</td>
-                            </tr>
-                        })} */}
                         <OperateurRow/>
                       </tbody>
                     </table>

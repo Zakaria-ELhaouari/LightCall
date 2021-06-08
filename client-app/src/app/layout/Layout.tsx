@@ -10,6 +10,7 @@ import SideBar from './SideBar'
 import City from './City'
 import ShippingCompany from './ShippingCompany'
 import Operator from './Operator'
+import Product from './Product'
 import PrivateAdminRoute from '../security/PrivateAdminRoute'
 import PublicRoute from '../security/PublicRoute'
 
@@ -29,7 +30,7 @@ const Layout = () => {
                         <Route path="/cities" component={City}/>
                         <Route  path="/projects" component={Projects} />
                         <Route path="/operateur" component={Operator}/>
-                        
+                        <Route path="/products" component={Product}/>
                     </Switch>
                 <Footer/>
             </div>

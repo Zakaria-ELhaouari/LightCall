@@ -13,7 +13,6 @@ namespace Application.Status
         public class Query : IRequest<Result<StatusModel>>
         {
             public Guid id { get; set; }
-
         }
 
         public class Handler : IRequestHandler<Query, Result<StatusModel>>

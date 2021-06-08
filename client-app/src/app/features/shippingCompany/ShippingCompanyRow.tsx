@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { City } from '../../models/city';
 import { useStore } from '../../stores/Store';
 
 function ShippingCompanyRow() {
@@ -12,10 +13,15 @@ function ShippingCompanyRow() {
                     <tr key={company.id}>
                         <td>{company.name}</td>
                         <td>{company.apiClient}</td>
+                        {/* <td>{company.cities}</td> */}
                         {/* {company.cities.forEach(city =>{
                             {console.log(city)}
-                            <td>{city}</td>
+                            <td>{city.city}</td>
                         })} */}
+                        {company.cities.map((city)=>{
+                            // console.log(city.cityName)
+                            <td>{city.cityName}</td>
+                        })}
                         <td>
                             <div>
                                 <Link to="/shippingCompany/EditCompany" onClick={()=> selectShippingCompany(company.id) } className="btn btn-info mr-2" >Edit</Link>

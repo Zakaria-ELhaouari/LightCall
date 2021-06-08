@@ -5,29 +5,29 @@ import { useStore } from '../../stores/Store';
 
 
 
-function CityRow() {
+function ProductRow() {
 
-   const {cityStore} = useStore();
+   const {productStore} = useStore();
 
-   const {cities , deleteCity , selectCity} = cityStore;
-
+   const {products , deleteProduct , selectProduct} = productStore;
     return ( 
         <>
-            {cities.map((city)=> {
+            {products.map((product)=> {
                 return ( 
-                    <tr key={city.id}>
-                        <td>{city.cityName}</td>
-                         <td>{city.zipCode}</td>
-                        <td>
+                    <tr key={product.id}>
+                        <td>{product.Name}</td>
+                         <td>{product.Description}</td>
+                         <td>{product.Quantity}</td>
+                        {/* <td>
                             <div>
                                 <Link to="/cities/Editcity" onClick={()=> selectCity(city.id) } className="btn btn-info mr-2" >Edit</Link>
                                 <button className="btn btn-danger" onClick={()=> deleteCity(city.id) } >Delete</button>
                             </div>
-                        </td>
+                        </td> */}
                     </tr>)}
             )}
         </>
     );
 }
 
-export default CityRow;
+export default ProductRow;

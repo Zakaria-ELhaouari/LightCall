@@ -8,6 +8,7 @@ import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
+import { Product } from '../models/Product';
 
 
 const sleep = (delay: number) => {
@@ -80,7 +81,14 @@ const Projects = {
     create: (project: Project) => requests.post<void>('/Project', project),
     update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
     delete: (id: string) => requests.del<void>(`/Project/${id}`)
+}
 
+const Products = {
+    list: () => requests.get<Product[]>('/Product'),
+    details: (id: string) => requests.get<Project>(`/Product/${id}`),
+    create: (product: Product) => requests.post<void>('/Product', product),
+    update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
+    delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }
 
 const OperateurAcc = {
@@ -112,9 +120,8 @@ const agent = {
     OperateurAcc,
     Cities,
     ShippingCompany,
-    Projects
-
-
+    Projects,
+    Products
 }
 
 export default agent;

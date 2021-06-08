@@ -28,7 +28,7 @@ namespace Application.Projects
             }
             public async Task<Project> Handle(Query request, CancellationToken cancellationToken)
             {
-                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
                 var project = await _context.Projects.FindAsync(request.Id);
                 // if(InfoUpsell != null && InfoUpsell.User == user ){
                 //     return InfoUpsell;

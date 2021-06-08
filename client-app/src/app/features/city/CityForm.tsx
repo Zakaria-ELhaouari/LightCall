@@ -12,6 +12,7 @@ export default function CityForm(){
         id : '',
         cityName : '',
         zipCode : '',
+        shipping_ids : []
       }
       const [city ] = useState(initialValues);
       const AddCitySchema = Yup.object().shape({
@@ -24,17 +25,18 @@ export default function CityForm(){
                 .max(50, 'Too Long!')
                 .required('Required'),
         })
-
-        // const [addOperateurForm] = useState(initialValues)
+        console.log("jfrhfhrfh");
+        const [addOperateurForm] = useState(initialValues)
         function handleSubmit(values : City  , {setErrors } : any) {
+            values.shipping_ids = [];
             citySelected ? updateCity(values) : creatCity(values) ;
-          }
+        }
         return(
         <div className="card card-primary">
             <div className="card-header"><h4>{citySelected ? "Edit City" : "Add City"}</h4></div>
             <div className="card-body">
                 <Formik initialValues={city} 
-                      validationSchema={AddCitySchema}
+                      // validationSchema={AddCitySchema}
                       onSubmit={(values, {setErrors}) =>
                       {handleSubmit(values, {setErrors})}}
                 >

@@ -22,7 +22,7 @@ const HomePage = () => {
 
     useEffect(() => {
         isLoggedIn && isRoles(["Admin"]) && history.push('/admin');
-        isLoggedIn && isRoles(["Member"]) && history.push('/dashboard');
+        isLoggedIn && isRoles(["Member"]) && history.push('/user/dashboard');
         isLoggedIn && isRoles(["Operator"]) && history.push('/operator');
     })
 

@@ -24,6 +24,7 @@ import "../assets/components.css";
 import PublicRoute from '../security/PublicRoute';
 import PrivateOperatorRoute from '../security/PrivateOperatorRoute';
 import NotFound404 from './../security/NotFound404';
+import TestError from './../features/errors/TestError';
 
 function App() {
   const {userStore, commonStore: {setApploaded, token, appLoaded}} = useStore();
@@ -82,6 +83,7 @@ function App() {
                   <PublicRoute path='/user/dashboard' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/projects" component={Projects}   />  
+                  <Route path="/user/errTest" component={TestError} />
                   <Route path="*" >
                     <Redirect to="/404" />
                   </Route> 

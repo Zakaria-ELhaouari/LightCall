@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Redirect, Route , Switch } from 'react-router';
 import LoginPage from '../features/auth/LoginPage';
 import RegisterPage from '../features/auth/RegisterPage';
@@ -14,13 +14,7 @@ import ManageOperator from './../features/Admin/ManageOperator';
 import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
-import City from './City'
-import ShippingCompany from './ShippingCompany'
 import Operator from './Operator'
-import Header from './Header';
-import SideBar from './SideBar';
-import Footer from './Footer';
-import OperatorHeader from '../features/Operator/OperatorHeader';
 import AdminLayout from './AdminLayout';
 import OperatorLayout from '../features/Operator/OperatorLayout';
 import PrivateAdminRoute from '../security/PrivateAdminRoute';

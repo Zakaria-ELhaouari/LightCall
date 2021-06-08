@@ -2,7 +2,7 @@
 
 - [x] Style HomePage
 - [x] Create Private/Public Routes
-
+ 
 
 ## Todo List 05/09/2021
 - [ ] Create Operator dashboard
@@ -75,3 +75,11 @@ google leads
 -[] Member
     - med@gmail.com
     - Pa$$w0rd 
+  
+# My Todo's this week 
+ - [x] Fix the routing
+ - [ ] create the profile Edit page
+ - [ ] Integrate the photo upload funtionality
+ - [ ] create the Whatsapp template page
+ - [ ] Statistics
+ - [ ] IVR Page have a minimum funtionality available

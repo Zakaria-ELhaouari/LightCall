@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React , {useState , SyntheticEvent} from 'react';
-import { Button } from "semantic-ui-react"
 import { useStore } from '../../stores/Store';
 
 
@@ -33,8 +32,7 @@ function OrderRow() {
        
         <td>
           <div>
-           
-            <Button  loading={loading && target === project.id} className="btn btn-danger" color='red' onClick={(e)=> handleDelete( e ,project.id) } content="Delete" />
+            <button  className={`btn btn-danger ${loading && target === project.id ? "btn-progress" : ""}`} color='red' onClick={(e)=> handleDelete( e ,project.id) }>Delete </button>
           </div>
           </td>
       </tr>)}

@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react'
-import { Switch } from 'react-router';
-import PrivateOperatorRoute from '../../security/PrivateOperatorRoute';
+import { RouteProps, Switch } from 'react-router';
 import OperatorHeader from './OperatorHeader';
-import OperatorDashoard from './OperatorDashoard';
 import Footer from '../../layout/Footer';
+import { useStore } from './../../stores/Store';
 
-const OperatorLayout = () => {
+interface Props extends RouteProps {
+}
+
+const OperatorLayout = ({children}: Props) => {
+    const {commonStore: {isRoles} } = useStore();
     useEffect(() => {
-        document.body.classList.add('layout-3');
-    }, [])
+      isRoles(["Operator"]) && document.body.classList.add('layout-3');
+      !isRoles(["Operator"]) && document.body.classList.remove('layout-3');
+    }, [isRoles])
     return (
        <div className="main-wrapper container">
            <div className="navbar-bg"></div>
             <OperatorHeader />
                 <Switch>
-                    <PrivateOperatorRoute exact path="OperatorDashboard" component={OperatorDashoard} />
+                   {children}
                 </Switch>
             <Footer/>
        </div>

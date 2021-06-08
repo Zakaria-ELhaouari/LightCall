@@ -21,9 +21,9 @@ const HomePage = () => {
     // }
 
     useEffect(() => {
-        isLoggedIn && isRoles(["Admin"]) && history.push('/Admindashboard');
+        isLoggedIn && isRoles(["Admin"]) && history.push('/admin');
         isLoggedIn && isRoles(["Member"]) && history.push('/dashboard');
-        isLoggedIn && isRoles(["Operator"]) && history.push('/OperatorDashboard');
+        isLoggedIn && isRoles(["Operator"]) && history.push('/operator');
     })
 
     return (

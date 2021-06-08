@@ -60,6 +60,11 @@ System Management
    Support
    Account Settings
 
+google sheets
+storino
+youcan
+woocommerce
+google leads
 
 -[] Operator
     - renner@gmail.com
@@ -69,4 +74,4 @@ System Management
     - _AStrong12P@ssword!
 -[] Member
     - med@gmail.com
-    - Pa$$w0rd
+    - Pa$$w0rd 

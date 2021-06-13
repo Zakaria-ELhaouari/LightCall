@@ -25,6 +25,10 @@ import PublicRoute from '../security/PublicRoute';
 import PrivateOperatorRoute from '../security/PrivateOperatorRoute';
 import NotFound404 from './../security/NotFound404';
 import TestError from './../features/errors/TestError';
+import { ToastContainer } from 'react-toastify';
+import ServerError from './../features/errors/ServerError';
+import ModalContainer from '../common/modals/ModalContainer';
+
 
 function App() {
   const {userStore, commonStore: {setApploaded, token, appLoaded}} = useStore();
@@ -40,19 +44,33 @@ function App() {
   if(!appLoaded) return( <div className='d-flex justify-content-center' > <Lottie  animationData={loaderAnimation} /> </div>)
 
   return (
+    <>
+    <ToastContainer 
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
+    <ModalContainer/>
     <div id="app">
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path='/register' component={RegisterPage}  />
           <Route path='/login' component={LoginPage} />
           <Route path='/RestrictedAccess' component={Page403} />
-          
+          <Route path='/server-error' component={ServerError} />
 
           <Route path='/admin/:path?' exact>
               <AdminLayout>
                 <Switch>
                   <PrivateAdminRoute path='/admin' exact component={Main} />
                   <PrivateAdminRoute path='/admin/settings' component={Main} />
+                  <PrivateAdminRoute path='/admin/profile' component={Main} />
                   <PrivateAdminRoute path="/admin/orders" component={Orders}  />
                   <PrivateAdminRoute path="/admin/status" component={Status}/>
                   <PrivateAdminRoute path="/operateur" component={Operator}/>  
@@ -124,6 +142,7 @@ function App() {
 
         </Switch>
     </div>
+    </>
   );
 }
 

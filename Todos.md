@@ -80,6 +80,7 @@ google leads
  - [x] Fix the routing
  - [ ] create the profile Edit page
  - [ ] Integrate the photo upload funtionality
+ - [ ] Create Devis Technique & Financier Desktop APP
  - [ ] create the Whatsapp template page
  - [ ] Statistics
  - [ ] IVR Page have a minimum funtionality available

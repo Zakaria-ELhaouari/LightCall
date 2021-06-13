@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import ValidationErrors from './ValidationErrors';
 const TestError = () => {
     const baseUrl = 'http://localhost:5000/api/';
     const [errors, setErrors] = useState(null);
@@ -37,30 +38,31 @@ const TestError = () => {
             </div>
             <div className="section-body">
                 <div className="row">
-                <div className="col-12 col-md-6 col-lg-6">
-                <div className="card">
-                  <div className="card-header">
-                    <h4>Errors Endpoints</h4>
-                  </div>
-                  <div className="card-body">
-                    <div className="buttons">
-                      <button className="btn btn-primary" onClick={handleNotFound} >Not Found</button>
-                      <button  className="btn btn-secondary" onClick={handleBadRequest}>Bad Request</button>
-                      <button  className="btn btn-info" onClick={handleValidationError}>Validation Error</button>
-                      <button  className="btn btn-warning" onClick={handleServerError}>Server Error</button>
-                      <button  className="btn btn-danger" onClick={handleUnauthorised}>Unauthorised</button>
-                      <button  className="btn btn-success" onClick={handleBadGuid}>Bad Guid</button>
+                     <div className="col-12 col-md-6 col-lg-6">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4>Errors Endpoints</h4>
+                            </div>
+                            <div className="card-body">
+                                <div className="buttons">
+                                <button className="btn btn-primary" onClick={handleNotFound} >Not Found</button>
+                                <button  className="btn btn-secondary" onClick={handleBadRequest}>Bad Request</button>
+                                <button  className="btn btn-info" onClick={handleValidationError}>Validation Error</button>
+                                <button  className="btn btn-warning" onClick={handleServerError}>Server Error</button>
+                                <button  className="btn btn-danger" onClick={handleUnauthorised}>Unauthorised</button>
+                                <button  className="btn btn-success" onClick={handleBadGuid}>Bad Guid</button>
+                                </div>
+                            </div>
+                        </div>
+                            {errors &&
+                                <ValidationErrors errors={errors} />
+                            } 
                     </div>
-                  </div>
-                </div>
-              </div>
                 </div>
             </div>
         </div>
         </div>
-        {/* {errors &&
-                <ValidationErrors errors={errors} />
-            }  */}
+
         </>
     )
 }

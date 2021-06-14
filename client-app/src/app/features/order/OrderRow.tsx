@@ -17,7 +17,7 @@ function OrderRow() {
    console.log(orders);
    
 
-   const handleReservationDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
+   const handleOrderDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
     setTarget(id);
     deleteOrder(id)
 }
@@ -60,8 +60,7 @@ function OrderRow() {
         </td>
         <td>
           <div>
-           
-            <Button  loading={loading && target === order.id} className="btn btn-danger" color='red' onClick={(e)=> handleReservationDelete( e ,order.id) } content="Delete" />
+            <button  className={`btn btn-danger ${loading && target === order.id ? "btn-progress" : ""}`} color='red' onClick={(e)=> handleOrderDelete( e ,order.id) }>Delete</button>
           </div>
           </td>
       </tr>)}

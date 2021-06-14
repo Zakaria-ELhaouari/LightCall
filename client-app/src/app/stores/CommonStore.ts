@@ -1,7 +1,9 @@
 import { makeAutoObservable, reaction } from "mobx";
 import jwt_decode, { JwtPayload } from "jwt-decode";
+import { ServerError } from './../models/ServerError';
 
 export default class CommonStore  {
+    error: ServerError | null = null;
    token: string | null = window.localStorage.getItem('jwt');
    appLoaded = false;
 
@@ -21,6 +23,11 @@ export default class CommonStore  {
         )
     }
 
+    setServerError = (error: ServerError) => {
+        this.error = error;
+    }
+
+
     setToken = (token: string | null) => {
         this.token = token;
     }
@@ -34,7 +41,7 @@ export default class CommonStore  {
     isRoles = (RoleList: string[]) => {
         var roles = this.TokenRoles();
         // return true if one of incoming roles exists in token roles & false otherwise
-        console.log(RoleList.some(r => roles?.includes(r)));
+        // console.log(RoleList.some(r => roles?.includes(r)));
         
         return RoleList.some(r => roles?.includes(r)); 
     }
@@ -51,6 +58,7 @@ export default class CommonStore  {
             
             Roles = Decoded.role;
             console.log("teeet"+ Roles);
+            // console.log(Roles);
             
         }
         return Roles

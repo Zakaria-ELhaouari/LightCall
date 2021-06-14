@@ -8,6 +8,7 @@ import OperateurStore from "./OperateurStore";
 import CityStore from "./CityStore";
 import ShippingCompanystore from "./ShippingCompanyStore";
 import LayoutStore from './LayoutStore';
+import ModalStore from './modalStore';
 
 interface Store {
     commonStore: CommonStore
@@ -19,6 +20,7 @@ interface Store {
     cityStore : CityStore
     shippingCompanyStore : ShippingCompanystore
     layoutStore: LayoutStore
+    modalStore: ModalStore
 }
 
 export const store : Store = {
@@ -30,7 +32,8 @@ export const store : Store = {
     cityStore : new CityStore(),
     shippingCompanyStore : new ShippingCompanystore(),
     projectStore : new ProjectStore(),
-    layoutStore: new LayoutStore()
+    layoutStore: new LayoutStore(),
+    modalStore: new ModalStore()
 
 }
 

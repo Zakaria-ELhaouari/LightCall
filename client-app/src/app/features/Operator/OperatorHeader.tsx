@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useStore } from "../../stores/Store";
 
 const OperatorHeader = () => {
-    const {userStore: {logout}} = useStore();
+    const {userStore: {logout, user}} = useStore();
 
     return (
         <>
@@ -21,7 +21,7 @@ const OperatorHeader = () => {
                         <li className="nav-item"><a href="/" className="nav-link">Server Status</a></li>
                     </ul>
                     </div>
-                    <ul className="navbar-nav navbar-right">
+                    <ul className="navbar-nav navbar-right ml-auto">
                     <li className="dropdown dropdown-list-toggle"><a href="/" data-toggle="dropdown" className="nav-link nav-link-lg message-toggle beep"><i className="far fa-envelope"></i></a>
                         <div className="dropdown-menu dropdown-list dropdown-menu-right">
                         <div className="dropdown-header">Messages
@@ -149,7 +149,7 @@ const OperatorHeader = () => {
                     </li>
                     <li className="dropdown"><a href="/" data-toggle="dropdown" className="nav-link dropdown-toggle nav-link-lg nav-link-user">
                         <img alt="avatar" src="../assets/img/avatar/avatar-1.png" className="rounded-circle mr-1" />
-                        <div className="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+                        <div className="d-sm-none d-lg-inline-block">{`Hi, ${user?.firstName} ${user?.lastName}`}</div></a>
                         <div className="dropdown-menu dropdown-menu-right">
                         <div className="dropdown-title">Logged in 5 min ago</div>
                         <a href="features-profile.html" className="dropdown-item has-icon">

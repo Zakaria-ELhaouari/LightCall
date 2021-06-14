@@ -44,8 +44,8 @@ function App() {
           {/* <Route  exact component={Layout} /> */}
           <PivateLayout exact path="/manageOperators" component={ManageOperator} />
           <PivateLayout exact path="/Admindashboard" component={Main} />
-          <PivateLayout exact path="/orders" component={Orders} />
-          <PivateLayout path="/status" component={Status} /> 
+          <Route exact path="/orders" component={Orders} />
+          <Route path="/status" component={Status} /> 
           {/* <PivateLayout path="/operateur" component={Operateur}/> */}
           <PivateLayout path="/shippingCompany" component={ShippingCompany}/>
           <PivateLayout path="/cities" component={City}/>

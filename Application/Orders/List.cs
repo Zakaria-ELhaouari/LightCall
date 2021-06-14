@@ -22,7 +22,7 @@ namespace Application.Orders
             }
             public async Task<Result<List<Order>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<Order>>.Success( await _context.Orders.Include(o=> o.Project ).ToListAsync());
+                return Result<List<Order>>.Success( await _context.Orders.Include(o=> o.Project ).Include(o=>o.Status).Include(o => o.Customer).Include(o => o.Product).ToListAsync());
                
             }
         }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 import App from './app/layout/App';
 import 'semantic-ui-css/semantic.min.css';
+import './app/styles/main.css';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserHistory} from 'history';
 import {store, StoreContext} from './app/stores/Store';

@@ -1,3 +1,5 @@
+import OperatorOrder from "./OperatorOrder";
+
 const OperatorDashoard = () => {
     return (
         <div className="main-content">
@@ -12,24 +14,10 @@ const OperatorDashoard = () => {
           </div>
 
           <div className="section-body">
-            <h2 className="section-title">This is Example Page</h2>
-            <p className="section-lead">This page is just an example for you to create your own page.</p>
-            <div className="card">
-              <div className="card-header">
-                <h4>Example Card</h4>
-              </div>
-              <div className="card-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              </div>
-              <div className="card-footer bg-whitesmoke">
-                This is card footer
-              </div>
-            </div>
+
+          
+<OperatorOrder/>
+         
           </div>
         </section>
       </div>

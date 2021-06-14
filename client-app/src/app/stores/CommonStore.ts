@@ -47,8 +47,10 @@ export default class CommonStore  {
             Roles = "none"
         }else {
             var Decoded = jwt_decode<JwtPayload>(this.token || '') || null;
+            
+            
             Roles = Decoded.role;
-            console.log(Roles);
+            console.log("teeet"+ Roles);
             
         }
         return Roles

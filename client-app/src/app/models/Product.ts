@@ -1,6 +1,10 @@
+import { Project } from "./Project";
+
 export interface Product {
     id: string;
+    name: string
     description: string;
-    name  : string ;    
-     quantity  : number ;
+    quantity: string;
+    ProjectId:  string  ;
+    project? : Project
 }

@@ -48,11 +48,20 @@ namespace Application.UpSell
                     var project = await _context.Projects.FindAsync(request.Upsell.Project_id);
                     List<Product> Products = new List<Product>();
                     foreach (var product in request.Upsell.Products_ids)
-                        {
-                            Products.Add(await _context.Products.FindAsync(product));
-                        }
-                    upSell.Project = project;
-                    upSell.Products = Products;
+                    {
+                        Products.Add(await _context.Products.FindAsync(product));
+                    }
+
+                    foreach(var prd in Products)
+                    {
+                        prd.upsell_Id = upSell;
+                        _context.Products.Update(prd);
+                        // await _context.SaveChangesAsync();  
+                    }
+                     
+                    // upSell.Project = project;
+                    // upSell.Product = Products;
+                    upSell.Name = request.Upsell.Name;
                     upSell.Status = request.Upsell.Status;
                     _context.Upsell.Update(upSell);
                     // _mapper.Map(request.Upsell , upSell);

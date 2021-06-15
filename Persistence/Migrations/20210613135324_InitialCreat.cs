@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class NewInitialCreate : Migration
+    public partial class InitialCreat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -217,6 +217,8 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Project_Type = table.Column<string>(type: "TEXT", nullable: true),
                     Question_description = table.Column<string>(type: "TEXT", nullable: true),
+                    IsShopify = table.Column<bool>(type: "INTEGER", nullable: false),
+                    WebHookSecret = table.Column<string>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -260,6 +262,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Status = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
                     ProjectId = table.Column<Guid>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -320,7 +323,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderId = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Customer = table.Column<string>(type: "TEXT", nullable: true),
                     ConfirmationId = table.Column<Guid>(type: "TEXT", nullable: true),

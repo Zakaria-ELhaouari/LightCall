@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210520121934_NewInitialCreate")]
-    partial class NewInitialCreate
+    [Migration("20210613135324_InitialCreat")]
+    partial class InitialCreat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,8 +161,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
@@ -230,6 +230,9 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsShopify")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Project_Type")
                         .HasColumnType("TEXT");
 
@@ -237,6 +240,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WebHookSecret")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -287,6 +293,9 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ProjectId")
@@ -509,7 +518,7 @@ namespace Persistence.Migrations
                         .HasForeignKey("ProjectId");
 
                     b.HasOne("Domain.Upsell", null)
-                        .WithMany("Products")
+                        .WithMany("Product_ids")
                         .HasForeignKey("UpsellId");
 
                     b.HasOne("Domain.AppUser", "User")
@@ -613,7 +622,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Upsell", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Product_ids");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,6 @@
  import { observer } from 'mobx-react-lite';
 import React , {useState , SyntheticEvent} from 'react';
 import { ChangeEvent } from 'react';
-import { Button } from "semantic-ui-react"
 import { useStore } from '../../stores/Store';
 
 
@@ -52,7 +51,7 @@ function OrderRow() {
                       <select className="form-control"  onChange={(e)=>StatusChange(e , order.id)}>
                       {status.map((status) =>{
 
-                        if(status.id == order.status?.id)return(<option key={status.id} selected  value={status.id}> {status.statusType}</option>)
+                        if(status.id === order.status?.id)return(<option key={status.id} selected  value={status.id}> {status.statusType}</option>)
                         else return(<option key={status.id}  value={status.id}> {status.statusType}</option>)
                       })}
                       </select>

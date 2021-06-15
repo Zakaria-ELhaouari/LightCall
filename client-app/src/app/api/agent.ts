@@ -20,7 +20,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'https://localhost:44303/api';
+axios.defaults.baseURL = 'http://localhost:5000/api';
 
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
@@ -37,7 +37,7 @@ axios.interceptors.response.use(async response => {
     switch (status) {
         case 400:
             if(data.errors){
-                const modalStateErrors = [];
+                const modalStateErrors: any = [];
                 for (const key in data.errors) {
                     if(data.errors[key]){
                         modalStateErrors.push(data.errors[key])

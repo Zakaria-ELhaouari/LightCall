@@ -1,31 +1,34 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { UpSell } from "../models/UpSell";
 import {v4 as uuid} from 'uuid';
-import { Product } from "../models/Product";
-export default class ProductStore{
-    productRegistery = new Map<string , Product>();
-    loadingInitial = false;
+
+
+export default class UpSellStore{
+    upselltRegistery = new Map<string , UpSell>();
     loading = false;
-    productSelected : Product | undefined = undefined;
+    loadingInitial = false;
+    upsellSelected : UpSell | undefined = undefined;
 
     constructor(){
         makeAutoObservable(this);
     }
 
-    get products() {
-        return Array.from(this.productRegistery.values());
+    get Upsells() {
+        return Array.from(this.upselltRegistery.values());
     }
 
-    selectProduct = (id: string) =>{
-        this.productSelected = this.productRegistery.get(id)
+    selectUpsell = (id: string) =>{
+        this.upsellSelected = this.upselltRegistery.get(id)
     }
 
-    loadProducts = async () =>{
+    loadUpSell = async () =>{
         this.setLoadingInitial(true);
         try{
-            var products = await agent.Products.list();
-            products.forEach(product =>{
-                this.productRegistery.set(product.id, product);
+            var upsellls = await agent.Upsell.list();
+            console.log(upsellls)
+            upsellls.forEach(upsell =>{
+                this.upselltRegistery.set(upsell.id, upsell);
             })
             this.setLoadingInitial(false)
         }catch(error){
@@ -34,28 +37,31 @@ export default class ProductStore{
         }
     }
 
-    creatProduct = async (product: Product) =>{
+    createUpSell = async (upsell : UpSell)=>{
+        // console.log(upsell);
         this.loading = true ;
-        product.id = uuid();
+        upsell.id = uuid()
         try{
-            await agent.Products.create(product);
+            await agent.Upsell.create(upsell);
             runInAction(()=>{
-                this.productRegistery.set(product.id, product);
+                this.upselltRegistery.set(upsell.id, upsell);
                 this.loading = false ; 
             })
+            // console.log('ddddd')
         }catch(error){
+            // console.log('fffff')
             runInAction(()=>{
                 this.loading = false ; 
             })
         }
     }
 
-    updateProduct = async (product: Product) =>{
+    updateUsell = async (upsell : UpSell) =>{
         this.loading = true ;
         try{
-            await agent.Products.update(product);
+            await agent.Upsell.update(upsell);
             runInAction(()=>{
-                this.productRegistery.set(product.id, product);
+                this.upselltRegistery.set(upsell.id, upsell);
                 this.loading = false ; 
             })
         }catch (error) {
@@ -65,12 +71,12 @@ export default class ProductStore{
         }
     }
 
-    deleteProduct = async (id: string) =>{
+    deleteUpsell = async (id: string) =>{
         this.loading = true;
         try{
-            await agent.Products.delete(id);
+            await agent.Upsell.delete(id);
             runInAction(() => {
-                this.productRegistery.delete(id);
+                this.upselltRegistery.delete(id);
                 this.loading = false;
             })
         }catch(error){
@@ -85,3 +91,4 @@ export default class ProductStore{
         this.loadingInitial = state;
     }
 }
+

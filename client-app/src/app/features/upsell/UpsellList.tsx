@@ -1,39 +1,35 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useStore } from "../../stores/Store";
-import ProductRow from "./ProductRow";
+import UpsellRow from "./UpsellRow";
 
-export default observer(function ProductList(){
-    const {productStore} = useStore();
+export default observer(function UpsellList(){
+    const {upsellStore} = useStore();
     useEffect(()=>{
-        productStore.loadProducts()
-    } , [productStore])
-    if(productStore.loadingInitial) return(<div>Loading...</div>)
+        upsellStore.loadUpSell()
+    } , [upsellStore])
+    if(upsellStore.loadingInitial) return(<div>Loading...</div>)
     return(
         <div>
            {/* <Link to="/cities/creatCity" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add City  </Link> */}
-         <div className="card mt-4">
-                  <div className="card-body">
+            <div className="card mt-4">
+                <div className="card-body">
                     {/* <CityForm/> */}
                     <table className="table">
                       <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Descrition</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">project</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Status</th>
                             {/* <th scope="col">Project</th> */}
                         </tr>
                       </thead>
                       <tbody>
-                        <ProductRow/>
+                        <UpsellRow/>
                       </tbody>
                     </table>
-                  </div>
+                </div>
                
-                </div>  
+            </div>  
         </div>
     )
 })

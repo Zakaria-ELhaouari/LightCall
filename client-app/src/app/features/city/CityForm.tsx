@@ -25,7 +25,7 @@ export default function CityForm(){
                 .max(50, 'Too Long!')
                 .required('Required'),
         })
-        console.log("jfrhfhrfh");
+        // console.log("jfrhfhrfh");
         const [addOperateurForm] = useState(initialValues)
         function handleSubmit(values : City  , {setErrors } : any) {
             values.shipping_ids = [];

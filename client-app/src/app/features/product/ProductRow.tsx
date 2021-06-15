@@ -15,15 +15,22 @@ function ProductRow() {
             {products.map((product)=> {
                 return ( 
                     <tr key={product.id}>
-                        <td>{product.Name}</td>
-                         <td>{product.Description}</td>
-                         <td>{product.Quantity}</td>
-                        {/* <td>
+                        <td>{product.name}</td>
+                         <td>{product.description}</td>
+                         <td>{product.quantity}</td>
+                         {/* {if(product.project== undefined)} */}
+                         {/* {!product.project && <td>{product.project.project_Type}</td> />}
+                         
+                         {/* {console.log(product.project.project_Type)} */}
+                         {/* <td>{product.ProjectId}</td>  */}
+                         {console.log(product.project?.project_Type)}
+                         <td>{product.project?.project_Type}</td>
+                        <td>
                             <div>
-                                <Link to="/cities/Editcity" onClick={()=> selectCity(city.id) } className="btn btn-info mr-2" >Edit</Link>
-                                <button className="btn btn-danger" onClick={()=> deleteCity(city.id) } >Delete</button>
+                                <Link to="/Products/EditProduct" onClick={()=> selectProduct(product.id) } className="btn btn-info mr-2" >Edit</Link>
+                                <button className="btn btn-danger" onClick={()=> deleteProduct(product.id) } >Delete</button>
                             </div>
-                        </td> */}
+                        </td>
                     </tr>)}
             )}
         </>

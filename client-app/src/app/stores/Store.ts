@@ -9,6 +9,7 @@ import CityStore from "./CityStore";
 import ShippingCompanystore from "./ShippingCompanyStore";
 import LayoutStore from './LayoutStore';
 import ProductStore from './ProductStore';
+import UpSellStore from "./UpSellStore";
 
 interface Store {
     commonStore: CommonStore
@@ -21,6 +22,7 @@ interface Store {
     shippingCompanyStore : ShippingCompanystore
     layoutStore: LayoutStore
     productStore: ProductStore
+    upsellStore : UpSellStore
 }
 
 export const store : Store = {
@@ -33,7 +35,8 @@ export const store : Store = {
     shippingCompanyStore : new ShippingCompanystore(),
     projectStore : new ProjectStore(),
     layoutStore: new LayoutStore(),
-    productStore: new ProductStore()
+    productStore: new ProductStore(),
+    upsellStore : new UpSellStore()
 }
 
 export const StoreContext = createContext(store);

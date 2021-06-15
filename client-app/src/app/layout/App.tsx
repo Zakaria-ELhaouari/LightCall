@@ -19,6 +19,8 @@ import Projects from './Projects'
 import City from './City'
 import ShippingCompany from './ShippingCompany'
 import Operator from './Operator'
+import Product from './Product';
+import Upsell from './Upsell';
 
 function App() {
   const {userStore, commonStore: {setApploaded, token, appLoaded}} = useStore();
@@ -46,12 +48,13 @@ function App() {
           <PivateLayout exact path="/Admindashboard" component={Main} />
           <PivateLayout exact path="/orders" component={Orders} />
           <PivateLayout path="/status" component={Status} /> 
+          <PivateLayout path="/upsell" component={Upsell} /> 
           {/* <PivateLayout path="/operateur" component={Operateur}/> */}
           <PivateLayout path="/shippingCompany" component={ShippingCompany}/>
           <PivateLayout path="/cities" component={City}/>
           <PivateLayout  path="/projects" component={Projects} />
           <PivateLayout path="/operateur" component={Operator}/>
-
+          <PivateLayout path="/products" component={Product}/>
 
         </Switch>
     </div>

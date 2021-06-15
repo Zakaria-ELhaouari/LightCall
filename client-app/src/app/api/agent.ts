@@ -9,6 +9,7 @@ import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
 import { Product } from '../models/Product';
+import { UpSell } from '../models/UpSell';
 
 
 const sleep = (delay: number) => {
@@ -75,6 +76,14 @@ const Cities = {
     delete: (id: string) => requests.del<void>(`/Cities/${id}`)
 
 }
+const Upsell = {
+    list: () => requests.get<UpSell[]>('/Upsell'),
+    details: (id: string) => requests.get<UpSell>(`/Upsell/${id}`),
+    create: (upsell: UpSell) => requests.post<void>('/Upsell', upsell),
+    update: (upsell: UpSell) => requests.put<void>(`/Upsell/${upsell.id}`, upsell),
+    delete: (id: string) => requests.del<void>(`/Upsell/${id}`)
+}
+
 const Projects = {
     list: () => requests.get<Project[]>('/Project'),
     details: (id: string) => requests.get<Project>(`/Project/${id}`),
@@ -121,7 +130,8 @@ const agent = {
     Cities,
     ShippingCompany,
     Projects,
-    Products
+    Products,
+    Upsell
 }
 
 export default agent;

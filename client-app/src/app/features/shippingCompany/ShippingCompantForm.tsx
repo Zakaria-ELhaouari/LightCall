@@ -46,7 +46,6 @@ export default observer(function ShippingCompanyForm(){
       values.cities = allCities;
       // console.log(values.cities);
       shippingCompanySelected ? updateShippingCompany(values) : creatShippingCompany(values);
-
       console.log(values);
     }
 

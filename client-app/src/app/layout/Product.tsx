@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
+import ProductForm from "../features/product/ProductForm";
 import ProductList from "../features/product/ProductList";
 
 const Product = () => {
@@ -12,13 +13,11 @@ const Product = () => {
           </div> 
           <Switch>
            <Route exact path="/Products" component={ProductList} />
-           {/* <Route key={location.key} path={['/cities/creatCity' , '/cities/:id']} component={CityForm} /> */}
+           <Route key={location.key} path={['/Products/creatProduct' , '/Products/:id']} component={ProductForm} />
          </Switch>
         </section>
       </div>
       
     )
 }
-
-
 export default Product

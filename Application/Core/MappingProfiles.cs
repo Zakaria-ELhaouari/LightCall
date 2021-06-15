@@ -13,6 +13,7 @@ namespace Application.Core
             CreateMap<OperatorAcc , OperatorAcc>();
             CreateMap<Upsell , Upsell>();
             CreateMap<Project , Project>();
+            CreateMap<Product , Product>();
         }
     }
 }

@@ -17,13 +17,13 @@ namespace API.Controllers
     [AllowAnonymous]
     public class UpsellController : BaseApiController
     {
-        [HttpPost("Upsell")]
+        [HttpPost]
         public async Task<IActionResult> AddUpsell(UpsellDto upsell)
         {
             return HandleResult( await Mediator.Send(new Create.Command{Upsell = upsell}));
         }
 
-        [HttpGet("Upsell")]
+        [HttpGet]
         public async Task<List<Upsell>> GetUpsell()
         {
             return await Mediator.Send(new List.Query());

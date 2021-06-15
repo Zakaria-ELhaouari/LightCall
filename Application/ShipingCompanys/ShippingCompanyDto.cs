@@ -8,6 +8,6 @@ namespace Application.ShipingCompanys
         public Guid id { get; set; }
         public string Name { get; set; }
         public string ApiClient { get; set; }
-        public IList<Guid> citiesIds { get; set; }
+        public IList<Guid> cities { get; set; }
     }
 }

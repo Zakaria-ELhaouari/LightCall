@@ -1,9 +1,11 @@
 import { Product } from "./Product";
+import { Project } from "./Project";
 
 export interface UpSell {
     id: string;
     status: boolean ;
     name : string;
     project_id: string;
-    products_ids: Product[];
+    project?: Project;
+    product_ids: Product[];
 }

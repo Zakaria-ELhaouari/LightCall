@@ -19,7 +19,10 @@ export default observer(function UpsellList(){
                       <thead>
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Products</th>
+                            <th scope="col">Project</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                             {/* <th scope="col">Project</th> */}
                         </tr>
                       </thead>

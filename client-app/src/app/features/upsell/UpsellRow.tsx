@@ -13,9 +13,11 @@ function UpsellRow(){
                 return ( 
                     <tr key={Upsell.id}>
                         <td>{Upsell.name}</td>
+                        <td>{Upsell.project?.project_Type}</td>
+                        <td>{Upsell.product_ids[0]?.name}</td>
                         <td>{String(Upsell.status)}</td>
                         {/* <td>{Upsell.Project}</td> */}
-                         {/* {console.log(Upsell.status)} */}
+                         {console.log(Upsell.product_ids)}
                         {/* <td>{Upsell.Project}</td> */}
                         <td>
                             <div>

@@ -16,7 +16,8 @@ export default observer(function Upsell(){
         status : true,
         name : '',
         project_id : '',
-        products_ids : []
+        project : undefined,
+        product_ids : []
     }
 
     const [upsell] = useState(initialValues);
@@ -64,7 +65,7 @@ export default observer(function Upsell(){
     } 
     //request
     function handleSubmit(values : UpSell  , {setErrors } : any) {
-        values.products_ids = allProduct;
+        values.product_ids = allProduct;
         values.project_id = projet;
         console.log(values); 
         upsellSelected ? updateUsell(values) : createUpSell(values) ;

@@ -18,10 +18,13 @@ function ShippingCompanyRow() {
                             {console.log(city)}
                             <td>{city.city}</td>
                         })} */}
-                        {company.cities.map((city)=>{
+                        
+                        <td>{company.cities[0].cityName}</td>
+                        {/* {company.cities.map((city)=>{
                             // console.log(city.cityName)
+                            {console.log(city.cityName)}
                             <td>{city.cityName}</td>
-                        })}
+                        })} */}
                         <td>
                             <div>
                                 <Link to="/shippingCompany/EditCompany" onClick={()=> selectShippingCompany(company.id) } className="btn btn-info mr-2" >Edit</Link>

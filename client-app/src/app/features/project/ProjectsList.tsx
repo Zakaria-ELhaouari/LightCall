@@ -28,8 +28,13 @@ function handleSubmit(values : any  , {setErrors } : any) {
  if(projectStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
     return (
+      <div className="main-content">
+      <section className="section">
+      <div className="section-header">
+          <h1>Projects</h1>
+        </div> 
         <div>
-         <Link to="/Projects/AddProject" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add New Project  </Link> 
+         <Link to="/admin/projForm" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add New Project  </Link> 
 
         <div className="card" >  
         <Formik 
@@ -80,6 +85,8 @@ function handleSubmit(values : any  , {setErrors } : any) {
                
                 </div>  
         </div>
+        </section>
+      </div>
     );
 }
 

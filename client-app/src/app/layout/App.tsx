@@ -30,6 +30,8 @@ import TestError from './../features/errors/TestError';
 import { ToastContainer } from 'react-toastify';
 import ServerError from './../features/errors/ServerError';
 import ModalContainer from '../common/modals/ModalContainer';
+import ProjectsList from '../features/project/ProjectsList';
+import ProjectForm from '../features/project/ProjectForm';
 
 
 function App() {
@@ -74,6 +76,8 @@ function App() {
                   <PrivateAdminRoute path='/admin/settings' component={Main} />
                   <PrivateAdminRoute path='/admin/profile' component={Main} />
                   <PrivateAdminRoute path="/admin/orders" component={Orders}  />
+                  <PrivateAdminRoute path="/admin/projects" component={ProjectsList}  />
+                  <PrivateAdminRoute path="/admin/projForm" component={ProjectForm}  />
                   <PrivateAdminRoute path="/admin/status" component={Status}/>
                   <PrivateAdminRoute path="/operateur" component={Operator}/>  
                   <PrivateAdminRoute path='/admin/manageOperators' component={ManageOperator} />

@@ -14,8 +14,8 @@ const Main = () => {
           </div> 
    
           <Switch>
-           <Route exact path="/projects" component={ProjectsList} />
-           <Route exact path="/Projects/AddProject" component={ProjectForm} />
+           <Route exact path="/admin/projectslist" component={ProjectsList} />
+           <Route exact path="/admin/Projects/AddProject" component={ProjectForm} />
            {/* <Route exact path="/Status/EditStatus" component={StatusForm} /> */}
          </Switch>
 

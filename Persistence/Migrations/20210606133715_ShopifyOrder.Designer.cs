@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210606133715_ShopifyOrder")]
+    partial class ShopifyOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,10 +230,10 @@ namespace Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserId")
+                    b.Property<Guid?>("UpsellId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("upsell_IdId")
+                    b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -240,9 +242,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UpsellId");
 
-                    b.HasIndex("upsell_IdId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -316,9 +318,6 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ProjectId")
@@ -486,9 +485,6 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.AppUser");
 
-                    b.Property<string>("AssignOrderId")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("Status")
                         .HasColumnType("INTEGER");
 
@@ -547,17 +543,15 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ProjectId");
 
+                    b.HasOne("Domain.Upsell", null)
+                        .WithMany("Products")
+                        .HasForeignKey("UpsellId");
+
                     b.HasOne("Domain.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Domain.Upsell", "upsell_Id")
-                        .WithMany("Product_ids")
-                        .HasForeignKey("upsell_IdId");
-
                     b.Navigation("Project");
-
-                    b.Navigation("upsell_Id");
 
                     b.Navigation("User");
                 });
@@ -659,7 +653,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Upsell", b =>
                 {
-                    b.Navigation("Product_ids");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

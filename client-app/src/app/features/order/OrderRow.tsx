@@ -1,5 +1,6 @@
  import { observer } from 'mobx-react-lite';
 import React , {useState , SyntheticEvent} from 'react';
+import { ChangeEvent } from 'react';
 import { Button } from "semantic-ui-react"
 import { useStore } from '../../stores/Store';
 
@@ -8,15 +9,30 @@ import { useStore } from '../../stores/Store';
 function OrderRow() {
 
   const [target, setTarget] = useState('');
-   const {orderStore} = useStore();
+   const {orderStore , statusStore} = useStore();
    
-   const {orders , deleteOrder , loading} = orderStore
+   const {orders , deleteOrder , loading , ordersRegistry , updateOrder} = orderStore
+   const {status  , statusRegistry  } = statusStore
 
-   const handleReservationDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
+   console.log(orders);
+   
+
+   const handleOrderDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
     setTarget(id);
     deleteOrder(id)
 }
+   const StatusChange = (e: ChangeEvent<HTMLSelectElement> , id : string) => {
+     var statusId = e.target.value;
+    var order = ordersRegistry.get(id)
+    var status = statusRegistry.get(statusId)
+    order!.status = status! 
 
+    updateOrder(order!);
+    
+    
+   
+    
+}
 
 
     return ( 
@@ -25,15 +41,26 @@ function OrderRow() {
         {orders.map((order)=> {
          return ( 
         <tr key={order.id}>
-        <td>{order.id}</td>
+        <td>{order.orderId}</td>
         <td>{order.project?.project_Type}</td>
-        <td>{order.customer}</td>
-        <td>{order.product}</td>
+        <td>{order.customer.fullName}</td>
+        <td>{order.product[0].name}</td>
         <td>{order.price}</td>
         <td>
+          {/* {order.status?.statusType} */}
+        <div>
+                      <select className="form-control"  onChange={(e)=>StatusChange(e , order.id)}>
+                      {status.map((status) =>{
+
+                        if(status.id == order.status?.id)return(<option key={status.id} selected  value={status.id}> {status.statusType}</option>)
+                        else return(<option key={status.id}  value={status.id}> {status.statusType}</option>)
+                      })}
+                      </select>
+        </div>
+        </td>
+        <td>
           <div>
-           
-            <Button  loading={loading && target === order.id} className="btn btn-danger" color='red' onClick={(e)=> handleReservationDelete( e ,order.id) } content="Delete" />
+            <button  className={`btn btn-danger ${loading && target === order.id ? "btn-progress" : ""}`} color='red' onClick={(e)=> handleOrderDelete( e ,order.id) }>Delete</button>
           </div>
           </td>
       </tr>)}

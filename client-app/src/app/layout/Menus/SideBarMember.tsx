@@ -6,10 +6,13 @@ const SideBarMember = () => {
         <ul className="sidebar-menu">
             <li className="menu-header">Menu</li>
             <li className="">
-                <Link to="/dashboard" className="nav-link" id="dashboard" ><i className="fas fa-user-secret"></i> <span>Dashboard</span></Link>
+                <Link to="/user/dashboard" className="nav-link" id="dashboard" ><i className="fas fa-user-secret"></i> <span>Dashboard</span></Link>
             </li>
             <li className="">
                 <Link to="/overview" className="nav-link" id="overview" ><i className="fas fa-user-secret"></i> <span>Overview</span></Link>
+            </li>
+            <li className="">
+                <Link to="/user/errTest" className="nav-link" id="overview" ><i className="fas fa-user-secret"></i> <span>Errors</span></Link>
             </li>
             <li className="">
                 <Link to="/account" className="nav-link" id="account" ><i className="fas fa-user-secret"></i> <span>My Account</span></Link>

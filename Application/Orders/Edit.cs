@@ -35,9 +35,11 @@ namespace Application.Orders
             {
 
                 var order = await _context.Orders.FindAsync(request.Order.Id);
-                _mapper.Map(request.Order, order);
+
+                order.Status = request.Order.Status;
 
 
+                _context.Entry(order).State = EntityState.Modified;
                 var Result = await _context.SaveChangesAsync() > 0;
 
                 if (!Result) return Result<Unit>.Failure("Failed to Update Order");

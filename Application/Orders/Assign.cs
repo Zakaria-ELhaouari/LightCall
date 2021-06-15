@@ -37,13 +37,35 @@ namespace Application.Orders
 
                 var id = _userAccessor.GetUserId();
                 var Operator = await _context.OperatoreAccount.FindAsync(id);
-                if (Operator.Status)
+
+                
+
+                if (Operator.Status )
                 {
-                    var order = await _context.Orders.Include(o => o.Status).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
-                    order.Operators ??= new List<OperatorAcc>();
-                    order.Operators.Add(Operator);
-                    await _context.SaveChangesAsync() ;
-                    return Result<Order>.Success(order);
+                    if (Operator.AssignOrderId != null) {
+
+                        var order = await _context.Orders.Include(o => o.Status).Include(o => o.Customer).Include(o => o.Product).Where(order => order.Id == Guid.Parse( Operator.AssignOrderId) ).FirstOrDefaultAsync();
+                        return Result<Order>.Success(order);
+                    }
+                    else
+                    {
+
+                        var order = await _context.Orders.Include(o => o.Status).Include(o => o.Operators).Include(o => o.Customer).Include(o => o.Product).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
+                        if (!order.Operators.Contains(Operator))
+                        {
+                            order.Operators ??= new List<OperatorAcc>();
+                            order.Operators.Add(Operator);
+
+                        }
+                       
+                        Operator.AssignOrderId = order.Id.ToString();
+                        await _context.SaveChangesAsync();
+                        return Result<Order>.Success(order);
+
+
+                    }
+
+
 
                 }
                 return Result<Order>.Failure("Operator is Not Active") ;

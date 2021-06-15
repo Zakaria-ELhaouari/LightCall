@@ -2,7 +2,7 @@
 
 - [x] Style HomePage
 - [x] Create Private/Public Routes
-
+ 
 
 ## Todo List 05/09/2021
 - [ ] Create Operator dashboard
@@ -60,6 +60,11 @@ System Management
    Support
    Account Settings
 
+google sheets
+storino
+youcan
+woocommerce
+google leads
 
 -[] Operator
     - renner@gmail.com
@@ -69,4 +74,13 @@ System Management
     - _AStrong12P@ssword!
 -[] Member
     - med@gmail.com
-    - Pa$$w0rd
+    - Pa$$w0rd 
+  
+# My Todo's this week 
+ - [x] Fix the routing
+ - [ ] create the profile Edit page
+ - [ ] Integrate the photo upload funtionality
+ - [ ] Create Devis Technique & Financier Desktop APP
+ - [ ] create the Whatsapp template page
+ - [ ] Statistics
+ - [ ] IVR Page have a minimum funtionality available

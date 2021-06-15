@@ -131,6 +131,8 @@ function App() {
           {/* <Route  exact component={Layout} /> */}
           {/* <Route exact path="/manageOperators" component={ManageOperator}  />
           <PivateLayout exact path="/Admindashboard" component={Main} />
+          <Route exact path="/orders" component={Orders} />
+          <Route path="/status" component={Status} /> 
           <PivateLayout exact path="/orders" component={Orders} />
           <PivateLayout path="/status" component={Status} />  */}
           {/* <PivateLayout path="/operateur" component={Operateur}/> */}

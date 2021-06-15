@@ -17,7 +17,7 @@ useEffect(()=>{
 
 
 
-if(statusStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie  animationData={loaderAnimation} /> </div>)
+if(statusStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
     return (
         <div>

@@ -18,7 +18,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'https://localhost:44303/api';
 
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
@@ -80,7 +80,8 @@ const Orders = {
     updateStatus: (status: Status) => requests.put<void>(`/Order/status/${status.id}`, status),
     delete: (id: string) => requests.del<void>(`/Order/${id}`),
     assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
-    inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder${id}`, {}),
+    inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder/${id}`, {}),
+    updateOperateur: () => requests.put<void>(`/Order/operateur` , {})
 
 }
 

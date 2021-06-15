@@ -18,6 +18,7 @@ using Application.Interfaces;
 using Application.Orders;
 using MediatR;
 using Newtonsoft.Json.Linq;
+using API.DTOs;
 
 namespace API.Controllers
 {
@@ -62,7 +63,7 @@ namespace API.Controllers
                             {
                                 OrderId = excelWorksheet.Cells[row, 1].Value.ToString().Trim(),
                                 Description = excelWorksheet.Cells[row, 2].Value.ToString().Trim(),
-                                Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
+                                //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
                                 // Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
 
@@ -110,6 +111,21 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command { Order = order }));
         }
 
+        [HttpPut("operateur")]
+        public async Task<IActionResult> OrderOperateur()
+        {
+            var id = _userAccessor.GetUserId();
+            var Operator = await _context.OperatoreAccount.FindAsync(id);
+
+            Operator.AssignOrderId = null;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> PostOrder( Order order)
@@ -123,19 +139,55 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("Shopify/{id}")]
-        public async Task<IActionResult> ShopifyOrder(Guid id  , JObject body )
+        public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
         {
 
+     
 
             Project project = _context.Projects.FindAsync(id).Result ;
-            var shopifyOrder = body.Properties().ToList();
-            var orderId = shopifyOrder[0];
-            var price = shopifyOrder[10];
+
+            Domain.Customer customer = new Domain.Customer
+            {
+                FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
+                Email = shopifyOrder.customer.email,
+                Phone = shopifyOrder.customer.default_address.phone,
+                FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
+
+
+            };
+
+            var orderId = shopifyOrder.id;
+            var price = shopifyOrder.total_price;
+
+            Order order = new Order
+            {
+                OrderId = orderId.ToString(),
+                Price = Decimal.Parse(price),
+                Project = project,
+                Customer = customer
+            };
+
+            List<Product> products = new List<Product>();
+
+            shopifyOrder.line_items.ForEach((item) =>
+            {
+
+                Product product = new Product
+                {
+                    Name = item.name,
+                    Quantity = item.quantity,
+                    Project = project
+                };
+
+
+                products.Add(product);
+
+            });
+
+            order.Product = products;
             
-            Order order = new Order {
-                OrderId = orderId.Value.ToString(),
-                Price = Decimal.Parse( price.Value.ToString()),
-                Project = project };
+         
+       
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync() ;
 

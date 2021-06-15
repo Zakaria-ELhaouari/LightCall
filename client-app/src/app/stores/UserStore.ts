@@ -30,7 +30,9 @@ export default class UserStore {
                 this.user = user;
             });
             
-
+             if(store.commonStore.isRoles(["Operator"]) ){
+                 
+             }
             history.push('/'); //redirect user to dashboard after succefull login
             
         } catch (error) {

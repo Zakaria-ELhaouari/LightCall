@@ -29,14 +29,11 @@ export default class OrderStore {
         try {
             var orders = await agent.Orders.list();
 
-            console.log(orders);
 
             orders.forEach(order => {
                 this.ordersRegistry.set(order.id, order);
             })
-
-
-
+            
             this.setLoadingInitial(false)
 
         } catch (error) {
@@ -147,6 +144,22 @@ export default class OrderStore {
         }
     }
 
+
+    UpdateOperateur = async () => {
+        this.loading = true;
+        try {
+             await agent.Orders.updateOperateur();
+            runInAction(() => {
+                this.loading = false;
+            })
+        } catch (error) {
+            runInAction(() => {
+
+                this.loading = false;
+            })
+        }
+
+    }
 
 
 

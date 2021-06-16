@@ -5,23 +5,23 @@ import { shippingCompany } from '../../models/shippingCompany';
 import { useStore } from '../../stores/Store';
 import Select from 'react-select';
 import { observer } from 'mobx-react-lite';
+import { City } from '../../models/city';
 // import {multiSelect} from 'multiselect-react-dropdown';
 
 export default observer(function ShippingCompanyForm(){
     const {shippingCompanyStore , cityStore} = useStore();
     const {creatShippingCompany , updateShippingCompany , shippingCompanySelected} = shippingCompanyStore;
     const {cities} = cityStore;
-    // const [Allcities , setCities] = useState([]);
     let initialValues  = shippingCompanySelected ?? {
       id : '',
       name : '',
       apiClient : '',
       cities : [] ,
     }
-    const allCities :string[] = [];
+    const allCities :City[] = [];
     const [company ] = useState(initialValues);
     var CountryName=[{}]
-    
+
     cities.map(city =>{
       CountryName.push({
         value:city.id,
@@ -42,9 +42,11 @@ export default observer(function ShippingCompanyForm(){
 
     function handleSubmit(values : shippingCompany  , {setErrors } : any) {
       // console.log(values)
-      console.log(initialValues);
+      // console.log(allCities);
       values.cities = allCities;
+      // console.log(values.cities);
       shippingCompanySelected ? updateShippingCompany(values) : creatShippingCompany(values);
+      console.log(values);
     }
 
     if(cityStore.loadingInitial) return(<div>Loading...</div>)

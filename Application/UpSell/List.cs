@@ -28,7 +28,11 @@ namespace Application.UpSell
             public async Task<List<Upsell>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-                var allUpSell = await _context.Upsell.Where(x => x.User == user).ToListAsync();
+                var allUpSell = await _context.Upsell
+                                .Where(x => x.User == user)
+                                .Include(x => x.Project)
+                                .Include(x => x.Product_ids)
+                                .ToListAsync();
                 return allUpSell;
             }
         }

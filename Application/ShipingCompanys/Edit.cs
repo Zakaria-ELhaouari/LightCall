@@ -41,7 +41,7 @@ namespace Application.ShipingCompanys
             {
                 var company = await _context.Shipping_Companies.FindAsync(request.ShippingCompany.id);
                 List<City> cities = new List<City>();
-                foreach (var city in request.ShippingCompany.citiesIds)
+                foreach (var city in request.ShippingCompany.cities)
                 {
                     cities.Add(await _context.Cities.FindAsync(city));
                 }

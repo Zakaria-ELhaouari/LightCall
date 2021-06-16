@@ -8,6 +8,10 @@ import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
+import { Product } from '../models/Product';
+import { UpSell } from '../models/UpSell';
+import { toast } from 'react-toastify';
+import { history } from '../..';
 
 
 const sleep = (delay: number) => {
@@ -75,13 +79,28 @@ const Cities = {
     delete: (id: string) => requests.del<void>(`/Cities/${id}`)
 
 }
+const Upsell = {
+    list: () => requests.get<UpSell[]>('/Upsell'),
+    details: (id: string) => requests.get<UpSell>(`/Upsell/${id}`),
+    create: (upsell: UpSell) => requests.post<void>('/Upsell', upsell),
+    update: (upsell: UpSell) => requests.put<void>(`/Upsell/${upsell.id}`, upsell),
+    delete: (id: string) => requests.del<void>(`/Upsell/${id}`)
+}
+
 const Projects = {
     list: () => requests.get<Project[]>('/Project'),
     details: (id: string) => requests.get<Project>(`/Project/${id}`),
     create: (project: Project) => requests.post<void>('/Project', project),
     update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
     delete: (id: string) => requests.del<void>(`/Project/${id}`)
+}
 
+const Products = {
+    list: () => requests.get<Product[]>('/Product'),
+    details: (id: string) => requests.get<Project>(`/Product/${id}`),
+    create: (product: Product) => requests.post<void>('/Product', product),
+    update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
+    delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }
 
 const OperateurAcc = {
@@ -113,9 +132,9 @@ const agent = {
     OperateurAcc,
     Cities,
     ShippingCompany,
-    Projects
-
-
+    Projects,
+    Products,
+    Upsell
 }
 
 export default agent;

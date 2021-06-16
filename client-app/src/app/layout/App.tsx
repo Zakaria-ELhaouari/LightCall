@@ -15,6 +15,8 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import Operator from './Operator'
+import Product from './Product';
+import Upsell from './Upsell';
 import AdminLayout from './AdminLayout';
 import OperatorLayout from '../features/Operator/OperatorLayout';
 import PrivateAdminRoute from '../security/PrivateAdminRoute';
@@ -134,13 +136,14 @@ function App() {
           <Route exact path="/orders" component={Orders} />
           <Route path="/status" component={Status} /> 
           <PivateLayout exact path="/orders" component={Orders} />
-          <PivateLayout path="/status" component={Status} />  */}
+          <PivateLayout path="/status" component={Status} /> 
+          <PivateLayout path="/upsell" component={Upsell} /> 
           {/* <PivateLayout path="/operateur" component={Operateur}/> */}
           {/* <PivateLayout path="/shippingCompany" component={ShippingCompany}/>
           <PivateLayout path="/cities" component={City}/>
           <PivateLayout  path="/projects" component={Projects} />
-          <PivateLayout path="/operateur" component={Operator}/> */}
-
+          <PivateLayout path="/operateur" component={Operator}/>
+          <PivateLayout path="/products" component={Product}/> */}
 
         </Switch>
     </div>

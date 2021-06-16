@@ -47,12 +47,21 @@ namespace Application.UpSell
                     Products.Add(await _context.Products.FindAsync(product));
                 }
 
+                
                 Upsell upsell = new Upsell(){
-                    Status = false ,
+                    Status = request.Upsell.Status ,
+                    Name = request.Upsell.Name,
                     Project = await _context.Projects.FindAsync(request.Upsell.Project_id),
-                    Products = Products,
+                    // Product = Products,
                     User = user
                 };
+
+                foreach(var prd in Products)
+                {
+                    prd.upsell_Id = upsell;
+                    _context.Products.Update(prd);
+                    // await _context.SaveChangesAsync();  
+                }
 
                 await _context.Upsell.AddAsync(upsell);
                 var Result = await _context.SaveChangesAsync() > 0;

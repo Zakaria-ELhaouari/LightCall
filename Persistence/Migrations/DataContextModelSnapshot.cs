@@ -231,7 +231,7 @@ namespace Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("upsell_IdId")
+                    b.Property<Guid?>("upsellId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -242,7 +242,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("upsell_IdId");
+                    b.HasIndex("upsellId");
 
                     b.ToTable("Products");
                 });
@@ -551,13 +551,13 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Domain.Upsell", "upsell_Id")
+                    b.HasOne("Domain.Upsell", "upsell")
                         .WithMany("Product_ids")
-                        .HasForeignKey("upsell_IdId");
+                        .HasForeignKey("upsellId");
 
                     b.Navigation("Project");
 
-                    b.Navigation("upsell_Id");
+                    b.Navigation("upsell");
 
                     b.Navigation("User");
                 });

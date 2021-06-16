@@ -34,12 +34,10 @@ namespace Application.Orders
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
 
-                var order = await _context.Orders.FindAsync(request.Order.Id);
-
-                order.Status = request.Order.Status;
+                
 
 
-                _context.Entry(order).State = EntityState.Modified;
+                _context.Entry(request.Order).State = EntityState.Modified;
                 var Result = await _context.SaveChangesAsync() > 0;
 
                 if (!Result) return Result<Unit>.Failure("Failed to Update Order");

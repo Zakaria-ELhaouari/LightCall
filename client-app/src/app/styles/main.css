@@ -7,6 +7,7 @@ body {
 }
 .new-order h3 span {
   color: #6777ef;
+  cursor: pointer;
 }
 .order-card .order-animation {
   width: 40%;

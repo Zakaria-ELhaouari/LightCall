@@ -5,6 +5,8 @@ import { observer } from 'mobx-react-lite';
 import Lottie from 'lottie-react';
 import OrderLottie from '../../assets/order.json';
 import loaderAnimation from "../../assets/loader.json";
+import PopupForm from '../../common/form/PopupForm'; 
+
 
 
 
@@ -28,11 +30,9 @@ function OperatorOrder() {
     const onChange = id  => {
 
     var status = statusRegistry.get(id)
-    assignedOrder.status = status
-    
+    assignedOrder.status = status;
     updateOrder(assignedOrder);
 
-      
     };
 
     const onSubmit = ()  => {
@@ -70,22 +70,19 @@ function OperatorOrder() {
                 <h2 className={`new-order-text ${!isAnimated ? "" : "animated"}`} >New Order</h2>
             <Lottie loop={false}  autoplay={autoPlay} animationData={OrderLottie}  />
             </div>
-            <div  className={!isAnimated ? "text-left order-info" : 'text-left order-info animated'}  >
+            <div  className={!isAnimated ? "text-left order-info" : 'text-left order-info animated'}>
               <div>
-                <h3>FullName : <span>{assignedOrder?.customer?.fullName}</span></h3>
-                <h3>Adresse  : <span>{assignedOrder?.customer?.fullAdresse}</span></h3>
+                <h3>FullName : <PopupForm for="fullName" value={assignedOrder?.customer?.fullAdresse} /> </h3>
+                <h3>Adresse  : <span >{assignedOrder?.customer?.fullAdresse}</span></h3>
                 <h3>Email    : <span>{assignedOrder?.customer?.email}</span></h3>
                 <h3>Phone    : <span>{assignedOrder?.customer?.phone}</span></h3>
                 <h3>Product  : <span>{assignedOrder?.product[0]?.name}</span></h3>
                 <h3>Quantity : <span>{assignedOrder?.product[0]?.quantity}</span></h3>
-                <h3>Price    : <span>{assignedOrder?.price} </span>MAD</h3>
-                
+                <h3>Price    : <PopupForm for="price" value={assignedOrder?.price}/> MAD</h3>
               </div>
 
             </div>
-            <div>
-            
-            </div>
+
             </div>
 
       </div>

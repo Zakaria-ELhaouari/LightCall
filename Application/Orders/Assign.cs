@@ -19,7 +19,7 @@ namespace Application.Orders
         public class Query : IRequest<Result<Order>>
         {
            
-
+         
         }
 
         public class Handler : IRequestHandler<Query, Result<Order>>
@@ -58,7 +58,7 @@ namespace Application.Orders
                             order.Operators.Add(Operator);
 
                         }
-                       
+                        
                         Operator.AssignOrderId = order.Id.ToString();
                         await _context.SaveChangesAsync();
                         return Result<Order>.Success(order);

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { City } from '../models/city';
 import { Operateur } from '../models/Operateur';
 import { Order } from '../models/Order';
@@ -8,8 +8,6 @@ import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
-import { toast } from 'react-toastify';
-import { history } from '../..';
 
 
 const sleep = (delay: number) => {
@@ -28,37 +26,13 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(async response => {
+    try {
         await sleep(1000);
         return response;
-}, (error: AxiosError) => {
-    const {data, status} = error.response!;
-    switch (status) {
-        case 400:
-            if(data.errors){
-                const modalStateErrors = [];
-                for (const key in data.errors) {
-                    if(data.errors[key]){
-                        modalStateErrors.push(data.errors[key])
-                    }
-                }
-                throw modalStateErrors.flat();
-            }else {
-                toast.error(data);
-            }
-            break;
-        case 401:
-            toast.error('unauthorized');
-            break;
-        case 404:
-            // toast.error('not found');
-            history.push('/404');
-            break;
-        case 500:
-            store.commonStore.setServerError(data);
-            history.push('/server-error');
-            break;
+    } catch (error) {
+        console.log(error);
+        return await Promise.reject(error);
     }
-    return Promise.reject(error);
 })
 
 

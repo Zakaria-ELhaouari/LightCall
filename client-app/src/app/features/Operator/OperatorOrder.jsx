@@ -54,6 +54,13 @@ function OperatorOrder() {
 
     if(statusStore.loadingInitial || orderStore.loadingInitial) return( <div className='d-flex justify-content-center' > <Lottie   animationData={loaderAnimation} /> </div>)
 
+
+    if(assignedOrder == undefined) return( <div className="card p-2 order-card ">
+    <div className="card-body">
+      <h1 className="text-center" >There no orders Assigned</h1>
+      </div>
+      </div>)
+
     return (
       <div className="card p-2 order-card ">
       <div className="card-body">
@@ -65,12 +72,12 @@ function OperatorOrder() {
             </div>
             <div  className={!isAnimated ? "text-left order-info" : 'text-left order-info animated'}  >
               <div>
-                <h3>FullName : <span>{assignedOrder?.customer.fullName}</span></h3>
-                <h3>Adresse  : <span>{assignedOrder?.customer.fullAdresse}</span></h3>
-                <h3>Email    : <span>{assignedOrder?.customer.email}</span></h3>
-                <h3>Phone    : <span>{assignedOrder?.customer.phone}</span></h3>
-                <h3>Product  : <span>{assignedOrder?.product[0].name}</span></h3>
-                <h3>Quantity : <span>{assignedOrder?.product[0].quantity}</span></h3>
+                <h3>FullName : <span>{assignedOrder?.customer?.fullName}</span></h3>
+                <h3>Adresse  : <span>{assignedOrder?.customer?.fullAdresse}</span></h3>
+                <h3>Email    : <span>{assignedOrder?.customer?.email}</span></h3>
+                <h3>Phone    : <span>{assignedOrder?.customer?.phone}</span></h3>
+                <h3>Product  : <span>{assignedOrder?.product[0]?.name}</span></h3>
+                <h3>Quantity : <span>{assignedOrder?.product[0]?.quantity}</span></h3>
                 <h3>Price    : <span>{assignedOrder?.price} </span>MAD</h3>
                 
               </div>

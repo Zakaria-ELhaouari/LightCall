@@ -40,7 +40,7 @@ namespace Application.Orders
 
                 
 
-                if (Operator.Status )
+                if (Operator.Status)
                 {
                     if (Operator.AssignOrderId != null) {
 
@@ -51,9 +51,10 @@ namespace Application.Orders
                     {
 
                         var order = await _context.Orders.Include(o => o.Status).Include(o => o.Operators).Include(o => o.Customer).Include(o => o.Product).OrderBy(o => o.Status.StatusPiority).FirstOrDefaultAsync();
+                        order.Operators ??= new List<OperatorAcc>();
+
                         if (!order.Operators.Contains(Operator))
-                        {
-                            order.Operators ??= new List<OperatorAcc>();
+                        { 
                             order.Operators.Add(Operator);
 
                         }

@@ -10,7 +10,7 @@ namespace Persistence
     public class Seed
     {
 
-        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager )
         {
             if(!userManager.Users.Any()){
                 var users = new List<AppUser> {
@@ -27,9 +27,9 @@ namespace Persistence
                     await userManager.AddToRoleAsync(user, "Member");
                 }
 
-                var Operators = new List<AppUser> {
-                    new AppUser{FirstName = "Austen", LastName = "Renner", UserName = "Renner", Email = "renner@gmail.com", SkypeId = "3446j984938" },
-                    new AppUser{FirstName = "Daren", LastName = "Boyle", UserName = "Boyle", Email = "Boyle@gmail.com", SkypeId = "12456984938" },
+                var Operators = new List<OperatorAcc> {
+                    new OperatorAcc{FirstName = "Austen", LastName = "Renner", UserName = "Renner", Email = "renner@gmail.com", SkypeId = "3446j984938" },
+                    new OperatorAcc{FirstName = "Daren", LastName = "Boyle", UserName = "Boyle", Email = "Boyle@gmail.com", SkypeId = "12456984938" },
                 };
 
                 foreach (var op in  Operators)

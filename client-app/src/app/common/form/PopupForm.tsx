@@ -6,6 +6,7 @@ import { useStore } from '../../stores/Store';
 interface props {
     for : string ;
     value : string ;
+    type : string ;
 }
 
 function PopupForm(props : props) {
@@ -21,20 +22,31 @@ function PopupForm(props : props) {
         switch (props.for) {
             
             case "price" :
-
             assignedOrder!.price = Number(value);
-            console.log(assignedOrder) ;
-           
-           
             
-            
-            updateOrder(assignedOrder!);
-            
-                break;
+            break;  
+
+            case "fullname" :
+                assignedOrder!.customer.fullName = value;
+               
+            break;
+            case "adresse" :
+                assignedOrder!.customer.fullAdresse = value;
+               
+            break;
+            case "email" :
+                assignedOrder!.customer.email = value;
+               
+            break;
+            case "phone" :
+                assignedOrder!.customer.phone = value;
+               
+            break;
         
             default:
                 break;
         }
+        updateOrder(assignedOrder!);
 
         setOpen(false);
         console.log(isOpen);
@@ -44,7 +56,7 @@ function PopupForm(props : props) {
     return (
         <Popup open={isOpen} onOpen={()=>setOpen(true)} trigger={<span  >{props.value}</span>} position="right center">
             <div className="d-flex justify-content-around align-items-center shadow-sm p-2  bg-white rounded" >
-                <input type="number"  value={value} onChange={(e)=>setValue(e.target.value)} className="form-control form-control-sm" /> 
+                <input type={props.type}  value={value} onChange={(e)=>setValue(e.target.value)} className="form-control form-control-sm" /> 
                 <button  onClick={UpdateOrder} className="btn btn-primary btn-sm editable-submit ml-2 mr-2">
                     <i className="fa fa-check" aria-hidden="true"></i>
                 </button> 

@@ -13,10 +13,10 @@ import PopupForm from '../../common/form/PopupForm';
 function OperatorOrder() {
 
     const {orderStore , statusStore ,  } = useStore()
-    const {assignedOrder , AssigneOrder , ordersRegistry  , updateOrder ,UpdateOperateur} = orderStore
+    const {assignedOrder , AssigneOrder , updateOrder ,UpdateOperateur} = orderStore
     const {status  , loadStatus , statusRegistry  } = statusStore
-   var [autoPlay , setAutoPlay] = useState(false)
-   var [isAnimated , setIsAnimated] = useState(false)
+    var [autoPlay , setAutoPlay] = useState(false)
+    var [isAnimated , setIsAnimated] = useState(false)
   
   
 
@@ -45,8 +45,6 @@ function OperatorOrder() {
       AssigneOrder();
       setAutoPlay(false);
       setIsAnimated(false);
-
-
     } , 2000)
         
       };
@@ -64,21 +62,21 @@ function OperatorOrder() {
     return (
       <div className="card p-2 order-card ">
       <div className="card-body">
-
+      <h2 className={`new-order-text text-center mb-3 ${!isAnimated ? "" : "animated"}`} >New Order</h2>
             <div  className="d-flex text-center justify-content-around align-items-center new-order" >
               <div className={!isAnimated ? "order-animation" : 'order-animation animated'}  >
-                <h2 className={`new-order-text ${!isAnimated ? "" : "animated"}`} >New Order</h2>
+                
             <Lottie loop={false}  autoplay={autoPlay} animationData={OrderLottie}  />
             </div>
-            <div  className={!isAnimated ? "text-left order-info" : 'text-left order-info animated'}>
+            <div  className={!isAnimated ? "text-left order-info mt-2" : 'text-left order-info m-2 animated'}>
               <div>
-                <h3>FullName : <PopupForm for="fullName" value={assignedOrder?.customer?.fullAdresse} /> </h3>
-                <h3>Adresse  : <span >{assignedOrder?.customer?.fullAdresse}</span></h3>
-                <h3>Email    : <span>{assignedOrder?.customer?.email}</span></h3>
-                <h3>Phone    : <span>{assignedOrder?.customer?.phone}</span></h3>
-                <h3>Product  : <span>{assignedOrder?.product[0]?.name}</span></h3>
-                <h3>Quantity : <span>{assignedOrder?.product[0]?.quantity}</span></h3>
-                <h3>Price    : <PopupForm for="price" value={assignedOrder?.price}/> MAD</h3>
+                <h4>FullName : <PopupForm for="fullname" type="text" value={assignedOrder?.customer?.fullName} /> </h4>
+                <h4>Adresse  : <PopupForm for="adresse" type="text" value={assignedOrder?.customer?.fullAdresse} /> </h4>
+                <h4>Email    : <PopupForm for="email" type="text" value={assignedOrder?.customer?.email} /></h4>
+                <h4>Phone    : <PopupForm for="phone" type="text" value={assignedOrder?.customer?.phone} /></h4>
+                <h4>Product  : <span>{assignedOrder?.product[0]?.name}</span></h4>
+                <h4>Quantity : <span>{assignedOrder?.product[0]?.quantity}</span></h4>
+                <h4>Price    : <PopupForm for="price" type="number"  value={assignedOrder?.price}/> MAD</h4>
               </div>
 
             </div>
@@ -129,8 +127,8 @@ return (
         ))}
       </RadioGroup> */}
       </div>
-      <hr  ></hr>
-        <div  className={`ml-auto p-3 pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
+      <hr hidden={isAnimated} ></hr>
+        <div  className={`ml-auto  pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >
           <button className="btn btn-success m-1 btn-lg mb-2 " onClick={onSubmit}>
           Submit
           </button>

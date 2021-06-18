@@ -60,7 +60,8 @@ const Orders = {
     delete: (id: string) => requests.del<void>(`/Order/${id}`),
     assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
     inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder/${id}`, {}),
-    updateOperateur: () => requests.put<void>(`/Order/operateur` , {})
+    updateOperateur: () => requests.put<void>(`/Order/operateur` , {}),
+    uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import',importFile )
 
 }
 

@@ -47,3 +47,21 @@ body {
 .new-order-text.animated {
   opacity: 0;
 }
+
+/* .status-form {
+  position: absolute;
+  width: 50vw;
+  top: 0;
+} */
+.popup-content {
+  margin: auto !important;
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 80%;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+}

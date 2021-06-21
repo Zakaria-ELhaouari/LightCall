@@ -21,16 +21,8 @@ useEffect(()=>{
 
 function handleSubmit(values : any  , {setErrors } : any) {
    const data = new FormData();
-
-   console.log(values.importFile);
-   
-
    data.append("importFile" ,values.importFile)
-   
-   console.log(data);
-   
     UploadExel(data);
-
   }
 
 
@@ -61,9 +53,9 @@ function handleSubmit(values : any  , {setErrors } : any) {
             </div>
 
             <div className="ml-auto">
-                          <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block ">
-                            Import
-                          </button>
+                  <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg  ">
+                    Import
+                  </button>
             </div>
             </Form>
              )}

@@ -95,7 +95,7 @@ return (
                   value={status?.id}
                   
                   style={{
-                    backgroundColor: `${status?.id == assignedOrder?.status.id ? "#394eea" : "#a0aaf5"}`
+                    backgroundColor: `${status?.id == assignedOrder?.status?.id ? "#394eea" : "#a0aaf5"}`
                   }}
 
                   
@@ -104,28 +104,7 @@ return (
                 >
                   {status?.statusType}
                 </button>)})}
-  
 
-
-    {/* <RadioGroup containerStyle="d-flex justify-content-around flex-wrap" onChange={onChange} >
-        {status.map(status => (
-          <Radio
-          
-            value={status.id}
-            render={({ isSelected }) =>
-                <button
-                  className="btn btn-primary m-1 mb-2"
-                  style={{
-                    backgroundColor: ` ${isSelected ? "#394eea" : "##a0aaf5"} `
-                  }}
-                >
-                  {status.statusType}
-                </button>
-             
-            } 
-          />
-        ))}
-      </RadioGroup> */}
       </div>
       <hr hidden={isAnimated} ></hr>
         <div  className={`ml-auto  pr-5 submit-order ${!isAnimated ? "" : "animated"}`} >

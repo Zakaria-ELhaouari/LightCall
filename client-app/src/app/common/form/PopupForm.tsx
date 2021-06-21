@@ -23,24 +23,22 @@ function PopupForm(props : props) {
             
             case "price" :
             assignedOrder!.price = Number(value);
-            
             break;  
-
+            
             case "fullname" :
                 assignedOrder!.customer.fullName = value;
-               
             break;
+
             case "adresse" :
                 assignedOrder!.customer.fullAdresse = value;
-               
             break;
+
             case "email" :
                 assignedOrder!.customer.email = value;
-               
             break;
+
             case "phone" :
                 assignedOrder!.customer.phone = value;
-               
             break;
         
             default:
@@ -57,10 +55,10 @@ function PopupForm(props : props) {
         <Popup open={isOpen} onOpen={()=>setOpen(true)} trigger={<span  >{props.value}</span>} position="right center">
             <div className="d-flex justify-content-around align-items-center shadow-sm p-2  bg-white rounded" >
                 <input type={props.type}  value={value} onChange={(e)=>setValue(e.target.value)} className="form-control form-control-sm" /> 
-                <button  onClick={UpdateOrder} className="btn btn-primary btn-sm editable-submit ml-2 mr-2">
+                <button  onClick={UpdateOrder} className="btn btn-primary btn-sm editable-submit mx-2 ">
                     <i className="fa fa-check" aria-hidden="true"></i>
                 </button> 
-                <button onClick={()=>setOpen(false)} type="button" className="btn btn-default btn-sm editable-cancel">
+                <button onClick={()=>setOpen(false)} type="button" className="btn btn-danger btn-sm px-2 editable-cancel ">
                     <i className="fa fa-times" aria-hidden="true"></i>
                 </button>
             </div>

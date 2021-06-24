@@ -37,7 +37,7 @@ axios.interceptors.response.use(async response => {
     switch (status) {
         case 400:
             if(data.errors){
-                const modalStateErrors = [];
+                const modalStateErrors : any = [];
                 for (const key in data.errors) {
                     if(data.errors[key]){
                         modalStateErrors.push(data.errors[key])

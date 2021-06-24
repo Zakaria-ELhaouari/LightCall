@@ -141,9 +141,6 @@ namespace API.Controllers
         [Route("Shopify/{id}")]
         public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
         {
-
-     
-
             Project project = _context.Projects.FindAsync(id).Result ;
 
             Domain.Customer customer = new Domain.Customer
@@ -152,7 +149,6 @@ namespace API.Controllers
                 Email = shopifyOrder.customer.email,
                 Phone = shopifyOrder.customer.default_address.phone,
                 FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
-
 
             };
 
@@ -198,9 +194,7 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {
-
             return HandleResult(await Mediator.Send(new Delete.Command { id = id }));
-
         }
 
 
@@ -219,8 +213,6 @@ namespace API.Controllers
         {
 
             return HandleResult(await Mediator.Send(new Assign.Query()));
-
-
         }
 
 

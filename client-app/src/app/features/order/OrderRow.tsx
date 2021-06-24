@@ -1,7 +1,6 @@
  import { observer } from 'mobx-react-lite';
 import React , {useState , SyntheticEvent} from 'react';
 import { ChangeEvent } from 'react';
-import { Button } from "semantic-ui-react"
 import { useStore } from '../../stores/Store';
 
 

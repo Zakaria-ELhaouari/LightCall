@@ -137,8 +137,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPost]
-        [Route("Shopify/{id}")]
+        [HttpPost("Shopify/{id}")]
         public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
         {
 

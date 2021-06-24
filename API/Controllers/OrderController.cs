@@ -39,7 +39,7 @@ namespace API.Controllers
 
 
         [HttpPost("Import")]
-        public async Task<JsonResult> ImportFile(IFormFile importFile)
+        public async Task<JsonResult> ImportFile([FromForm]  IFormFile importFile , [FromForm] string statusId , [FromForm] string projectId)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
 
@@ -48,6 +48,8 @@ namespace API.Controllers
             {
 
                 var orderList = new List<Order>();
+                StatusModel status = await _context.Status.FindAsync(statusId); 
+                Project project = await _context.Projects.FindAsync(projectId);
 
                 using (var stream = new MemoryStream())
                 {
@@ -66,6 +68,9 @@ namespace API.Controllers
                                 //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
                                 // Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
+                                Status = status,
+                                Project = project
+
 
                             }); ;
 

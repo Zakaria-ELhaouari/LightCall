@@ -6,23 +6,36 @@ import {  useStore } from '../../stores/Store'
 import ProjectRow from './ProjectRow';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik'
+import { useState } from 'react';
 
 
 function ProjectsList() {
 
-     const {projectStore , orderStore} = useStore();
+     const {projectStore , orderStore , statusStore} = useStore();
      const {UploadExel} = orderStore
+     const {status } = statusStore ;
+     const {projects , loadProjects } = projectStore ;
+     const [selectedStatus ,  setSelectedStatus]  = useState("");
+     const [selectedProject ,  setSelectedProject]  = useState("");
 
 useEffect(()=>{
-    projectStore.loadOrders()
-} , [projectStore])
+    loadProjects()
+    statusStore.loadStatus()
+} , [projectStore , statusStore])
 
 
 
 function handleSubmit(values : any  , {setErrors } : any) {
    const data = new FormData();
    data.append("importFile" ,values.importFile)
+   data.append("statusId" ,selectedStatus)
+   data.append("projectId" ,selectedProject)
+   
     UploadExel(data);
+    // console.log(values)
+    // console.log(selectedStatus);
+    // console.log(selectedProject);
+    
   }
 
 
@@ -51,6 +64,30 @@ function handleSubmit(values : any  , {setErrors } : any) {
     [event.currentTarget.name]: event.currentTarget.files![0]
 })} className="form-control"/>
             </div>
+            <div className="d-flex justify-content-around  mb-4 ">
+
+                      <div className=" d-flex mr-5 w-50 align-items-center" >
+                      <h6 className="mb-0 mr-3" >Status  </h6>
+                      <select className="form-control " name="status" onChange={(e : any)=>setSelectedStatus(e.target.value)} >
+                        
+                      {status.map((status) =>{
+                        return(
+                    <option key={status.id}  value={status.id}> {status.statusType}</option>)
+                      })}
+                      </select>
+                      </div>
+
+                    <div className=" d-flex w-50 align-items-center " >
+                    <h6 className="mb-0 mr-3" > Project </h6>
+                      <select className="form-control " name="projects"  onChange={(e : any)=>setSelectedProject(e.target.value)} >
+                      {projects.map((project) =>{
+                        return(
+                    <option key={project.id}  value={project.id}> {project.project_Type}</option>)
+                      })}
+                      </select>
+
+                      </div>
+        </div>
 
             <div className="ml-auto">
                   <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg  ">

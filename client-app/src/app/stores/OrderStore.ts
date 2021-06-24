@@ -161,6 +161,22 @@ export default class OrderStore {
 
     }
 
+    UploadExel = async (file : FormData) => {
+        this.loading = true;
+        try {
+             await agent.Orders.uploadExcel(file);
+            runInAction(() => {
+                this.loading = false;
+            })
+        } catch (error) {
+            runInAction(() => {
+
+                this.loading = false;
+            })
+        }
+
+    }
+
 
 
 }

@@ -2,15 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
+    [Migration("20210615083526_ThirdSprintMigration")]
+    partial class ThirdSprintMigration
+=======
+    [Migration("20210616105153_upsell")]
+    partial class upsell
+>>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,7 +238,11 @@ namespace Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
+<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
                     b.Property<Guid?>("upsell_IdId")
+=======
+                    b.Property<Guid?>("upsellId")
+>>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -242,7 +253,11 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
+<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
                     b.HasIndex("upsell_IdId");
+=======
+                    b.HasIndex("upsellId");
+>>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
 
                     b.ToTable("Products");
                 });
@@ -551,6 +566,7 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
+<<<<<<< HEAD:Persistence/Migrations/20210615083526_ThirdSprintMigration.Designer.cs
                     b.HasOne("Domain.Upsell", "upsell_Id")
                         .WithMany("Product_ids")
                         .HasForeignKey("upsell_IdId");
@@ -558,6 +574,15 @@ namespace Persistence.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("upsell_Id");
+=======
+                    b.HasOne("Domain.Upsell", "upsell")
+                        .WithMany("Product_ids")
+                        .HasForeignKey("upsellId");
+
+                    b.Navigation("Project");
+
+                    b.Navigation("upsell");
+>>>>>>> FirstSecBranch:Persistence/Migrations/20210616105153_upsell.Designer.cs
 
                     b.Navigation("User");
                 });

@@ -39,7 +39,7 @@ namespace API.Controllers
 
 
         [HttpPost("Import")]
-        public async Task<JsonResult> ImportFile(IFormFile importFile)
+        public async Task<JsonResult> ImportFile([FromForm]  IFormFile importFile , [FromForm] string statusId , [FromForm] string projectId)
         {
             if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
 
@@ -48,6 +48,8 @@ namespace API.Controllers
             {
 
                 var orderList = new List<Order>();
+                StatusModel status = await _context.Status.FindAsync(statusId); 
+                Project project = await _context.Projects.FindAsync(projectId);
 
                 using (var stream = new MemoryStream())
                 {
@@ -66,6 +68,9 @@ namespace API.Controllers
                                 //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = Convert.ToInt32(excelWorksheet.Cells[row, 4].Value.ToString().Trim()),
                                 // Product = excelWorksheet.Cells[row, 5].Value.ToString().Trim(),
+                                Status = status,
+                                Project = project
+
 
                             }); ;
 
@@ -189,6 +194,64 @@ namespace API.Controllers
        
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync() ;
+
+            return Ok();
+
+        }
+
+        [HttpPost]
+        [Route("WooCommerce/{id}")]
+        public async Task<IActionResult> WooCommerceOrder(Guid id, WooCommerceDto WooCommerceOrder)
+        {
+
+
+
+            Project project = _context.Projects.FindAsync(id).Result;
+
+            Domain.Customer customer = new Domain.Customer
+            {
+                FullName = WooCommerceOrder.customer.first_name + " " + WooCommerceOrder.customer.last_name,
+                Email = WooCommerceOrder.customer.email,
+                Phone = WooCommerceOrder.customer.billing_address.phone,
+                FullAdresse = WooCommerceOrder.customer.billing_address.address_1 
+
+
+            };
+
+            var orderId = WooCommerceOrder.id;
+            var price = WooCommerceOrder.total;
+
+            Order order = new Order
+            {
+                OrderId = orderId.ToString(),
+                Price = Decimal.Parse(price),
+                Project = project,
+                Customer = customer
+            };
+
+            List<Product> products = new List<Product>();
+
+            WooCommerceOrder.line_items.ForEach((item) =>
+            {
+
+                Product product = new Product
+                {
+                    Name = item.name,
+                    Quantity = item.quantity,
+                    Project = project
+                };
+
+
+                products.Add(product);
+
+            });
+
+            order.Product = products;
+
+
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
 
             return Ok();
 

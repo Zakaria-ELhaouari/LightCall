@@ -191,6 +191,64 @@ namespace API.Controllers
 
         }
 
+        [HttpPost]
+        [Route("WooCommerce/{id}")]
+        public async Task<IActionResult> WooCommerceOrder(Guid id, WooCommerceDto WooCommerceOrder)
+        {
+
+
+
+            Project project = _context.Projects.FindAsync(id).Result;
+
+            Domain.Customer customer = new Domain.Customer
+            {
+                FullName = WooCommerceOrder.customer.first_name + " " + WooCommerceOrder.customer.last_name,
+                Email = WooCommerceOrder.customer.email,
+                Phone = WooCommerceOrder.customer.billing_address.phone,
+                FullAdresse = WooCommerceOrder.customer.billing_address.address_1 
+
+
+            };
+
+            var orderId = WooCommerceOrder.id;
+            var price = WooCommerceOrder.total;
+
+            Order order = new Order
+            {
+                OrderId = orderId.ToString(),
+                Price = Decimal.Parse(price),
+                Project = project,
+                Customer = customer
+            };
+
+            List<Product> products = new List<Product>();
+
+            WooCommerceOrder.line_items.ForEach((item) =>
+            {
+
+                Product product = new Product
+                {
+                    Name = item.name,
+                    Quantity = item.quantity,
+                    Project = project
+                };
+
+
+                products.Add(product);
+
+            });
+
+            order.Product = products;
+
+
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {

@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { observer } from "mobx-react-lite";
 import Lottie from "lottie-react";
 import loaderAnimation from "../../assets/loader.json";
 import {  useStore } from '../../stores/Store'
-  import ProjectRow from './ProjectRow';
+import ProjectRow from './ProjectRow';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik'
 
 
 function ProjectsList() {
 
-     const {projectStore} = useStore();
+     const {projectStore , orderStore} = useStore();
+     const {UploadExel} = orderStore
 
 useEffect(()=>{
     projectStore.loadOrders()
@@ -19,8 +20,17 @@ useEffect(()=>{
 
 
 function handleSubmit(values : any  , {setErrors } : any) {
-   console.log(values);
+   const data = new FormData();
+
+   console.log(values.importFile);
    
+
+   data.append("importFile" ,values.importFile)
+   
+   console.log(data);
+   
+    UploadExel(data);
+
   }
 
 
@@ -31,7 +41,7 @@ function handleSubmit(values : any  , {setErrors } : any) {
         <div>
          <Link to="/Projects/AddProject" className="btn btn-icon icon-left btn-primary"> <i className="fa fa-plus" > </i> Add New Project  </Link> 
 
-        <div className="card" >  
+        <div className="card p-3 mt-4" >  
         <Formik 
 
              initialValues={{}}
@@ -39,19 +49,22 @@ function handleSubmit(values : any  , {setErrors } : any) {
            onSubmit={(values, {setErrors}) =>{handleSubmit(values, {setErrors})}}
 
             >
-            {({errors, touched, handleSubmit, isSubmitting, isValid, dirty}) => (
+            {({errors, touched, handleSubmit, isSubmitting, isValid, dirty , setValues , values }) => (
 
                <Form onSubmit={handleSubmit}  autoComplete="off">
             <div className="form-group">
                     <label>File</label>
-                    <Field name="file" type="file" className="form-control"/>
+                    <input name="importFile"  type="file" onChange={(event) => setValues({
+    ...values,
+    [event.currentTarget.name]: event.currentTarget.files![0]
+})} className="form-control"/>
             </div>
 
-            <div className="form-group">
-                          <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block">
+            <div className="ml-auto">
+                          <button disabled={!isValid || !dirty || isSubmitting} type="submit" className="btn btn-primary btn-lg btn-block ">
                             Import
                           </button>
-                        </div>
+            </div>
             </Form>
              )}
             </Formik>

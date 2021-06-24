@@ -40,7 +40,7 @@ namespace Application.Orders
 
                 
 
-                if (Operator.Status )
+                if (Operator.Status)
                 {
                     if (Operator.AssignOrderId != null) {
 

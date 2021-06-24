@@ -11,10 +11,6 @@ const ServerError = () => {
                 <div className="container mt-5">
                     <div className="page-error">
                     <div className="page-inner">
-                        <h1>500</h1>
-                        <div className="page-description">
-                        Whoopps, something went wrong.
-                        </div>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-sm-12 m-auto ">
                                     <div className="card">

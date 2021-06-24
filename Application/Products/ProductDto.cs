@@ -1,16 +1,13 @@
 using System;
 
-namespace Domain
+namespace Application.Products
 {
-    public class Product
+    public class ProductDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
-        public Project Project { get; set; }
-        public Upsell upsell_Id { get; set; }
-        public AppUser User { get; set; }
-
+        public Guid ProjectId { get; set; }
     }
 }

@@ -15,6 +15,8 @@ import Status from './Status'
 import Orders from './Orders'
 import Projects from './Projects'
 import Operator from './Operator'
+import Product from './Product';
+import Upsell from './Upsell';
 import AdminLayout from './AdminLayout';
 import OperatorLayout from '../features/Operator/OperatorLayout';
 import PrivateAdminRoute from '../security/PrivateAdminRoute';
@@ -28,6 +30,8 @@ import TestError from './../features/errors/TestError';
 import { ToastContainer } from 'react-toastify';
 import ServerError from './../features/errors/ServerError';
 import ModalContainer from '../common/modals/ModalContainer';
+import ProjectsList from '../features/project/ProjectsList';
+import ProjectForm from '../features/project/ProjectForm';
 
 
 function App() {
@@ -72,6 +76,8 @@ function App() {
                   <PrivateAdminRoute path='/admin/settings' component={Main} />
                   <PrivateAdminRoute path='/admin/profile' component={Main} />
                   <PrivateAdminRoute path="/admin/orders" component={Orders}  />
+                  <PrivateAdminRoute path="/admin/projects" component={ProjectsList}  />
+                  <PrivateAdminRoute path="/admin/projForm" component={ProjectForm}  />
                   <PrivateAdminRoute path="/admin/status" component={Status}/>
                   <PrivateAdminRoute path="/operateur" component={Operator}/>  
                   <PrivateAdminRoute path='/admin/manageOperators' component={ManageOperator} />
@@ -134,13 +140,14 @@ function App() {
           <Route exact path="/orders" component={Orders} />
           <Route path="/status" component={Status} /> 
           <PivateLayout exact path="/orders" component={Orders} />
-          <PivateLayout path="/status" component={Status} />  */}
+          <PivateLayout path="/status" component={Status} /> 
+          <PivateLayout path="/upsell" component={Upsell} /> 
           {/* <PivateLayout path="/operateur" component={Operateur}/> */}
           {/* <PivateLayout path="/shippingCompany" component={ShippingCompany}/>
           <PivateLayout path="/cities" component={City}/>
           <PivateLayout  path="/projects" component={Projects} />
-          <PivateLayout path="/operateur" component={Operator}/> */}
-
+          <PivateLayout path="/operateur" component={Operator}/>
+          <PivateLayout path="/products" component={Product}/> */}
 
         </Switch>
     </div>

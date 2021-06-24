@@ -9,29 +9,29 @@ const SideBarAdmin = () => {
         <ul className="sidebar-menu">
             <li className="menu-header">Dashboard</li>
             <li className="">
-                <Link to="/Admindashboard" className="nav-link" id="dashboard" ><i className="fas fa-user-secret"></i> <span>General Dashboard</span></Link>
+                <Link to="/Admindashboard" className="nav-link" id="dashboard" ><i className="fas fa-fire"></i> <span>General Dashboard</span></Link>
             </li>
             <li className="">
-                <Link to="/subscriptionDash" className="nav-link" id="subscriptionDash" ><i className="fas fa-user-secret"></i> <span>Subsriptions Statistics</span></Link>
+                <Link to="/subscriptionDash" className="nav-link" id="subscriptionDash" ><i className="fas fa-chart-bar"></i> <span>Subsriptions Statistics</span></Link>
             </li>
             <li className="menu-header">System Management</li>
             <li className="">
-                <Link to="/manageOperators" className="nav-link" id="manageOperators" ><i className="fas fa-user-secret"></i> <span>Manage Operators</span></Link>
+                <Link to="/manageOperators" className="nav-link" id="manageOperators" ><i className="fas fa-headset"></i> <span>Manage Operators</span></Link>
             </li>
             <li className="">
-                <Link to="/ivrSystem" className="nav-link" id="ivrSystem" ><i className="fas fa-user-secret"></i> <span>IVR system</span></Link>
+                <Link to="/ivrSystem" className="nav-link" id="ivrSystem" ><i className="fas fa-robot"></i> <span>IVR system</span></Link>
             </li>
             <li className="">
-                <Link to="/users" className="nav-link" id="users" ><i className="fas fa-user-secret"></i> <span>Users</span></Link>
+                <Link to="/users" className="nav-link" id="users" ><i className="fas fa-user-friends"></i> <span>Users</span></Link>
             </li>
             <li className="">
-                <Link to="/subPlans" className="nav-link" id="subPlans" ><i className="fas fa-user-secret"></i> <span>Subscription plans</span></Link>
+                <Link to="/subPlans" className="nav-link" id="subPlans" ><i className="fas fa-layer-group"></i> <span>Subscription plans</span></Link>
             </li>
             <li className="">
-                <Link to="/shipping" className="nav-link" id="shipping" ><i className="fas fa-user-secret"></i> <span>Shipping</span></Link>
+                <Link to="/shipping" className="nav-link" id="shipping" ><i className="fas fa-box-open"></i> <span>Shipping</span></Link>
             </li>
             <li className="">
-                <Link to="/invoices" className="nav-link" id="invoices" ><i className="fas fa-user-secret"></i> <span>Invoices</span></Link>
+                <Link to="/invoices" className="nav-link" id="invoices" ><i className="fas fa-file-invoice"></i> <span>Invoices</span></Link>
             </li>
     </ul>
     <div className="mt-4 mb-4 p-3 hide-sidebar-mini">

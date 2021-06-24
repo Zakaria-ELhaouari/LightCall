@@ -8,6 +8,8 @@ import { User, UserFormValues } from '../models/User';
 import { store } from '../stores/Store';
 // import { User, UserFormValues } from '../models/user';
 import { Status } from './../models/Status';
+import { Product } from '../models/Product';
+import { UpSell } from '../models/UpSell';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 
@@ -18,7 +20,7 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = 'https://localhost:44303/api';
+axios.defaults.baseURL = 'http://localhost:5000/api';
 
 //this peace of code makes sure that we send our token with every request
 axios.interceptors.request.use(config => {
@@ -35,7 +37,7 @@ axios.interceptors.response.use(async response => {
     switch (status) {
         case 400:
             if(data.errors){
-                const modalStateErrors = [];
+                const modalStateErrors: any = [];
                 for (const key in data.errors) {
                     if(data.errors[key]){
                         modalStateErrors.push(data.errors[key])
@@ -101,13 +103,28 @@ const Cities = {
     delete: (id: string) => requests.del<void>(`/Cities/${id}`)
 
 }
+const Upsell = {
+    list: () => requests.get<UpSell[]>('/Upsell'),
+    details: (id: string) => requests.get<UpSell>(`/Upsell/${id}`),
+    create: (upsell: UpSell) => requests.post<void>('/Upsell', upsell),
+    update: (upsell: UpSell) => requests.put<void>(`/Upsell/${upsell.id}`, upsell),
+    delete: (id: string) => requests.del<void>(`/Upsell/${id}`)
+}
+
 const Projects = {
     list: () => requests.get<Project[]>('/Project'),
     details: (id: string) => requests.get<Project>(`/Project/${id}`),
     create: (project: Project) => requests.post<void>('/Project', project),
     update: (project: Project) => requests.put<void>(`/Project/${project.id}`, project),
     delete: (id: string) => requests.del<void>(`/Project/${id}`)
+}
 
+const Products = {
+    list: () => requests.get<Product[]>('/Product'),
+    details: (id: string) => requests.get<Project>(`/Product/${id}`),
+    create: (product: Product) => requests.post<void>('/Product', product),
+    update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
+    delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }
 
 const OperateurAcc = {
@@ -139,9 +156,9 @@ const agent = {
     OperateurAcc,
     Cities,
     ShippingCompany,
-    Projects
-
-
+    Projects,
+    Products,
+    Upsell
 }
 
 export default agent;

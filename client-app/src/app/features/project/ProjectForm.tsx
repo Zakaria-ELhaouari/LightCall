@@ -48,6 +48,11 @@ function ProjectForm() {
 
 
     return (
+      <div className="main-content">
+      <section className="section">
+      <div className="section-header">
+          <h1>Projects</h1>
+        </div> 
         <div className="card card-primary">
         <div className="card-header"><h4>Add Project</h4></div>
 
@@ -106,6 +111,8 @@ function ProjectForm() {
          </Formik>
 
         </div>
+      </div>
+      </section>
       </div>
     );
 }

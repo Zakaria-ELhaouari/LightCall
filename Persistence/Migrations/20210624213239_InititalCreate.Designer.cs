@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210624213239_InititalCreate")]
+    partial class InititalCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,24 +209,6 @@ namespace Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Photos");
-                });
-
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -249,7 +233,7 @@ namespace Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("upsellId")
+                    b.Property<Guid?>("upsell_IdId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -260,7 +244,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("upsellId");
+                    b.HasIndex("upsell_IdId");
 
                     b.ToTable("Products");
                 });
@@ -555,13 +539,6 @@ namespace Persistence.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.HasOne("Domain.Product", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("ProductId");
-                });
-
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.HasOne("Domain.Order", null)
@@ -576,13 +553,13 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Domain.Upsell", "upsell")
+                    b.HasOne("Domain.Upsell", "upsell_Id")
                         .WithMany("Product_ids")
-                        .HasForeignKey("upsellId");
+                        .HasForeignKey("upsell_IdId");
 
                     b.Navigation("Project");
 
-                    b.Navigation("upsell");
+                    b.Navigation("upsell_Id");
 
                     b.Navigation("User");
                 });
@@ -680,11 +657,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Order", b =>
                 {
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Domain.Product", b =>
-                {
-                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("Domain.Upsell", b =>

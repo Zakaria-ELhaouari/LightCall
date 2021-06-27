@@ -11,9 +11,9 @@ namespace API.Controllers
     public class ProductController : BaseApiController
     {
         [HttpPost]
-        public async Task<IActionResult> AddProduct(ProductDto product)
+        public async Task<IActionResult> AddProduct(ProductDto product )
         {
-            return HandleResult( await Mediator.Send(new Create.Command{Product = product}));
+            return HandleResult( await Mediator.Send(new Create.Command{Product = product }));
         }
 
         [HttpGet]

@@ -142,62 +142,62 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("Shopify/{id}")]
-        public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
-        {
+        // [HttpPost("Shopify/{id}")]
+        // public async Task<IActionResult> ShopifyOrder(Guid id  , ShopifyOrderDto shopifyOrder )
+        // {
 
      
 
-            Project project = _context.Projects.FindAsync(id).Result ;
+        //     Project project = _context.Projects.FindAsync(id).Result ;
 
-            Domain.Customer customer = new Domain.Customer
-            {
-                FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
-                Email = shopifyOrder.customer.email,
-                Phone = shopifyOrder.customer.default_address.phone,
-                FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
-
-
-            };
-
-            var orderId = shopifyOrder.id;
-            var price = shopifyOrder.total_price;
-
-            Order order = new Order
-            {
-                OrderId = orderId.ToString(),
-                Price = Decimal.Parse(price),
-                Project = project,
-                Customer = customer
-            };
-
-            List<Product> products = new List<Product>();
-
-            shopifyOrder.line_items.ForEach((item) =>
-            {
-
-                Product product = new Product
-                {
-                    Name = item.name,
-                    Quantity = item.quantity,
-                    Project = project
-                };
+        //     Domain.Customer customer = new Domain.Customer
+        //     {
+        //         FullName = shopifyOrder.customer.first_name + " " + shopifyOrder.customer.last_name,
+        //         Email = shopifyOrder.customer.email,
+        //         Phone = shopifyOrder.customer.default_address.phone,
+        //         FullAdresse = shopifyOrder.customer.default_address.address1 + " , " + shopifyOrder.customer.default_address.address1
 
 
-                products.Add(product);
+        //     };
 
-            });
+        //     var orderId = shopifyOrder.id;
+        //     var price = shopifyOrder.total_price;
 
-            order.Product = products;
+        //     Order order = new Order
+        //     {
+        //         OrderId = orderId.ToString(),
+        //         Price = Decimal.Parse(price),
+        //         Project = project,
+        //         Customer = customer
+        //     };
+
+        //     List<Product> products = new List<Product>();
+
+        //     shopifyOrder.line_items.ForEach((item) =>
+        //     {
+
+        //         Product product = new Product
+        //         {
+        //             Name = item.name,
+        //             Quantity = item.quantity,
+        //             Project = project
+        //         };
+
+
+        //         products.Add(product);
+
+        //     });
+
+        //     order.Product = products;
             
          
        
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync() ;
+        //     await _context.Orders.AddAsync(order);
+        //     await _context.SaveChangesAsync() ;
 
-            return Ok();
+        //     return Ok();
 
-        }
+        // }
 
         [HttpPost]
         [Route("WooCommerce/{id}")]

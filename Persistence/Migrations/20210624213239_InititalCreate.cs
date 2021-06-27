@@ -374,7 +374,7 @@ namespace Persistence.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    upsell_IdId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    upsell_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     UserId = table.Column<string>(type: "TEXT", nullable: true),
                     OrderId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -400,8 +400,8 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Upsell_upsell_IdId",
-                        column: x => x.upsell_IdId,
+                        name: "FK_Products_Upsell_upsell_Id",
+                        column: x => x.upsell_Id,
                         principalTable: "Upsell",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -485,9 +485,9 @@ namespace Persistence.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_upsell_IdId",
+                name: "IX_Products_upsell_Id",
                 table: "Products",
-                column: "upsell_IdId");
+                column: "upsell_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UserId",

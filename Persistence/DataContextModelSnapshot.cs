@@ -14,7 +14,7 @@ namespace Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.7");
 
             modelBuilder.Entity("CityShipping_Company", b =>
                 {
@@ -212,15 +212,10 @@ namespace Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -555,15 +550,6 @@ namespace Persistence.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Domain.Photo", b =>
-                {
-                    b.HasOne("Domain.Product", "Product")
-                        .WithMany("Photos")
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Domain.Product", b =>
                 {
                     b.HasOne("Domain.Order", null)
@@ -682,11 +668,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Order", b =>
                 {
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Domain.Product", b =>
-                {
-                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("Domain.Upsell", b =>

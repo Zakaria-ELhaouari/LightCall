@@ -8,6 +8,7 @@ namespace Persistence
     {
         public DataContext(DbContextOptions options) : base(options)
         {
+            
         }
         public  DbSet<OperatorAcc> OperatoreAccount { get; set; }
         public  DbSet<City> Cities { get; set; }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,13 +20,13 @@ namespace Application.Products
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
-            private readonly IPhotoAccessor _photoAccessor;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor , IPhotoAccessor photoAccessor)
+            private readonly IPhotoAccessor _photoAccessor;
+            public Handler(DataContext context, IUserAccessor userAccessor , IPhotoAccessor photoAccessor )
             {
                 _context = context;
-                _photoAccessor = photoAccessor;
                 _userAccessor = userAccessor;
+                _photoAccessor = photoAccessor;
             }
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
@@ -34,33 +35,31 @@ namespace Application.Products
                 Project project = new Project();
                 var prj = request.Product.ProjectId;
                 project = await _context.Projects.FindAsync(prj);
+                //add image
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.File);
 
-                //add photo
-                // var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.File);
+                var photo = new Photo{
+                    Url = photoUploadResult.Url,
+                    Id = photoUploadResult.PublicId
+                };
+                await _context.Photos.AddAsync(photo);
+                await _context.SaveChangesAsync();
+                List<Photo> photos = new List<Photo>();
 
-                // var photo = new Photo{
-                //     Url = photoUploadResult.Url,
-                //     Id = photoUploadResult.PublicId
-                // };
-                // await _context.Photos.AddAsync(photo);
-                // List<Photo> photos = new List<Photo>();
-
-                //  photos.Add(await _context.Photos.FindAsync(photo.Id));
-                
-                //add product
+                photos.Add(await _context.Photos.FindAsync(photo.Id));
+            
+                // add prd
                 Product prd = new Product(){
                     Name = request.Product.Name,
                     Description = request.Product.Description,
                     Quantity = request.Product.Quantity,
                     Project = project,
-                    User = user,
-                    Photos = null
+                    upsell = null,
+                    Photos = photos,
+                    User = user
                 };
 
-                await _context.SaveChangesAsync();
                 await _context.Products.AddAsync(prd);
-                
-                // await _context.Products.AddAsync(request.Product);
                 var Result = await _context.SaveChangesAsync()> 0;
                 if (!Result) return Result<Unit>.Failure("Failed to create Product");
                 return Result<Unit>.Success(Unit.Value);

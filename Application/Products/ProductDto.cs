@@ -10,6 +10,9 @@ namespace Application.Products
         public string Description { get; set; }
         public int Quantity { get; set; }
         public Guid ProjectId { get; set; }
-        public string File { get; set; }
+
+        public IFormFile File { get; set; }
+        
+        
     }
 }

@@ -43,7 +43,7 @@ namespace Application.Products
                     Id = photoUploadResult.PublicId
                 };
                 await _context.Photos.AddAsync(photo);
-                await _context.SaveChangesAsync();
+                // await _context.SaveChangesAsync();
                 List<Photo> photos = new List<Photo>();
 
                 photos.Add(await _context.Photos.FindAsync(photo.Id));

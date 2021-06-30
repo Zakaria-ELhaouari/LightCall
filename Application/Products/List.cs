@@ -31,6 +31,7 @@ namespace Application.Products
                 var AllProdcuts = await _context.Products
                 .Where(p => p.User == user)
                 .Include(x => x.Project)
+                .Include(x => x.Photos)
                 .Include(x => x.User)
                 .ToListAsync();
                 return AllProdcuts;

@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(Guid id, ProductDto product)
+        public async Task<IActionResult> PutProduct( Guid id, [FromForm] ProductDto product)
         {  
            product.Id = id;
            return HandleResult( await Mediator.Send(new Edit.Command { Product = product  }));   

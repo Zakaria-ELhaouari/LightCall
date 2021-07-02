@@ -12,7 +12,7 @@ const Product = () => {
             <h1>Products</h1>
           </div> 
           <Switch>
-           <Route exact path="/Products" component={ProductList} />
+           <Route exact path="/user/products" component={ProductList} />
            <Route key={location.key} path={['/Products/creatProduct' , '/Products/:id']} component={ProductForm} />
          </Switch>
         </section>

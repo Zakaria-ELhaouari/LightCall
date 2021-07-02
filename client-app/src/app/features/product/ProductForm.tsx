@@ -18,7 +18,8 @@ export default observer(function ProductForm(){
         description : '',
         quantity : '',
         ProjectId : '',
-        project : undefined
+        project : undefined,
+        photo : undefined
     }
     var ProjectName = [{}];
     const [product ] = useState(initialValues);

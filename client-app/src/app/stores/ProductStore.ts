@@ -13,6 +13,7 @@ export default class ProductStore{
     }
 
     get products() {
+        
         return Array.from(this.productRegistery.values());
     }
 
@@ -22,9 +23,12 @@ export default class ProductStore{
 
     loadProducts = async () =>{
         this.setLoadingInitial(true);
+        console.log("kfkfkkf");
         try{
             var products = await agent.Products.list();
+            console.log("kfkfkkf");
             products.forEach(product =>{
+                console.log(product);
                 this.productRegistery.set(product.id, product);
             })
             this.setLoadingInitial(false)

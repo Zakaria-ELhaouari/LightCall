@@ -10,29 +10,36 @@ function ProductRow() {
    const {productStore} = useStore();
 
    const {products , deleteProduct , selectProduct} = productStore;
+
     return ( 
         <>
             {products.map((product)=> {
                 return ( 
-                    <tr key={product.id}>
-                        <td>{product.name}</td>
-                         <td>{product.description}</td>
-                         <td>{product.quantity}</td>
-                         {/* {if(product.project== undefined)} */}
-                         {/* {!product.project && <td>{product.project.project_Type}</td> />}
-                         
-                         {/* {console.log(product.project.project_Type)} */}
-                         {/* <td>{product.ProjectId}</td>  */}
-                         {console.log(product.project?.project_Type)}
-                         <td>{product.project?.project_Type}</td>
-                        <td>
-                            <div>
-                                <Link to="/Products/EditProduct" onClick={()=> selectProduct(product.id) } className="btn btn-info mr-2" >Edit</Link>
-                                <button className="btn btn-danger" onClick={()=> deleteProduct(product.id) } >Delete</button>
+                    <div key={product.id} className="col-12 col-md-4 col-lg-4">
+                        <article className="article article-style-c">
+                            <div className="article-header">
+                                <div className="article-image" data-background={product.photos![0].url} style={{ backgroundImage: `url(${product.photos![0].url})`}}>
+                                </div>
                             </div>
-                        </td>
-                    </tr>)}
-            )}
+                            <div className="article-details">
+                                <div className="article-category"><a href="#">Quantity</a> <div className="bullet"></div> <a href="#">{product.quantity}</a></div>
+                                <div className="article-title">
+                                    <h2><a href="#">{product.name}</a></h2>
+                                </div>
+                                <p>{product.description}. </p>
+                            </div>
+                            <div className="article-user">
+                                <img alt="image" src="../assets/img/avatar/avatar-1.png"/>
+                                <div className="article-user-details">
+                                    <div className="user-detail-name">
+                                    <a href="#">Hasan Basri</a>
+                                    </div>
+                                    <div className="text-job">Web Developer</div>
+                                </div>
+                            </div>
+                        </article>
+                  </div>)}
+                )}
         </>
     );
 }

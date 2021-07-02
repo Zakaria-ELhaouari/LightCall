@@ -109,6 +109,7 @@ function App() {
                   <PublicRoute path='/user/dashboard' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/projects" component={Projects}   />  
+                  <PublicRoute path="/user/products" component={Product}   />
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="*" >
                     <Redirect to="/404" />

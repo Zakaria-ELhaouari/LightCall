@@ -19,6 +19,9 @@ using Application.Orders;
 using MediatR;
 using Newtonsoft.Json.Linq;
 using API.DTOs;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Services;
 
 namespace API.Controllers
 {
@@ -286,5 +289,53 @@ namespace API.Controllers
         }
 
 
+        //sheet  
+        static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets} ;
+        static readonly string ApplicationName = "OrdersSheet" ;
+        static readonly string SpreadsheetId = "1uTjbQytwtJALPPVj-L2Vtw2vNY7H3F76jG8b4XbXZfI" ;
+        static readonly string sheet = "dpp" ;
+        static SheetsService service;
+        [HttpPost ("sheet")]
+        public async Task<IActionResult> Sheet(){
+            GoogleCredential credential;
+            using(var stream = new FileStream("google-credentials.json", FileMode.Open , FileAccess.Read))
+            {
+                credential = GoogleCredential.FromStream(stream).CreateScoped(Scopes);
+            }
+            service = new SheetsService(new BaseClientService.Initializer(){
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+            await SeedOrder();
+            return Ok();
+        }
+
+        
+        public async Task<IActionResult>  SeedOrder(){
+            var range = $"{sheet}!A1:F10";
+            var request = service.Spreadsheets.Values.Get(SpreadsheetId , range);
+
+            var orderList = new List<Order>();
+            var response = request.Execute();
+            var values = response.Values;
+            if(values != null && values.Count > 0){
+                foreach(var row in values){
+                    orderList.Add(new Order
+                            {
+                                OrderId = row[1].ToString(),
+                                Description = "desk",
+                                //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
+                                Price = 3,
+                            }); ;
+                }
+                await _context.Orders.AddRangeAsync(orderList);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }else{
+                return BadRequest();
+            }
+            
+            
+        }
     }
 }

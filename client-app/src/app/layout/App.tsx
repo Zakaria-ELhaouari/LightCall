@@ -32,6 +32,7 @@ import ServerError from './../features/errors/ServerError';
 import ModalContainer from '../common/modals/ModalContainer';
 import ProjectsList from '../features/project/ProjectsList';
 import ProjectForm from '../features/project/ProjectForm';
+import ProductForm from '../features/product/ProductForm';
 
 
 function App() {
@@ -109,7 +110,10 @@ function App() {
                   <PublicRoute path='/user/dashboard' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
                   <PublicRoute path="/user/projects" component={Projects}   />  
+                  {/* Product Route */}
+                  <PublicRoute path="/user/products/:id" component={ProductForm}   />
                   <PublicRoute path="/user/products" component={Product}   />
+
                   <Route path="/user/errTest" component={TestError} />
                   <Route path="*" >
                     <Redirect to="/404" />

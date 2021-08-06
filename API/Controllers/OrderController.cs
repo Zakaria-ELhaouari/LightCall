@@ -306,36 +306,42 @@ namespace API.Controllers
                 HttpClientInitializer = credential,
                 ApplicationName = ApplicationName,
             });
-            await SeedOrder();
-            return Ok();
-        }
-
-        
-        public async Task<IActionResult>  SeedOrder(){
+            // SeedOrder();
+            //seed data in db
             var range = $"{sheet}!A1:F10";
             var request = service.Spreadsheets.Values.Get(SpreadsheetId , range);
 
             var orderList = new List<Order>();
             var response = request.Execute();
+            Guid idStatus = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+            StatusModel status = await _context.Status.FindAsync(idStatus);
+            Guid idprj = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+            Project project = await _context.Projects.FindAsync(idprj);
             var values = response.Values;
             if(values != null && values.Count > 0){
                 foreach(var row in values){
+                    // var loool = row[0].ToString().Trim();
+                    // var mppp = loool;
                     orderList.Add(new Order
                             {
-                                OrderId = row[1].ToString(),
+                                OrderId = row[0].ToString().Trim(),
                                 Description = "desk",
+                                
                                 //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = 3,
+                                Status = status,
+                                Project = project
                             }); ;
                 }
                 await _context.Orders.AddRangeAsync(orderList);
                 await _context.SaveChangesAsync();
-                return Ok();
-            }else{
-                return BadRequest();
             }
-            
-            
+            return Ok();
         }
+
+        
+        // public async void SeedOrder(){
+            
+        // }
     }
 }

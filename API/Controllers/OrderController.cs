@@ -296,7 +296,7 @@ namespace API.Controllers
         // static readonly string sheet = "dpp" ;
         static SheetsService service;
         [HttpPost ("sheet")]
-        public async Task<IActionResult> Sheet(string SpreadsheetId , string sheet){
+        public async Task<IActionResult> Sheet(OrderSheet sheetInfo){
             GoogleCredential credential;
             using(var stream = new FileStream("google-credentials.json", FileMode.Open , FileAccess.Read))
             {
@@ -308,8 +308,8 @@ namespace API.Controllers
             });
             // SeedOrder();
             //seed data in db
-            var range = $"{sheet}!A:B";
-            var request = service.Spreadsheets.Values.Get(SpreadsheetId , range);
+            var range = $"{sheetInfo.sheet}!A:B";
+            var request = service.Spreadsheets.Values.Get(sheetInfo.SpreadsheetId , range);
 
             var orderList = new List<Order>();
             var response = request.Execute();

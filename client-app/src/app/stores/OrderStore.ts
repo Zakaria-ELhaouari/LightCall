@@ -3,6 +3,7 @@ import agent from '../api/agent';
 
 import { v4 as uuid } from 'uuid';
 import { Order } from '../models/Order';
+import { OrderSheet } from '../models/OrderSheet';
 
 export default class OrderStore {
 
@@ -174,7 +175,21 @@ export default class OrderStore {
                 this.loading = false;
             })
         }
+    }
 
+    sheetConnect = async(infoSheet :OrderSheet ) => {
+        this.loading = true;
+        try{
+            await agent.Orders.sheetConnect(infoSheet);
+            runInAction(() => {
+                this.loading = false;
+            })
+        }catch (error) {
+            runInAction(() => {
+
+                this.loading = false;
+            })
+        }
     }
 
 

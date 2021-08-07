@@ -1,4 +1,5 @@
 import React from 'react'
+import OrderSheetForm from '../features/order/OrderSheetForm'
 
 import OrderList from '../features/order/OrdersList'
 
@@ -12,7 +13,7 @@ const Orders = () => {
           </div> 
    
    <OrderList/>
-
+  <OrderSheetForm/>
         </section>
       </div>
     )

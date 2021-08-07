@@ -10,6 +10,7 @@ import { store } from '../stores/Store';
 import { Status } from './../models/Status';
 import { Product } from '../models/Product';
 import { UpSell } from '../models/UpSell';
+import { OrderSheet } from '../models/OrderSheet';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 
@@ -85,7 +86,8 @@ const Orders = {
     assigne: () => requests.put<Order>('/Order/AsinOrder', {}),
     inAssigne: (id: string) => requests.put<void>(`/Order/inAsinOrder/${id}`, {}),
     updateOperateur: () => requests.put<void>(`/Order/operateur` , {}),
-    uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import', importFile )
+    uploadExcel : (importFile: FormData) => requests.post<void>('/Order/Import', importFile ),
+    sheetConnect : (OrderSheet : OrderSheet) => requests.post<void>('/Order/sheet', OrderSheet )
 
 }
 

@@ -292,11 +292,11 @@ namespace API.Controllers
         //sheet  
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets} ;
         static readonly string ApplicationName = "OrdersSheet" ;
-        static readonly string SpreadsheetId = "1uTjbQytwtJALPPVj-L2Vtw2vNY7H3F76jG8b4XbXZfI" ;
-        static readonly string sheet = "dpp" ;
+        // static readonly string SpreadsheetId = "1uTjbQytwtJALPPVj-L2Vtw2vNY7H3F76jG8b4XbXZfI" ;
+        // static readonly string sheet = "dpp" ;
         static SheetsService service;
         [HttpPost ("sheet")]
-        public async Task<IActionResult> Sheet(){
+        public async Task<IActionResult> Sheet(string SpreadsheetId , string sheet){
             GoogleCredential credential;
             using(var stream = new FileStream("google-credentials.json", FileMode.Open , FileAccess.Read))
             {
@@ -308,7 +308,7 @@ namespace API.Controllers
             });
             // SeedOrder();
             //seed data in db
-            var range = $"{sheet}!A1:F10";
+            var range = $"{sheet}!A:B";
             var request = service.Spreadsheets.Values.Get(SpreadsheetId , range);
 
             var orderList = new List<Order>();

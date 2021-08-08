@@ -14,33 +14,33 @@ function OrderSheetForm() {
     let initialValues : OrderSheet =  {
         SpreadsheetId : '',
         sheet: '',
-        project_id : '',
-        project : undefined,
-        product_ids : []
+        // project_id : '',
+        // project : undefined,
+        Products_ids : []
     }
 
     const [addSheetInfo] = useState(initialValues)
 
      //get all project
-     const {projects} = projectStore;
-     var ProjecttName=[{}]
+    //  const {projects} = projectStore;
+    //  var ProjecttName=[{}]
  
-     useEffect(()=>{
-       projectStore.loadProjects();
-     } , [projectStore])
+    //  useEffect(()=>{
+    //    projectStore.loadProjects();
+    //  } , [projectStore])
  
-     projects.map(project =>{
-       ProjecttName.push({
-         value:project.id,
-         label:project.project_Type
-       })
-     })
-    //  console.log(ProjecttName[1]);
-     var projet : string = '';
+    //  projects.map(project =>{
+    //    ProjecttName.push({
+    //      value:project.id,
+    //      label:project.project_Type
+    //    })
+    //  })
+    // //  console.log(ProjecttName[1]);
+    //  var projet : string = '';
      
-     const onchangeProject  = (e : any)=>{
-       projet = e.value
-     }
+    //  const onchangeProject  = (e : any)=>{
+    //    projet = e.value
+    //  }
      //end
      //get all product
         const {products} = productStore;
@@ -66,8 +66,9 @@ function OrderSheetForm() {
       //end
     function handleSubmit(values : OrderSheet  , {setErrors } : any) {
         console.log(values)
-        values.product_ids = allProduct;
-        values.project_id = projet;
+        console.log(allProduct)
+        values.Products_ids = allProduct;
+        // values.project_id = projet;
         sheetConnect(values) 
     }
     return(
@@ -101,9 +102,9 @@ function OrderSheetForm() {
                        <div className="form-group">
                           <Select isMulti options={ProductName} onChange={onchange} />
                         </div>
-                       <div className="form-group">
+                       {/* <div className="form-group">
                           <Select options={ProjecttName} onChange={onchangeProject} />
-                        </div>
+                        </div> */}
 
                        <div className="form-group">
                          <button type="submit" className="btn btn-primary btn-lg btn-block">

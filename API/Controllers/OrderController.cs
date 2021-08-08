@@ -316,10 +316,13 @@ namespace API.Controllers
             var response = request.Execute();
             Guid idStatus = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             StatusModel status = await _context.Status.FindAsync(idStatus);
-            
-            Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
-
+            Guid idprj = Guid.Parse("3FA85F64-5717-4562-B3FC-2C963F66AFA6");
+            Project project = await _context.Projects.FindAsync(idprj);
+            // Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
+            // Guid prddd = Guid.Parse("EA519F8E-E666-4EF7-91AA-EAA572F74A9A");
+            // Product prodd = await _context.Products.FindAsync(prddd);
             List<Product> Products = new List<Product>();
+            // Products.Add(prodd);
             foreach (var product in sheetInfo.Products_ids)
                 {
                     Products.Add(await _context.Products.FindAsync(product));

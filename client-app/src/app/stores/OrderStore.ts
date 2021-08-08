@@ -180,6 +180,7 @@ export default class OrderStore {
     sheetConnect = async(infoSheet :OrderSheet ) => {
         this.loading = true;
         try{
+            console.log(infoSheet)
             await agent.Orders.sheetConnect(infoSheet);
             runInAction(() => {
                 this.loading = false;

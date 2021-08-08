@@ -8,7 +8,7 @@ namespace Domain
         
         public string SpreadsheetId { get; set; }
         public string sheet { get; set; } 
-        public Guid Project_id { get; set; }
+        // public Guid Project_id { get; set; }
 
         public ICollection<Guid> Products_ids { get; set; }
     }

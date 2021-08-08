@@ -4,24 +4,79 @@ import { useStore } from '../../stores/Store';
 import { OrderSheet } from '../../models/OrderSheet';
 import { Form, Formik } from 'formik';
 import MyTextInput from '../../common/form/MyTextInput';
+import Select from 'react-select';
+import { Product } from '../../models/Product';
 
 function OrderSheetForm() {
-    const {orderStore} = useStore()
+    const {orderStore , projectStore, productStore} = useStore()
     const {sheetConnect} = orderStore
 
     let initialValues : OrderSheet =  {
         SpreadsheetId : '',
-        sheet: ''
+        sheet: '',
+        project_id : '',
+        project : undefined,
+        product_ids : []
     }
 
     const [addSheetInfo] = useState(initialValues)
 
+     //get all project
+     const {projects} = projectStore;
+     var ProjecttName=[{}]
+ 
+     useEffect(()=>{
+       projectStore.loadProjects();
+     } , [projectStore])
+ 
+     projects.map(project =>{
+       ProjecttName.push({
+         value:project.id,
+         label:project.project_Type
+       })
+     })
+    //  console.log(ProjecttName[1]);
+     var projet : string = '';
+     
+     const onchangeProject  = (e : any)=>{
+       projet = e.value
+     }
+     //end
+     //get all product
+        const {products} = productStore;
+        var ProductName=[{}]
+
+        useEffect(()=>{
+          productStore.loadProducts()
+        } , [productStore])
+
+        products.map(product =>{
+          ProductName.push({
+            value:product.id,
+            label:product.name
+          })
+        })
+        const allProduct :Product[] = [];
+        
+        const onchange  = (e : any)=>{
+          e.forEach((el : any )  => {
+            allProduct.push(el.value)
+          });
+        } 
+      //end
     function handleSubmit(values : OrderSheet  , {setErrors } : any) {
         console.log(values)
+        values.product_ids = allProduct;
+        values.project_id = projet;
         sheetConnect(values) 
     }
     return(
-        <div className="row">
+            <div className="main-content">
+        <section className="section">
+          <div className="section-header">
+              <h1>Orders</h1>
+          </div> 
+          <div className="row">
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
@@ -41,8 +96,15 @@ function OrderSheetForm() {
                        </div>
 
                        <div className="form-group">
-                         <MyTextInput type="sheet" placeholder="sheet namr" name="sheet" label="sheet" />
+                         <MyTextInput type="sheet" placeholder="sheet name" name="sheet" label="sheet" />
                        </div>
+                       <div className="form-group">
+                          <Select isMulti options={ProductName} onChange={onchange} />
+                        </div>
+                       <div className="form-group">
+                          <Select options={ProjecttName} onChange={onchangeProject} />
+                        </div>
+
                        <div className="form-group">
                          <button type="submit" className="btn btn-primary btn-lg btn-block">
                            Add sheet
@@ -55,6 +117,8 @@ function OrderSheetForm() {
                 </div>
               </div>
             </div>
+        </section>
+      </div>
     )
 }
 

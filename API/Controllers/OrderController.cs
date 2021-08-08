@@ -297,6 +297,7 @@ namespace API.Controllers
         static SheetsService service;
         [HttpPost ("sheet")]
         public async Task<IActionResult> Sheet(OrderSheet sheetInfo){
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
             GoogleCredential credential;
             using(var stream = new FileStream("google-credentials.json", FileMode.Open , FileAccess.Read))
             {
@@ -315,8 +316,14 @@ namespace API.Controllers
             var response = request.Execute();
             Guid idStatus = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             StatusModel status = await _context.Status.FindAsync(idStatus);
-            Guid idprj = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
-            Project project = await _context.Projects.FindAsync(idprj);
+            
+            Project project = await _context.Projects.FindAsync(sheetInfo.Project_id);
+
+            List<Product> Products = new List<Product>();
+            foreach (var product in sheetInfo.Products_ids)
+                {
+                    Products.Add(await _context.Products.FindAsync(product));
+                }
             var values = response.Values;
             if(values != null && values.Count > 0){
                 foreach(var row in values){
@@ -330,7 +337,8 @@ namespace API.Controllers
                                 //Customer = excelWorksheet.Cells[row, 3].Value.ToString().Trim(),
                                 Price = 3,
                                 Status = status,
-                                Project = project
+                                Project = project,
+                                Product = Products,
                             }); ;
                 }
                 await _context.Orders.AddRangeAsync(orderList);

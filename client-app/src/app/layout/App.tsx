@@ -110,7 +110,7 @@ function App() {
                 <Switch>
                   <PublicRoute path='/user/dashboard' exact component={Main} />
                   <PublicRoute path="/user/orders" component={Orders}  />
-                  <PublicRoute path="/user/orders/sheet" component={OrderSheet} />
+                  <PublicRoute path="/user/orderssheet" component={OrderSheet} />
                   <PublicRoute path="/user/projects" component={Projects}   />  
                   {/* Product Route */}
                   <PublicRoute path="/user/products/:id" component={ProductForm}   />

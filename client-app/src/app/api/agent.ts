@@ -129,13 +129,18 @@ const Products = {
     list: () => requests.get<Product[]>('/Product'),
     details: (id: string) => requests.get<Project>(`/Product/${id}`),
     create: (product: Product ) => {
-        
+        console.log(product);
         let formData = new FormData();
-        formData.append('File', `${product.file}` );
+        formData.append('file', product.file!);
+        formData.append('projectId', product.id!);
+        formData.append('description', product.description!);
+        formData.append('quantity', product.quantity!);
+        formData.append('id', product.id!);
+        formData.append('name', product.name!);
         // return axios.post<Photo>('/photo', formData, {
         //     headers : {'Conetent-type':'multipart/form-data'}
         // })
-         return axios.post<void>('/Product', product, {
+         return axios.post<void>('/Product', formData, {
              headers : {'Conetent-type':'multipart/form-data'}
          })
         

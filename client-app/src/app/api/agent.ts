@@ -13,6 +13,7 @@ import { UpSell } from '../models/UpSell';
 import { OrderSheet } from '../models/OrderSheet';
 import { toast } from 'react-toastify';
 import { history } from '../..';
+import { Photo } from '../models/Photo';
 
 
 const sleep = (delay: number) => {
@@ -126,7 +127,14 @@ const Projects = {
 const Products = {
     list: () => requests.get<Product[]>('/Product'),
     details: (id: string) => requests.get<Project>(`/Product/${id}`),
-    create: (product: Product) => requests.post<void>('/Product', product),
+    create: (product: Product ) => requests.post<void>('/Product', product),
+    uploadPhoto: (file: Blob) =>{
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<Photo>('/photo', formData, {
+            headers : {'Conetent-type':'multipart/form-data'}
+        })
+    },
     update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
     delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }

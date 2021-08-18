@@ -18,7 +18,7 @@ function ProductRow() {
                 <div key={product.id} className="col-12 col-sm-6 col-md-6 col-lg-3">
                     <article className="article">
                         <div className="article-header">
-                            <div className="article-image" data-background="../assets/img/news/img08.jpg" style={{ backgroundImage: `url(${product.photos![0].url})` }}>
+                            <div className="article-image" data-background="../assets/img/news/img08.jpg" style={{ backgroundImage: `url(${product.File![0].url})`}}>
                             </div>
                             <div className="article-title">
                                 <h2><a href="#">{product.name}</a></h2>

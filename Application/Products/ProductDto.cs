@@ -12,7 +12,5 @@ namespace Application.Products
         public Guid ProjectId { get; set; }
 
         public IFormFile File { get; set; }
-        
-        
     }
 }

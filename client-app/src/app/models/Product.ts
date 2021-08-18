@@ -8,5 +8,6 @@ export interface Product {
     quantity: string;
     ProjectId:  string ;
     project? : Project;
-    photos?: Photo[];
+    File?: Blob;
 }
+

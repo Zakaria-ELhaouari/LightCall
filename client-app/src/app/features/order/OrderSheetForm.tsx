@@ -81,7 +81,7 @@ function OrderSheetForm() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header">
-                    <h4>Simple Summernote</h4>
+                    <h4>Connect your google sheet with us</h4>
                   </div>
                   <div className="card-body">
                   <Formik 
@@ -93,7 +93,7 @@ function OrderSheetForm() {
                <Form onSubmit={handleSubmit}  autoComplete="off">
 
                        <div className="form-group">
-                         <MyTextInput type="SpreadsheetId" placeholder="Spreadsheet Id" name="SpreadsheetId" label="SpreadsheetId" />
+                         <MyTextInput type="SpreadsheetId" placeholder="Spreadsheet Id" name="SpreadsheetId" label="Spreadsheet Id" />
                        </div>
 
                        <div className="form-group">

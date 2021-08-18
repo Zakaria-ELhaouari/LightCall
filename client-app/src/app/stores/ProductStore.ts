@@ -4,9 +4,11 @@ import {v4 as uuid} from 'uuid';
 import { Product } from "../models/Product";
 export default class ProductStore{
     productRegistery = new Map<string , Product>();
+    product : Product | null = null;
     loadingInitial = false;
     loading = false;
     productSelected : Product | undefined = undefined;
+    uploading = false;
 
     constructor(){
         makeAutoObservable(this);
@@ -38,9 +40,10 @@ export default class ProductStore{
         }
     }
 
-    creatProduct = async (product: Product) =>{
+    creatProduct = async (product: Product, file: Blob ) =>{
         this.loading = true ;
         product.id = uuid();
+        product.File = file;
         try{
             await agent.Products.create(product);
             runInAction(()=>{
@@ -88,4 +91,22 @@ export default class ProductStore{
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
+
+    // uploadPhoto = async (file: Blob) =>{
+    //     this.uploading = true;
+    //     try {
+    //         const response = await agent.Products.uploadPhoto(file);
+    //         const photo = response.data;
+    //         console.log(photo)
+    //         runInAction(() =>{
+    //             if(this.product){
+    //                 this.product.photos?.push(photo)
+    //             }
+    //         })
+    //         this.uploading = false;
+    //     } catch(error){
+    //         console.log(error);
+    //         runInAction(()=> this.uploading = false);
+    //     }
+    // }
 }

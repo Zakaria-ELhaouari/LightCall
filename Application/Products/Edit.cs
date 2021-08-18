@@ -36,7 +36,7 @@ namespace Application.Products
                 //edite photo
                 var photo = await _context.Photos.Where(p => p.product == product)
                                       .FirstOrDefaultAsync();
-                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.File);
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.file);
 
                 photo.Url = photoUploadResult.Url;
                 _context.Photos.Update(photo);

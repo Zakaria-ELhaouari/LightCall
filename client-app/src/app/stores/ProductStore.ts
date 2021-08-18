@@ -43,7 +43,9 @@ export default class ProductStore{
     creatProduct = async (product: Product, file: Blob ) =>{
         this.loading = true ;
         product.id = uuid();
-        product.File = file;
+        
+        product.file = file;
+        console.log(product.file);
         try{
             await agent.Products.create(product);
             runInAction(()=>{

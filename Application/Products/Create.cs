@@ -36,7 +36,7 @@ namespace Application.Products
                 var prj = request.Product.ProjectId;
                 project = await _context.Projects.FindAsync(prj);
                 //add image
-                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.File);
+                var photoUploadResult = await _photoAccessor.AddPhoto(request.Product.file);
 
                 var photo = new Photo{
                     Url = photoUploadResult.Url,

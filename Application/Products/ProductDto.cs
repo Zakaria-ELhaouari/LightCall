@@ -11,6 +11,6 @@ namespace Application.Products
         public int Quantity { get; set; }
         public Guid ProjectId { get; set; }
 
-        public IFormFile File { get; set; }
+        public IFormFile file { get; set; }
     }
 }

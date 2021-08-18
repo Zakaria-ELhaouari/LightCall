@@ -16,6 +16,7 @@ import { history } from '../..';
 import { Photo } from '../models/Photo';
 
 
+
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, delay)
@@ -127,14 +128,26 @@ const Projects = {
 const Products = {
     list: () => requests.get<Product[]>('/Product'),
     details: (id: string) => requests.get<Project>(`/Product/${id}`),
-    create: (product: Product ) => requests.post<void>('/Product', product),
-    uploadPhoto: (file: Blob) =>{
+    create: (product: Product ) => {
+        
         let formData = new FormData();
-        formData.append('File', file);
-        return axios.post<Photo>('/photo', formData, {
-            headers : {'Conetent-type':'multipart/form-data'}
-        })
+        formData.append('File', `${product.file}` );
+        // return axios.post<Photo>('/photo', formData, {
+        //     headers : {'Conetent-type':'multipart/form-data'}
+        // })
+         return axios.post<void>('/Product', product, {
+             headers : {'Conetent-type':'multipart/form-data'}
+         })
+        
     },
+    // requests.post<void>('/Product', product),
+    // uploadPhoto: (file: Blob) =>{
+    //     let formData = new FormData();
+    //     formData.append('File', file);
+    //     return axios.post<Photo>('/photo', formData, {
+    //         headers : {'Conetent-type':'multipart/form-data'}
+    //     })
+    // },
     update: (product: Product) => requests.put<void>(`/Product/${product.id}`, product),
     delete: (id: string) => requests.del<void>(`/Product/${id}`)
 }

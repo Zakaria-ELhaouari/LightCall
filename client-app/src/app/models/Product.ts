@@ -9,5 +9,6 @@ export interface Product {
     ProjectId:  string ;
     project? : Project;
     file?: Blob ;
+    photos? : Photo[];
 }
 
